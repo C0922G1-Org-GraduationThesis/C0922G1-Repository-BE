@@ -45,20 +45,6 @@ public class ProjectRestController {
         return new ResponseEntity<>(projectPage, HttpStatus.OK);
     }
 
-    /**
-     * Created by: NuongHT
-     * Date create: 29/03/2023
-     * Function: tạo api send mail
-     *
-     * @param teamId
-     * @throws AddressException
-     */
-
-    @GetMapping("/send/{teamId}")
-    public void sendEMail(@PathVariable("teamId") Long teamId) throws AddressException {
-        List<IMailStudentDto> list = studentService.getInfomation(teamId);
-        studentService.sendSimpleMessage(list, "Bạn có mail mới", "Đề tài của bạn quá ô kê được duyệt.", 1);
-    }
 
     /**
      * Created by: NuongHT
