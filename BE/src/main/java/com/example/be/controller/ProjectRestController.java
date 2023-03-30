@@ -27,12 +27,12 @@ public class ProjectRestController {
      */
     @GetMapping("")
     public ResponseEntity<Page<Project>> pagingAndGetAllProject(
-            @RequestParam(defaultValue = "0") int page,
-            @RequestParam(defaultValue = "", required = false) String name) {
-        Pageable pageable = PageRequest.of(page, 1);
+            @RequestParam int page,
+            @RequestParam String name) {
+        Pageable pageable = PageRequest.of(page, 2);
         Page<Project> projectPage = this.projectService.getAllProject(pageable, name);
         if (!projectPage.hasContent()) {
-            return new ResponseEntity<>(HttpStatus.NO_CONTENT);
+            return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
         }
         return new ResponseEntity<>(projectPage, HttpStatus.OK);
     }
@@ -44,7 +44,7 @@ public class ProjectRestController {
      * @param id
      * @return HttpStatus.NO_CONTENT if result is error or HttpStatus.OK if result is not error
      */
-    @GetMapping("/{id}")
+    @GetMapping("detail/{id}")
     public ResponseEntity<Project> getProjectById(@PathVariable Long id) {
         Project project = this.projectService.getProjectById(id);
         if (project== null){
