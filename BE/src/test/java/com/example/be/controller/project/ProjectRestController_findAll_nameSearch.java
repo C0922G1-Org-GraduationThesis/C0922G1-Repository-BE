@@ -13,10 +13,15 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 
 @SpringBootTest
 @AutoConfigureMockMvc
-public class ProjectRestController_findAll_searchName {
+public class ProjectRestController_findAll_nameSearch {
     @Autowired
     private MockMvc mockMvc;
 
+    /**
+     * Create by: HauNN
+     * Date create: 30/03/2023
+     * Function: test nameSearch is null
+     */
     @Test
     public void findAllProject_7() throws Exception {
 
@@ -27,6 +32,11 @@ public class ProjectRestController_findAll_searchName {
                 .andExpect(status().is4xxClientError());
     }
 
+    /**
+     * Create by: HauNN
+     * Date create: 30/03/2023
+     * Function: test nameSearch is empty
+     */
     @Test
     public void findAllProject_8() throws Exception {
         this.mockMvc.perform(MockMvcRequestBuilders
@@ -35,6 +45,11 @@ public class ProjectRestController_findAll_searchName {
                 .andExpect(status().is4xxClientError());
     }
 
+    /**
+     * Create by: HauNN
+     * Date create: 30/03/2023
+     * Function: test nameSearch invalid
+     */
     @Test
     public void findAllProject_9() throws Exception {
 
@@ -45,6 +60,11 @@ public class ProjectRestController_findAll_searchName {
                 .andExpect(status().is4xxClientError());
     }
 
+    /**
+     * Create by: HauNN
+     * Date create: 30/03/2023
+     * Function: test nameSearch valid
+     */
     @Test
     public void findAllProject_11() throws Exception {
         this.mockMvc.perform(MockMvcRequestBuilders.get("/api/projects/?searchName=thiết&size=5&page=0"))

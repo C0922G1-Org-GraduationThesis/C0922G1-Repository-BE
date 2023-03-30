@@ -17,6 +17,11 @@ public class StudentRestController_findByTeamId_id {
     @Autowired
     private MockMvc mockMvc;
 
+    /**
+     * Create by: HauNN
+     * Date create: 30/03/2023
+     * Function: test id is null
+     */
     @Test
     public void findAllStudentByTeamId_7() throws Exception {
 
@@ -27,6 +32,11 @@ public class StudentRestController_findByTeamId_id {
                 .andExpect(status().is4xxClientError());
     }
 
+    /**
+     * Create by: HauNN
+     * Date create: 30/03/2023
+     * Function: test id is empty
+     */
     @Test
     public void findAllStudentByTeamId_8() throws Exception {
         this.mockMvc.perform(MockMvcRequestBuilders.get("/api/students/team/{id}&page=0&size=2", ""))
@@ -34,6 +44,11 @@ public class StudentRestController_findByTeamId_id {
                 .andExpect(status().is4xxClientError());
     }
 
+    /**
+     * Create by: HauNN
+     * Date create: 30/03/2023
+     * Function: test id invalid
+     */
     @Test
     public void findAllStudentByTeamId_9() throws Exception {
 
@@ -44,6 +59,11 @@ public class StudentRestController_findByTeamId_id {
                 .andExpect(status().is4xxClientError());
     }
 
+    /**
+     * Create by: HauNN
+     * Date create: 30/03/2023
+     * Function: test id is does not exist in database
+     */
     @Test
     public void findAllStudentByTeamId_10() throws Exception {
 
@@ -54,6 +74,11 @@ public class StudentRestController_findByTeamId_id {
                 .andExpect(status().is4xxClientError());
     }
 
+    /**
+     * Create by: HauNN
+     * Date create: 30/03/2023
+     * Function: test id valid
+     */
     @Test
     public void findAllStudentByTeamId_11() throws Exception {
         this.mockMvc.perform(MockMvcRequestBuilders

@@ -17,6 +17,11 @@ public class ProjectRestController_findAll_page {
     @Autowired
     private MockMvc mockMvc;
 
+    /**
+     * Create by: HauNN
+     * Date create: 30/03/2023
+     * Function: test page is null
+     */
     @Test
     public void findAllProject_7() throws Exception {
 
@@ -26,6 +31,11 @@ public class ProjectRestController_findAll_page {
                 .andExpect(status().is4xxClientError());
     }
 
+    /**
+     * Create by: HauNN
+     * Date create: 30/03/2023
+     * Function: test page is empty
+     */
     @Test
     public void findAllProject_8() throws Exception {
         this.mockMvc.perform(MockMvcRequestBuilders
@@ -34,15 +44,25 @@ public class ProjectRestController_findAll_page {
                 .andExpect(status().is4xxClientError());
     }
 
+    /**
+     * Create by: HauNN
+     * Date create: 30/03/2023
+     * Function: test page invalid
+     */
     @Test
     public void findAllProject_9() throws Exception {
 
         this.mockMvc.perform(MockMvcRequestBuilders
-                        .get("/api/projects/?page={page}&searchName=thiết&size=5","100"))
+                        .get("/api/projects/?page={page}&searchName=thiết&size=5","-1"))
                 .andDo(print())
                 .andExpect(status().is4xxClientError());
     }
 
+    /**
+     * Create by: HauNN
+     * Date create: 30/03/2023
+     * Function: test page valid
+     */
     @Test
     public void findAllProject_11() throws Exception {
         this.mockMvc.perform(MockMvcRequestBuilders.get("/api/projects/?searchName=thiết&size=5&page=0"))

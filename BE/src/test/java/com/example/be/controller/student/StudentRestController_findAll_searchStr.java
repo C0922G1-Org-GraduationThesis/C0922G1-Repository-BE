@@ -17,6 +17,11 @@ public class StudentRestController_findAll_searchStr {
     @Autowired
     private MockMvc mockMvc;
 
+    /**
+     * Create by: HauNN
+     * Date create: 30/03/2023
+     * Function: test searchStr is null
+     */
     @Test
     public void findAllStudent_7() throws Exception {
 
@@ -27,6 +32,11 @@ public class StudentRestController_findAll_searchStr {
                 .andExpect(status().is4xxClientError());
     }
 
+    /**
+     * Create by: HauNN
+     * Date create: 30/03/2023
+     * Function: test searchStr is empty
+     */
     @Test
     public void findAllStudent_8() throws Exception {
         this.mockMvc.perform(MockMvcRequestBuilders
@@ -35,6 +45,11 @@ public class StudentRestController_findAll_searchStr {
                 .andExpect(status().is4xxClientError());
     }
 
+    /**
+     * Create by: HauNN
+     * Date create: 30/03/2023
+     * Function: test searchStr invalid
+     */
     @Test
     public void findAllStudent_9() throws Exception {
 
@@ -45,6 +60,11 @@ public class StudentRestController_findAll_searchStr {
                 .andExpect(status().is4xxClientError());
     }
 
+    /**
+     * Create by: HauNN
+     * Date create: 30/03/2023
+     * Function: test searchStr valid
+     */
     @Test
     public void findAllStudent_11() throws Exception {
         this.mockMvc.perform(MockMvcRequestBuilders

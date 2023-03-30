@@ -17,6 +17,11 @@ public class StudentRestController_findByTeamId_page {
     @Autowired
     private MockMvc mockMvc;
 
+    /**
+     * Create by: HauNN
+     * Date create: 30/03/2023
+     * Function: test page is null
+     */
     @Test
     public void findAllStudentByTeamId_7() throws Exception {
 
@@ -27,6 +32,11 @@ public class StudentRestController_findByTeamId_page {
                 .andExpect(status().is4xxClientError());
     }
 
+    /**
+     * Create by: HauNN
+     * Date create: 30/03/2023
+     * Function: test page is empty
+     */
     @Test
     public void findAllStudentByTeamId_8() throws Exception {
         this.mockMvc.perform(MockMvcRequestBuilders.get("/api/students/team/1&page={page}&size=2", ""))
@@ -34,6 +44,11 @@ public class StudentRestController_findByTeamId_page {
                 .andExpect(status().is4xxClientError());
     }
 
+    /**
+     * Create by: HauNN
+     * Date create: 30/03/2023
+     * Function: test page invalid
+     */
     @Test
     public void findAllStudentByTeamId_9() throws Exception {
 
@@ -44,6 +59,11 @@ public class StudentRestController_findByTeamId_page {
                 .andExpect(status().is4xxClientError());
     }
 
+    /**
+     * Create by: HauNN
+     * Date create: 30/03/2023
+     * Function: test page valid
+     */
     @Test
     public void findAllStudentByTeamId_11() throws Exception {
         this.mockMvc.perform(MockMvcRequestBuilders

@@ -17,6 +17,11 @@ public class ProjectRestController_findById_id {
     @Autowired
     private MockMvc mockMvc;
 
+    /**
+     * Create by: HauNN
+     * Date create: 29/03/2023
+     * Function: test id is null
+     */
     @Test
     public void findById_1() throws Exception {
 
@@ -27,6 +32,11 @@ public class ProjectRestController_findById_id {
                 .andExpect(status().is4xxClientError());
     }
 
+    /**
+     * Create by: HauNN
+     * Date create: 29/03/2023
+     * Function: test id is empty
+     */
     @Test
     public void findById_2() throws Exception {
 
@@ -37,16 +47,26 @@ public class ProjectRestController_findById_id {
                 .andExpect(status().is4xxClientError());
     }
 
+    /**
+     * Create by: HauNN
+     * Date create: 29/03/2023
+     * Function: test id invalid
+     */
     @Test
     public void findById_3() throws Exception {
 
         this.mockMvc.perform(
                         MockMvcRequestBuilders.get(
-                                "/api/projects/detail/{id}", "123123"))
+                                "/api/projects/detail/{id}", "-1"))
                 .andDo(print())
                 .andExpect(status().is4xxClientError());
     }
 
+    /**
+     * Create by: HauNN
+     * Date create: 30/03/2023
+     * Function: test id valid
+     */
     @Test
     public void getInfoStudent_id_4() throws Exception {
 

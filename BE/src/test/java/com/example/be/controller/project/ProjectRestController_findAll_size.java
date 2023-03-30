@@ -17,6 +17,11 @@ public class ProjectRestController_findAll_size {
     @Autowired
     private MockMvc mockMvc;
 
+    /**
+     * Create by: HauNN
+     * Date create: 29/03/2023
+     * Function: test size is null
+     */
     @Test
     public void findAllProject_7() throws Exception {
 
@@ -26,6 +31,11 @@ public class ProjectRestController_findAll_size {
                 .andExpect(status().is4xxClientError());
     }
 
+    /**
+     * Create by: HauNN
+     * Date create: 29/03/2023
+     * Function: test size is empty
+     */
     @Test
     public void findAllProject_8() throws Exception {
         this.mockMvc.perform(MockMvcRequestBuilders
@@ -34,6 +44,11 @@ public class ProjectRestController_findAll_size {
                 .andExpect(status().is4xxClientError());
     }
 
+    /**
+     * Create by: HauNN
+     * Date create: 29/03/2023
+     * Function: test size invalid
+     */
     @Test
     public void findAllProject_9() throws Exception {
 
@@ -43,6 +58,11 @@ public class ProjectRestController_findAll_size {
                 .andExpect(status().is4xxClientError());
     }
 
+    /**
+     * Create by: HauNN
+     * Date create: 30/03/2023
+     * Function: test size valid
+     */
     @Test
     public void findAllProject_11() throws Exception {
         this.mockMvc.perform(MockMvcRequestBuilders.get("/api/projects/?searchName=thiết&size=5&page=0"))

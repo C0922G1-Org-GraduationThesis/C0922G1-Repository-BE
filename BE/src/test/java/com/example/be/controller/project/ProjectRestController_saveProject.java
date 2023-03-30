@@ -22,6 +22,11 @@ public class ProjectRestController_saveProject {
     @Autowired
     private ObjectMapper objectMapper;
 
+    /**
+     * Create by: HauNN
+     * Date create: 30/03/2023
+     * Function: test save project when name is null
+     */
     @Test
     public void saveProject_name_13() throws Exception {
         ProjectDTO projectDTO = new ProjectDTO();
@@ -42,6 +47,11 @@ public class ProjectRestController_saveProject {
                 .andExpect(status().is4xxClientError());
     }
 
+    /**
+     * Create by: HauNN
+     * Date create: 30/03/2023
+     * Function: test save project when name is empty
+     */
     @Test
     public void saveProject_name_14() throws Exception {
         ProjectDTO projectDTO = new ProjectDTO();
@@ -62,6 +72,11 @@ public class ProjectRestController_saveProject {
                 .andExpect(status().is4xxClientError());
     }
 
+    /**
+     * Create by: HauNN
+     * Date create: 30/03/2023
+     * Function: test save project when name invalid
+     */
     @Test
     public void saveProject_name_15() throws Exception {
         ProjectDTO projectDTO = new ProjectDTO();
@@ -82,6 +97,11 @@ public class ProjectRestController_saveProject {
                 .andExpect(status().is4xxClientError());
     }
 
+    /**
+     * Create by: HauNN
+     * Date create: 30/03/2023
+     * Function: test save project when name max length
+     */
     @Test
     public void saveProject_name_17() throws Exception {
         ProjectDTO projectDTO = new ProjectDTO();
@@ -106,6 +126,11 @@ public class ProjectRestController_saveProject {
                 .andExpect(status().is4xxClientError());
     }
 
+    /**
+     * Create by: HauNN
+     * Date create: 30/03/2023
+     * Function: test save project when content is null
+     */
     @Test
     public void saveProject_content_13() throws Exception {
         ProjectDTO projectDTO = new ProjectDTO();
@@ -126,6 +151,11 @@ public class ProjectRestController_saveProject {
                 .andExpect(status().is4xxClientError());
     }
 
+    /**
+     * Create by: HauNN
+     * Date create: 30/03/2023
+     * Function: test save project when content is empty
+     */
     @Test
     public void saveProject_content_14() throws Exception {
         ProjectDTO projectDTO = new ProjectDTO();
@@ -146,6 +176,11 @@ public class ProjectRestController_saveProject {
                 .andExpect(status().is4xxClientError());
     }
 
+    /**
+     * Create by: HauNN
+     * Date create: 30/03/2023
+     * Function: test save project when img is null
+     */
     @Test
     public void saveProject_img_13() throws Exception {
         ProjectDTO projectDTO = new ProjectDTO();
@@ -166,6 +201,11 @@ public class ProjectRestController_saveProject {
                 .andExpect(status().is4xxClientError());
     }
 
+    /**
+     * Create by: HauNN
+     * Date create: 30/03/2023
+     * Function: test save project when img is empty
+     */
     @Test
     public void saveProject_img_14() throws Exception {
         ProjectDTO projectDTO = new ProjectDTO();
@@ -186,6 +226,11 @@ public class ProjectRestController_saveProject {
                 .andExpect(status().is4xxClientError());
     }
 
+    /**
+     * Create by: HauNN
+     * Date create: 30/03/2023
+     * Function: test save project when description is null
+     */
     @Test
     public void saveProject_description_13() throws Exception {
         ProjectDTO projectDTO = new ProjectDTO();
@@ -206,6 +251,11 @@ public class ProjectRestController_saveProject {
                 .andExpect(status().is4xxClientError());
     }
 
+    /**
+     * Create by: HauNN
+     * Date create: 30/03/2023
+     * Function: test save project when description is empty
+     */
     @Test
     public void saveProject_description_14() throws Exception {
         ProjectDTO projectDTO = new ProjectDTO();
@@ -226,6 +276,11 @@ public class ProjectRestController_saveProject {
                 .andExpect(status().is4xxClientError());
     }
 
+    /**
+     * Create by: HauNN
+     * Date create: 30/03/2023
+     * Function: test save project when team is null
+     */
     @Test
     public void saveProject_team_13() throws Exception {
         ProjectDTO projectDTO = new ProjectDTO();
@@ -245,6 +300,11 @@ public class ProjectRestController_saveProject {
                 .andExpect(status().is4xxClientError());
     }
 
+    /**
+     * Create by: HauNN
+     * Date create: 30/03/2023
+     * Function: test save project when team is empty
+     */
     @Test
     public void saveProject_team_14() throws Exception {
         ProjectDTO projectDTO = new ProjectDTO();
@@ -264,6 +324,11 @@ public class ProjectRestController_saveProject {
                 .andExpect(status().is4xxClientError());
     }
 
+    /**
+     * Create by: HauNN
+     * Date create: 30/03/2023
+     * Function: test save project when all item valid
+     */
     @Test
     public void saveProject_description_18() throws Exception {
         ProjectDTO projectDTO = new ProjectDTO();

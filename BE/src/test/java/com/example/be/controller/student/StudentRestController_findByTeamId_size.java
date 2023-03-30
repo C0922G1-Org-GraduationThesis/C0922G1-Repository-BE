@@ -17,6 +17,11 @@ public class StudentRestController_findByTeamId_size {
     @Autowired
     private MockMvc mockMvc;
 
+    /**
+     * Create by: HauNN
+     * Date create: 30/03/2023
+     * Function: test size is null
+     */
     @Test
     public void findAllStudentByTeamId_7() throws Exception {
 
@@ -27,6 +32,11 @@ public class StudentRestController_findByTeamId_size {
                 .andExpect(status().is4xxClientError());
     }
 
+    /**
+     * Create by: HauNN
+     * Date create: 30/03/2023
+     * Function: test size is empty
+     */
     @Test
     public void findAllStudentByTeamId_8() throws Exception {
         this.mockMvc.perform(MockMvcRequestBuilders
@@ -35,6 +45,11 @@ public class StudentRestController_findByTeamId_size {
                 .andExpect(status().is4xxClientError());
     }
 
+    /**
+     * Create by: HauNN
+     * Date create: 30/03/2023
+     * Function: test size invalid
+     */
     @Test
     public void findAllStudentByTeamId_9() throws Exception {
 
@@ -45,6 +60,11 @@ public class StudentRestController_findByTeamId_size {
                 .andExpect(status().is4xxClientError());
     }
 
+    /**
+     * Create by: HauNN
+     * Date create: 30/03/2023
+     * Function: test size valid
+     */
     @Test
     public void findAllStudentByTeamId_11() throws Exception {
         this.mockMvc.perform(MockMvcRequestBuilders
