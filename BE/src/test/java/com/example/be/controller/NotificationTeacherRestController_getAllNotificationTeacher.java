@@ -17,6 +17,11 @@ public class NotificationTeacherRestController_getAllNotificationTeacher {
     @Autowired
     private MockMvc mockMvc;
 
+    /**
+     * Created by: hoangNNH
+     * Date created: 30/03/2023
+     * This function use to test get notification-teacher list
+     */
     @Test
     public void getAllNotificationTeacher_5() throws Exception {
 
@@ -27,6 +32,11 @@ public class NotificationTeacherRestController_getAllNotificationTeacher {
                 .andExpect(status().is4xxClientError());
     }
 
+    /**
+     * Created by: hoangNNH
+     * Date created: 30/03/2023
+     * This function use to test get notification-teacher list
+     */
     @Test
     public void getAllNotificationTeacher_6() throws Exception {
 
