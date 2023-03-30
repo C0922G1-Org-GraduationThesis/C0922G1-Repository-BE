@@ -1,7 +1,6 @@
 package com.example.be.model;
 import javax.persistence.*;
 
-
 @Entity
 public class Answers {
     @Id
@@ -10,6 +9,9 @@ public class Answers {
     private Long answerId;
     @Column(columnDefinition = "text",nullable = false)
     private String answerContent;
+
+    @Column(nullable = false,columnDefinition = "dateTime")
+    private String dateTime;
 
     @ManyToOne
     @JoinColumn(name = "teacher_id", referencedColumnName = "teacher_id")
@@ -20,6 +22,14 @@ public class Answers {
     private Question question;
 
     public Answers() {
+    }
+
+    public String getDateTime() {
+        return dateTime;
+    }
+
+    public void setDateTime(String dateTime) {
+        this.dateTime = dateTime;
     }
 
     public Long getAnswerId() {

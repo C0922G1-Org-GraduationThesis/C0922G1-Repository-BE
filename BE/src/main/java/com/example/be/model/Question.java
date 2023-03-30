@@ -3,7 +3,6 @@ package com.example.be.model;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
 import javax.persistence.*;
-import java.time.LocalDateTime;
 import java.util.Set;
 
 @Entity
@@ -18,7 +17,7 @@ public class Question {
     @Column(nullable = false,columnDefinition = "text")
     private String questionContent;
     @Column(nullable = false,columnDefinition = "dateTime")
-    private LocalDateTime dateTime;
+    private String dateTime;
 
     @OneToMany(mappedBy = "question")
     @JsonIgnore
@@ -55,11 +54,11 @@ public class Question {
         this.questionContent = questionContent;
     }
 
-    public LocalDateTime getDateTime() {
+    public String getDateTime() {
         return dateTime;
     }
 
-    public void setDateTime(LocalDateTime dateTime) {
+    public void setDateTime(String dateTime) {
         this.dateTime = dateTime;
     }
 
