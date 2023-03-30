@@ -44,13 +44,13 @@ public class QuestionRestController_showQuestion {
     /**
      * Created by: LanTTN
      * Date created : 30/03/2023
-     * Function: test find all question
+     * Function: test find first question in page = 0 and element first
      * when have data
      *
      * @throws Exception
      */
     @Test
-    public void showQuestion_6() throws Exception {
+    public void showQuestion_6_firstPage_lastElement() throws Exception {
         ResponseEntity<Page<Question>> responseEntity =
                 this.questionRestController.showQuestion(PageRequest.of(0, 1));
         Assertions.assertEquals(200, responseEntity.getStatusCodeValue());
@@ -60,6 +60,27 @@ public class QuestionRestController_showQuestion {
                 responseEntity.getBody().getContent().get(0).getQuestionContent());
         Assertions.assertEquals("Giai đoạn 1",
                 responseEntity.getBody().getContent().get(0).getQuestionTopic());
+    }
+
+    /**
+     * Created by: LanTTN
+     * Date created : 30/03/2023
+     * Function: test find first question in page = 3 and element last
+     * when have data
+     *
+     * @throws Exception
+     */
+    @Test
+    public void showQuestion_6_lastPage_lastElement() throws Exception {
+        ResponseEntity<Page<Question>> responseEntity =
+                this.questionRestController.showQuestion(PageRequest.of(3, 1));
+        Assertions.assertEquals(200, responseEntity.getStatusCodeValue());
+        Assertions.assertEquals(4, responseEntity.getBody().getTotalPages());
+        Assertions.assertEquals(4, responseEntity.getBody().getTotalElements());
+        Assertions.assertEquals("Nên chọn loại hình nghệ thuật nào cho ứng dụng?",
+                responseEntity.getBody().getContent().get(responseEntity.getBody().getNumberOfElements() - 1).getQuestionContent());
+        Assertions.assertEquals("Giai đoạn 4",
+                responseEntity.getBody().getContent().get(responseEntity.getBody().getNumberOfElements() - 1).getQuestionTopic());
     }
 }
 

@@ -127,7 +127,7 @@ public class AnswerRestController_saveAnswer {
     @Test
     public void saveAnswer_answerContent_17() throws Exception {
         AnswerDto answerDto = new AnswerDto();
-        answerDto.setAnswerContent("Cột tròn khác cột chữ nhật ở chỗ là hình dáng, cách bố trí thép dọc. Cột tròn chịu lực nén từ trong ra ngoài.");
+        answerDto.setAnswerContent("Cột tròn khác cột chữ nhật ở chỗ là hình dáng, cách bố trí thép dọc. Cột tròn chịu lực nén từ trong ra ngoài,......");
 
         TeacherDto teacherDto = new TeacherDto();
         teacherDto.setTeacherId(1L);
@@ -159,6 +159,7 @@ public class AnswerRestController_saveAnswer {
     public void saveAnswer_answerContent_18() throws Exception {
         AnswerDto answerDto = new AnswerDto();
         answerDto.setAnswerContent("Cột tròn khác cột chữ nhật ở chỗ là hình dáng");
+        answerDto.setDateTime("2023-03-22 12:22:22");
 
         TeacherDto teacherDto = new TeacherDto();
         teacherDto.setTeacherId(1L);

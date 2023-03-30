@@ -135,7 +135,7 @@ public class QuestionRestController_saveQuestion {
         QuestionDto questionDto = new QuestionDto();
         questionDto.setQuestionTopic("Giai đoạn 1");
         questionDto.setQuestionContent("Cho em hỏi cái này với ạ?");
-        questionDto.setDateTime("2023-02-02");
+        questionDto.setDateTime("2023-02-02 15:22:34");
 
         StudentDto studentDto = new StudentDto();
         studentDto.setStudentId(1L);
@@ -200,7 +200,7 @@ public class QuestionRestController_saveQuestion {
         QuestionDto questionDto = new QuestionDto();
         questionDto.setQuestionTopic("Giai đoạn 1");
         questionDto.setQuestionContent("");
-        questionDto.setDateTime("2023-02-02");
+        questionDto.setDateTime("2023-02-02 15:22:34");
 
         StudentDto studentDto = new StudentDto();
         studentDto.setStudentId(1L);
@@ -299,7 +299,7 @@ public class QuestionRestController_saveQuestion {
         QuestionDto questionDto = new QuestionDto();
         questionDto.setQuestionTopic("Giai đoạn 1");
         questionDto.setQuestionContent("Cột tròn khác gì cột chữ nhật ạ");
-        questionDto.setDateTime("2023-02-02");
+        questionDto.setDateTime("2023-03-22 12:22:22");
 
         StudentDto studentDto = new StudentDto();
         studentDto.setStudentId(1L);

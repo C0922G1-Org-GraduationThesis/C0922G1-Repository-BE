@@ -21,5 +21,5 @@ public interface IQuestionService {
      *
      * @param questionContent, questionTopic, dateTime
      */
-    void save(String questionContent, String questionTopic);
+    void save(String questionContent, String questionTopic,String dateTime);
 }

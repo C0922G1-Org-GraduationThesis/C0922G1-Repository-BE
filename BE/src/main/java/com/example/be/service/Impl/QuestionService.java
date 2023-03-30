@@ -34,7 +34,7 @@ public class QuestionService implements IQuestionService {
      * @param questionContent, questionTopic, dateTime
      */
     @Override
-    public void save(String questionContent, String questionTopic) {
-        iQuestionRepository.save(questionContent, questionTopic);
+    public void save(String questionContent, String questionTopic,String dateTime) {
+        iQuestionRepository.save(questionContent, questionTopic, dateTime);
     }
 }

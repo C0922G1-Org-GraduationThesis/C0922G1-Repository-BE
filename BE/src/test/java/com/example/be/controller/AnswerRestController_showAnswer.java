@@ -8,6 +8,7 @@ import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
 
 import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.print;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
 @SpringBootTest
@@ -68,16 +69,43 @@ public class AnswerRestController_showAnswer {
     /**
      * Created by: LanTTN
      * Date created : 30/03/2023
-     * Function: test find all answer
+     * Function: test item first in all answer
      * when have data
      *
      * @throws Exception
      */
     @Test
-    public void showAnswer_questionId_4() throws Exception {
+    public void showAnswer_questionId_4_1() throws Exception {
         this.mockMvc.perform(
                         MockMvcRequestBuilders.get("/api/answers?questionId=1"))
                 .andDo(print())
-                .andExpect(status().is2xxSuccessful());
+                .andExpect(status().is2xxSuccessful())
+                .andExpect(jsonPath("$[0].answerId").value(1L))
+                .andExpect(jsonPath("$[0].answerContent").value("Chưa đúng yêu cầu"))
+                .andExpect(jsonPath("$[0].dateTime").value("2023-2-22 12:22:23"))
+                .andExpect(jsonPath("$[0].teacher.teacherId").value(1))
+                .andExpect(jsonPath("$[0].question.questionId").value(1));
     }
+
+    /**
+     * Created by: LanTTN
+     * Date created : 30/03/2023
+     * Function: test item last in all answer
+     * when have data
+     *
+     * @throws Exception
+     */
+    @Test
+    public void showAnswer_questionId_4_2() throws Exception {
+        this.mockMvc.perform(
+                        MockMvcRequestBuilders.get("/api/answers?questionId=1"))
+                .andDo(print())
+                .andExpect(status().is2xxSuccessful())
+                .andExpect(jsonPath("$[-1].answerId").value(3L))
+                .andExpect(jsonPath("$[-1].answerContent").value("Chưa đúng yêu cầu"))
+                .andExpect(jsonPath("$[-1].dateTime").value("2023-2-22 16:22:23"))
+                .andExpect(jsonPath("$[-1].teacher.teacherId").value(1))
+                .andExpect(jsonPath("$[-1].question.questionId").value(4));;
+    }
+
 }

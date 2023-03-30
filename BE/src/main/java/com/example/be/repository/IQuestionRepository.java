@@ -29,7 +29,8 @@ public interface IQuestionRepository extends JpaRepository<Question, Long> {
      */
     @Modifying
     @Transactional
-    @Query(value = "insert into question(question_content, question_topic, date_time) value(:questionContent, :questionTopic)", nativeQuery = true)
+    @Query(value = "insert into question(question_content, question_topic, date_time) value(:questionContent, :questionTopic, :dateTime)", nativeQuery = true)
     void save(@Param("questionContent") String questionContent,
-              @Param("questionTopic") String questionTopic);
+              @Param("questionTopic") String questionTopic,
+                @Param("dateTime") String dateTime);
 }
