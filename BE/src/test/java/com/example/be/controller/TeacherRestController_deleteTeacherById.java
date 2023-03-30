@@ -23,7 +23,7 @@ public class TeacherRestController_deleteTeacherById {
      * Date Create : 30/03/2023
      * Function : test delete teacher by id = null
      *
-     * @return error 400 Bad Request
+     * @return error 404 Not Found
      */
     @Test
     public void deleteTeacherById_id_1() throws Exception {
@@ -40,7 +40,7 @@ public class TeacherRestController_deleteTeacherById {
      * Date Create : 30/03/2023
      * Function : test delete teacher by id = ''
      *
-     * @return error 400 Bad Request
+     * @return error 404 Not Found
      */
     @Test
     public void deleteTeacherById_id_2() throws Exception {
@@ -57,7 +57,7 @@ public class TeacherRestController_deleteTeacherById {
      * Date Create : 30/03/2023
      * Function : test delete teacher by id = 1000 not database
      *
-     * @return error 400 Bad Request
+     * @return error 404 Not Found
      */
     @Test
     public void deleteTeacherById_id_3() throws Exception {

@@ -123,7 +123,7 @@ public class TeacherRestController_getListTeacher {
      * Date Create : 30/03/2023
      * Function : test get all teacher has name = '' and page = 2 not database,
      *
-     * @return error 400 Bad Request
+     * @return error 404 Bad Request
      */
     @Test
     public void getAllTeacher_10() throws Exception {

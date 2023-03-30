@@ -16,12 +16,13 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 public class TeacherRestController_getTeacherById {
     @Autowired
     private MockMvc mockMvc;
+
     /**
      * create by : HungPV ,
      * Date Create : 30/03/2023
      * Function : test get teacher by id = null
      *
-     * @return error 400 Bad Request
+     * @return error 404 Not Found
      */
     @Test
     public void getTeacherById_id_1() throws Exception {
@@ -38,7 +39,7 @@ public class TeacherRestController_getTeacherById {
      * Date Create : 30/03/2023
      * Function : test get teacher by id = ''
      *
-     * @return error 400 Bad Request
+     * @return error 404 Not Found
      */
     @Test
     public void getTeacherById_id_2() throws Exception {
@@ -55,7 +56,7 @@ public class TeacherRestController_getTeacherById {
      * Date Create : 30/03/2023
      * Function : test get teacher by id = 1000 not database
      *
-     * @return error 400 Bad Request
+     * @return error 404 Not Found
      */
     @Test
     public void getTeacherById_id_3() throws Exception {
