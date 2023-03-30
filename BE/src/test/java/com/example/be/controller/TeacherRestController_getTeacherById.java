@@ -21,8 +21,6 @@ public class TeacherRestController_getTeacherById {
      * create by : HungPV ,
      * Date Create : 30/03/2023
      * Function : test get teacher by id = null
-     *
-     * @return error 404 Not Found
      */
     @Test
     public void getTeacherById_id_1() throws Exception {
@@ -38,8 +36,6 @@ public class TeacherRestController_getTeacherById {
      * create by : HungPV ,
      * Date Create : 30/03/2023
      * Function : test get teacher by id = ''
-     *
-     * @return error 404 Not Found
      */
     @Test
     public void getTeacherById_id_2() throws Exception {
@@ -55,8 +51,6 @@ public class TeacherRestController_getTeacherById {
      * create by : HungPV ,
      * Date Create : 30/03/2023
      * Function : test get teacher by id = 1000 not database
-     *
-     * @return error 404 Not Found
      */
     @Test
     public void getTeacherById_id_3() throws Exception {
@@ -72,8 +66,6 @@ public class TeacherRestController_getTeacherById {
      * create by : HungPV ,
      * Date Create : 30/03/2023
      * Function : test get teacher by id = 3 has in database
-     *
-     * @return 200 OK
      */
     @Test
     public void getTeacherById_id_4() throws Exception {

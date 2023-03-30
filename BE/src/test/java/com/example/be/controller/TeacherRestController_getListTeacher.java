@@ -25,8 +25,6 @@ public class TeacherRestController_getListTeacher {
      * create by : HungPV ,
      * Date Create : 30/03/2023
      * Function : test get all teacher has name = null and page = 0
-     *
-     * @return error 400 Bad Request
      */
     @Test
     public void getAllTeacher_7_1() throws Exception {
@@ -42,8 +40,6 @@ public class TeacherRestController_getListTeacher {
      * create by : HungPV ,
      * Date Create : 30/03/2023
      * Function : test get all teacher has name = '' and page = null
-     *
-     * @return error 400 Bad Request
      */
     @Test
     public void getAllTeacher_7_2() throws Exception {
@@ -59,8 +55,6 @@ public class TeacherRestController_getListTeacher {
      * create by : HungPV ,
      * Date Create : 30/03/2023
      * Function : test get all teacher has name = null and page = null
-     *
-     * @return error 400 Bad Request
      */
     @Test
     public void getAllTeacher_7_3() throws Exception {
@@ -75,8 +69,6 @@ public class TeacherRestController_getListTeacher {
      * create by : HungPV ,
      * Date Create : 30/03/2023
      * Function : test get all teacher has name = '' and page = 0
-     *
-     * @return 200 ok
      */
     @Test
     public void getAllTeacher_8() throws Exception {
@@ -107,8 +99,6 @@ public class TeacherRestController_getListTeacher {
      * create by : HungPV ,
      * Date Create : 30/03/2023
      * Function : test get all teacher has name = 1256 not database and page = 0
-     *
-     * @return error 400 Bad Request
      */
     @Test
     public void getAllTeacher_9() throws Exception {
@@ -122,8 +112,6 @@ public class TeacherRestController_getListTeacher {
      * create by : HungPV ,
      * Date Create : 30/03/2023
      * Function : test get all teacher has name = '' and page = 2 not database,
-     *
-     * @return error 404 Bad Request
      */
     @Test
     public void getAllTeacher_10() throws Exception {
@@ -136,8 +124,6 @@ public class TeacherRestController_getListTeacher {
      * create by : HungPV ,
      * Date Create : 30/03/2023
      * Function : test get one teacher has name = Đạt'' and page = '',
-     *
-     * @return 200 OK
      */
     @Test
     public void getAllTeacher_11() throws Exception {
