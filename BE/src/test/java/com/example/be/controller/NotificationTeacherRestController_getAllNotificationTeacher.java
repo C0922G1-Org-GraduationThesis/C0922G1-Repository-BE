@@ -22,7 +22,7 @@ public class NotificationTeacherRestController_getAllNotificationTeacher {
 
         this.mockMvc.perform(
                         MockMvcRequestBuilders
-                                .get("/api/notification"))
+                                .get("/api/notification-teachers/"))
                 .andDo(print())
                 .andExpect(status().is4xxClientError());
     }
