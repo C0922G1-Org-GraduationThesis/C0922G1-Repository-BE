@@ -100,6 +100,31 @@ public class ProjectRestController_saveProject {
     /**
      * Create by: HauNN
      * Date create: 30/03/2023
+     * Function: test save project when name min length
+     */
+    @Test
+    public void saveProject_name_16() throws Exception {
+        ProjectDTO projectDTO = new ProjectDTO();
+        projectDTO.setName("a");
+        projectDTO.setContent("Đăng ký sinh viên online");
+        projectDTO.setImg("picture.png");
+        projectDTO.setDescription("Dự án đăng ký...");
+        TeamDTO teamDTO = new TeamDTO();
+        teamDTO.setTeamId(6L);
+        projectDTO.setTeamDTO(teamDTO);
+
+        this.mockMvc
+                .perform(MockMvcRequestBuilders
+                        .post("/api/projects/save")
+                        .content(this.objectMapper.writeValueAsString(projectDTO))
+                        .contentType(MediaType.APPLICATION_JSON_VALUE))
+                .andDo(print())
+                .andExpect(status().is4xxClientError());
+    }
+
+    /**
+     * Create by: HauNN
+     * Date create: 30/03/2023
      * Function: test save project when name max length
      */
     @Test
@@ -179,6 +204,61 @@ public class ProjectRestController_saveProject {
     /**
      * Create by: HauNN
      * Date create: 30/03/2023
+     * Function: test save project when content min length
+     */
+    @Test
+    public void saveProject_content_16() throws Exception {
+        ProjectDTO projectDTO = new ProjectDTO();
+        projectDTO.setName("Dự án sinh viên");
+        projectDTO.setContent("D");
+        projectDTO.setImg("picture.png");
+        projectDTO.setDescription("Dự án đăng ký...");
+        TeamDTO teamDTO = new TeamDTO();
+        teamDTO.setTeamId(6L);
+        projectDTO.setTeamDTO(teamDTO);
+
+        this.mockMvc
+                .perform(MockMvcRequestBuilders
+                        .post("/api/projects/save")
+                        .content(this.objectMapper.writeValueAsString(projectDTO))
+                        .contentType(MediaType.APPLICATION_JSON_VALUE))
+                .andDo(print())
+                .andExpect(status().is4xxClientError());
+    }
+
+    /**
+     * Create by: HauNN
+     * Date create: 30/03/2023
+     * Function: test save project when content max length
+     */
+    @Test
+    public void saveProject_content_17() throws Exception {
+        ProjectDTO projectDTO = new ProjectDTO();
+        projectDTO.setName("Dự án sinh viên");
+        projectDTO.setContent("Dự án sinh viênDự án sinh viênDự án sinh viênDự án sinh viênDự án sinh viên" +
+                "Dự án sinh viênDự án sinh viênDự Dự án sinh viênDự án sinh viênDự Dự án sinh viênDự án sinh viênDự " +
+                "Dự án sinh viênDự án sinh viênDự Dự án sinh viênDự án sinh viênDự Dự án sinh viênDự án sinh viênDự " +
+                "Dự án sinh viênDự án sinh viênDự Dự án sinh viênDự án sinh viênDự Dự án sinh viênDự án sinh viênDự " +
+                "Dự án sinh viênDự án sinh viênDự Dự án sinh viênDự án sinh viênDự Dự án sinh viênDự án sinh viênDự " +
+                "Dự án sinh viênDự án sinh viênDự Dự án sinh viênDự án sinh viênDự Dự án sinh viênDự án sinh viênDự ");
+        projectDTO.setImg("picture.png");
+        projectDTO.setDescription("Dự án đăng ký...");
+        TeamDTO teamDTO = new TeamDTO();
+        teamDTO.setTeamId(6L);
+        projectDTO.setTeamDTO(teamDTO);
+
+        this.mockMvc
+                .perform(MockMvcRequestBuilders
+                        .post("/api/projects/save")
+                        .content(this.objectMapper.writeValueAsString(projectDTO))
+                        .contentType(MediaType.APPLICATION_JSON_VALUE))
+                .andDo(print())
+                .andExpect(status().is4xxClientError());
+    }
+
+    /**
+     * Create by: HauNN
+     * Date create: 30/03/2023
      * Function: test save project when img is null
      */
     @Test
@@ -212,6 +292,66 @@ public class ProjectRestController_saveProject {
         projectDTO.setName("Dự án sinh viên");
         projectDTO.setContent("Đăng ký sinh viên online");
         projectDTO.setImg("");
+        projectDTO.setDescription("Dự án đăng ký...");
+        TeamDTO teamDTO = new TeamDTO();
+        teamDTO.setTeamId(6L);
+        projectDTO.setTeamDTO(teamDTO);
+
+        this.mockMvc
+                .perform(MockMvcRequestBuilders
+                        .post("/api/projects/save")
+                        .content(this.objectMapper.writeValueAsString(projectDTO))
+                        .contentType(MediaType.APPLICATION_JSON_VALUE))
+                .andDo(print())
+                .andExpect(status().is4xxClientError());
+    }
+
+    /**
+     * Create by: HauNN
+     * Date create: 30/03/2023
+     * Function: test save project when img min length
+     */
+    @Test
+    public void saveProject_img_16() throws Exception {
+        ProjectDTO projectDTO = new ProjectDTO();
+        projectDTO.setName("Dự án sinh viên");
+        projectDTO.setContent("Đăng ký sinh viên online");
+        projectDTO.setImg("1");
+        projectDTO.setDescription("Dự án đăng ký...");
+        TeamDTO teamDTO = new TeamDTO();
+        teamDTO.setTeamId(6L);
+        projectDTO.setTeamDTO(teamDTO);
+
+        this.mockMvc
+                .perform(MockMvcRequestBuilders
+                        .post("/api/projects/save")
+                        .content(this.objectMapper.writeValueAsString(projectDTO))
+                        .contentType(MediaType.APPLICATION_JSON_VALUE))
+                .andDo(print())
+                .andExpect(status().is4xxClientError());
+    }
+
+    /**
+     * Create by: HauNN
+     * Date create: 30/03/2023
+     * Function: test save project when img max length
+     */
+    @Test
+    public void saveProject_img_17() throws Exception {
+        ProjectDTO projectDTO = new ProjectDTO();
+        projectDTO.setName("Dự án sinh viên");
+        projectDTO.setContent("Đăng ký sinh viên online");
+        projectDTO.setImg("picturepicturepicturepicturepicturepicturepicturepicturepicturepicturepicturepicture" +
+                "picturepicturepicturepicturepicturepicturepicturepicturepicturepicturepicturepicturepicture" +
+                "picturepicturepicturepicturepicturepicturepicturepicturepicturepicturepicturepicturepicturepicture" +
+                "picturepicturepicturepicturepicturepicturepicturepicturepicturepicturepicturepicturepicturepicture" +
+                "picturepicturepicturepicturepicturepicturepicturepicturepicturepicturepicturepicturepicturepicture" +
+                "picturepicturepicturepicturepicturepicturepicturepicturepicturepicturepicturepicturepicturepicture" +
+                "picturepicturepicturepicturepicturepicturepicturepicturepicturepicturepicturepicturepicturepicture" +
+                "picturepicturepicturepicturepicturepicturepicturepicturepicturepicturepicturepicturepicturepicture" +
+                "picturepicturepicturepicturepicturepicturepicturepicturepicturepicturepicturepicturepicturepicture" +
+                "picturepicturepicturepicturepicturepicturepicturepicturepicturepicturepicturepicturepicturepicture" +
+                "picturepicturepicturepicturepicturepicturepicturepicturepicturepicturepicturepicturepicturepicture");
         projectDTO.setDescription("Dự án đăng ký...");
         TeamDTO teamDTO = new TeamDTO();
         teamDTO.setTeamId(6L);
@@ -275,6 +415,93 @@ public class ProjectRestController_saveProject {
                 .andDo(print())
                 .andExpect(status().is4xxClientError());
     }
+    /**
+     * Create by: HauNN
+     * Date create: 30/03/2023
+     * Function: test save project when description min length
+     */
+    @Test
+    public void saveProject_description_16() throws Exception {
+        ProjectDTO projectDTO = new ProjectDTO();
+        projectDTO.setName("Dự án sinh viên");
+        projectDTO.setContent("Đăng ký sinh viên online");
+        projectDTO.setImg("picture.png");
+        projectDTO.setDescription("a");
+        TeamDTO teamDTO = new TeamDTO();
+        teamDTO.setTeamId(6L);
+        projectDTO.setTeamDTO(teamDTO);
+
+        this.mockMvc
+                .perform(MockMvcRequestBuilders
+                        .post("/api/projects/save")
+                        .content(this.objectMapper.writeValueAsString(projectDTO))
+                        .contentType(MediaType.APPLICATION_JSON_VALUE))
+                .andDo(print())
+                .andExpect(status().is4xxClientError());
+    }
+
+    /**
+     * Create by: HauNN
+     * Date create: 30/03/2023
+     * Function: test save project when description max length
+     */
+    @Test
+    public void saveProject_description_17() throws Exception {
+        ProjectDTO projectDTO = new ProjectDTO();
+        projectDTO.setName("Dự án sinh viên");
+        projectDTO.setContent("Đăng ký sinh viên online");
+        projectDTO.setImg("picture.png");
+        projectDTO.setDescription("Đăng ký sinh viên online Đăng ký sinh viên online Đăng ký sinh viên online " +
+                "Đăng ký sinh viên online Đăng ký sinh viên online Đăng ký sinh viên online " +
+                "Đăng ký sinh viên online Đăng ký sinh viên online Đăng ký sinh viên online " +
+                "Đăng ký sinh viên online Đăng ký sinh viên online Đăng ký sinh viên online " +
+                "Đăng ký sinh viên online Đăng ký sinh viên online Đăng ký sinh viên online " +
+                "Đăng ký sinh viên online Đăng ký sinh viên online Đăng ký sinh viên online " +
+                "Đăng ký sinh viên online Đăng ký sinh viên online Đăng ký sinh viên online " +
+                "Đăng ký sinh viên online Đăng ký sinh viên online Đăng ký sinh viên online " +
+                "Đăng ký sinh viên online Đăng ký sinh viên online Đăng ký sinh viên online " +
+                "Đăng ký sinh viên online Đăng ký sinh viên online Đăng ký sinh viên online " +
+                "Đăng ký sinh viên online Đăng ký sinh viên online Đăng ký sinh viên online " +
+                "Đăng ký sinh viên online Đăng ký sinh viên online Đăng ký sinh viên online " +
+                "Đăng ký sinh viên online Đăng ký sinh viên online Đăng ký sinh viên online " +
+                "Đăng ký sinh viên online Đăng ký sinh viên online Đăng ký sinh viên online " +
+                "Đăng ký sinh viên online Đăng ký sinh viên online Đăng ký sinh viên online " +
+                "Đăng ký sinh viên online Đăng ký sinh viên online Đăng ký sinh viên online " +
+                "Đăng ký sinh viên online Đăng ký sinh viên online Đăng ký sinh viên online " +
+                "Đăng ký sinh viên online Đăng ký sinh viên online Đăng ký sinh viên online " +
+                "Đăng ký sinh viên online Đăng ký sinh viên online Đăng ký sinh viên online " +
+                "Đăng ký sinh viên online Đăng ký sinh viên online Đăng ký sinh viên online " +
+                "Đăng ký sinh viên online Đăng ký sinh viên online Đăng ký sinh viên online " +
+                "Đăng ký sinh viên online Đăng ký sinh viên online Đăng ký sinh viên online " +
+                "Đăng ký sinh viên online Đăng ký sinh viên online Đăng ký sinh viên online " +
+                "Đăng ký sinh viên online Đăng ký sinh viên online Đăng ký sinh viên online " +
+                "Đăng ký sinh viên online Đăng ký sinh viên online Đăng ký sinh viên online " +
+                "Đăng ký sinh viên online Đăng ký sinh viên online Đăng ký sinh viên online " +
+                "Đăng ký sinh viên online Đăng ký sinh viên online Đăng ký sinh viên online " +
+                "Đăng ký sinh viên online Đăng ký sinh viên online Đăng ký sinh viên online " +
+                "Đăng ký sinh viên online Đăng ký sinh viên online Đăng ký sinh viên online " +
+                "Đăng ký sinh viên online Đăng ký sinh viên online Đăng ký sinh viên online " +
+                "Đăng ký sinh viên online Đăng ký sinh viên online Đăng ký sinh viên online " +
+                "Đăng ký sinh viên online Đăng ký sinh viên online Đăng ký sinh viên online " +
+                "Đăng ký sinh viên online Đăng ký sinh viên online Đăng ký sinh viên online " +
+                "Đăng ký sinh viên online Đăng ký sinh viên online Đăng ký sinh viên online " +
+                "Đăng ký sinh viên online Đăng ký sinh viên online Đăng ký sinh viên online " +
+                "Đăng ký sinh viên online Đăng ký sinh viên online Đăng ký sinh viên online " +
+                "" +
+                "");
+        TeamDTO teamDTO = new TeamDTO();
+        teamDTO.setTeamId(6L);
+        projectDTO.setTeamDTO(teamDTO);
+
+        this.mockMvc
+                .perform(MockMvcRequestBuilders
+                        .post("/api/projects/save")
+                        .content(this.objectMapper.writeValueAsString(projectDTO))
+                        .contentType(MediaType.APPLICATION_JSON_VALUE))
+                .andDo(print())
+                .andExpect(status().is4xxClientError());
+    }
+
 
     /**
      * Create by: HauNN

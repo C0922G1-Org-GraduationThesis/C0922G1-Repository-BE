@@ -55,7 +55,22 @@ public class StudentRestController_findAll_searchStr {
 
         this.mockMvc.perform(
                         MockMvcRequestBuilders.get(
-                                "/api/students/?searchStr={searchStr}&page=0&size=2", "a123"))
+                                "/api/students/?searchStr={searchStr}&page=0&size=2", "a12//3"))
+                .andDo(print())
+                .andExpect(status().is4xxClientError());
+    }
+
+    /**
+     * Create by: HauNN
+     * Date create: 30/03/2023
+     * Function: test searchStr is does not exist in database
+     */
+    @Test
+    public void findAllStudent_10() throws Exception {
+
+        this.mockMvc.perform(
+                        MockMvcRequestBuilders.get(
+                                "/api/students/?searchStr={searchStr}&page=0&size=2", "aabb"))
                 .andDo(print())
                 .andExpect(status().is4xxClientError());
     }

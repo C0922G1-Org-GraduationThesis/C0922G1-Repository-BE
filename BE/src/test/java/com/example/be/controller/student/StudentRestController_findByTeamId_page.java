@@ -62,6 +62,21 @@ public class StudentRestController_findByTeamId_page {
     /**
      * Create by: HauNN
      * Date create: 30/03/2023
+     * Function: test page is does not exist in database
+     */
+    @Test
+    public void findAllStudentByTeamId_10() throws Exception {
+
+        this.mockMvc.perform(
+                        MockMvcRequestBuilders.get(
+                                "/api/students/team/1&page={page}&size=2", "100000000000"))
+                .andDo(print())
+                .andExpect(status().is4xxClientError());
+    }
+
+    /**
+     * Create by: HauNN
+     * Date create: 30/03/2023
      * Function: test page valid
      */
     @Test

@@ -63,6 +63,21 @@ public class ProjectRestController_findAll_nameSearch {
     /**
      * Create by: HauNN
      * Date create: 30/03/2023
+     * Function: test nameSearch is does not exist in database
+     */
+    @Test
+    public void findAllProject_10() throws Exception {
+
+        this.mockMvc.perform(
+                        MockMvcRequestBuilders.get(
+                                "/api/projects/nameSearch={nameSearch}&size=5&page=0", "nha"))
+                .andDo(print())
+                .andExpect(status().is4xxClientError());
+    }
+
+    /**
+     * Create by: HauNN
+     * Date create: 30/03/2023
      * Function: test nameSearch valid
      */
     @Test

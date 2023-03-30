@@ -60,6 +60,20 @@ public class StudentRestController_findAll_size {
 
     /**
      * Create by: HauNN
+     * Date create: 29/03/2023
+     * Function: test size is does not exist in database
+     */
+    @Test
+    public void findAllStudent_10() throws Exception {
+
+        this.mockMvc.perform(MockMvcRequestBuilders
+                        .get("/api/students/?searchStr=Doe&page=0&size={size}","10000000000"))
+                .andDo(print())
+                .andExpect(status().is4xxClientError());
+    }
+
+    /**
+     * Create by: HauNN
      * Date create: 30/03/2023
      * Function: test size valid
      */

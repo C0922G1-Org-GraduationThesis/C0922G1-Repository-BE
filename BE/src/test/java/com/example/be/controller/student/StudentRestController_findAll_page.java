@@ -57,6 +57,20 @@ public class StudentRestController_findAll_page {
                 .andDo(print())
                 .andExpect(status().is4xxClientError());
     }
+    /**
+     * Create by: HauNN
+     * Date create: 29/03/2023
+     * Function: test page is does not exist in database
+     */
+    @Test
+    public void findAllStudent_10() throws Exception {
+
+        this.mockMvc.perform(MockMvcRequestBuilders
+                        .get("/api/students/?page={page}&searchStr=Doe&size=2","1000000"))
+                .andDo(print())
+                .andExpect(status().is4xxClientError());
+    }
+
 
     /**
      * Create by: HauNN

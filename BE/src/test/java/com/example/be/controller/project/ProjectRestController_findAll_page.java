@@ -61,6 +61,20 @@ public class ProjectRestController_findAll_page {
     /**
      * Create by: HauNN
      * Date create: 30/03/2023
+     * Function: test page is does not exist in database
+     */
+    @Test
+    public void findAllProject_10() throws Exception {
+
+        this.mockMvc.perform(MockMvcRequestBuilders
+                        .get("/api/projects/?page={page}&searchName=thiết&size=5","10"))
+                .andDo(print())
+                .andExpect(status().is4xxClientError());
+    }
+
+    /**
+     * Create by: HauNN
+     * Date create: 30/03/2023
      * Function: test page valid
      */
     @Test
