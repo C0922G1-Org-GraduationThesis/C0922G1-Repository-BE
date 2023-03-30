@@ -9,7 +9,10 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.data.web.PageableDefault;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
+
+import javax.validation.Valid;
 
 @RestController
 @CrossOrigin("*")
@@ -60,7 +63,11 @@ public class TeamRestController {
      * @return HttpStatus.NOT_FOUND if result team is null, not found or HttpStatus.OK if result is edit success.
      */
     @PatchMapping("/edit/{teamId}")
-    public ResponseEntity<TeamDto> updateTeam(@RequestBody TeamDto teamDto, @PathVariable Long teamId) {
+    public ResponseEntity<?> updateTeam(@Valid @RequestBody TeamDto teamDto, BindingResult bindingResult, @PathVariable Long teamId) {
+        if (bindingResult.hasErrors()) {
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(bindingResult.getAllErrors());
+        }
+
         Team team = teamService.findTeamById(teamId);
         if (team == null){
             return new ResponseEntity(HttpStatus.NOT_FOUND);

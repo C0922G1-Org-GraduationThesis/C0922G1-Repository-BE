@@ -1,8 +1,6 @@
 package com.example.be.controller;
 
 import com.example.be.dto.TeamDto;
-import com.example.be.model.Teacher;
-import com.example.be.model.Team;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -26,15 +24,30 @@ public class TeamController_updateTeam {
 
     @Test
     public void updateTeam_24() throws Exception {
-
         TeamDto teamDto = new TeamDto();
-        teamDto.setTeacherId(2l);
+        teamDto.setTeamId(1L);
+        teamDto.setTeacherId(1L);
         this.mockMvc
                 .perform(MockMvcRequestBuilders
-                        .patch("/edit/{teamId}",2)
+                        .patch("/api/teams/edit/1")
                         .content(this.objectMapper.writeValueAsString(teamDto))
                         .contentType(MediaType.APPLICATION_JSON_VALUE))
                 .andDo(print())
                 .andExpect(status().is2xxSuccessful());
     }
+
+    @Test
+    public void updateTeam_19() throws Exception {
+        TeamDto teamDto = new TeamDto();
+        teamDto.setTeamId(1L);
+        teamDto.setTeacherId(null);
+        this.mockMvc
+                .perform(MockMvcRequestBuilders
+                        .patch("/api/teams/edit/1")
+                        .content(this.objectMapper.writeValueAsString(teamDto))
+                        .contentType(MediaType.APPLICATION_JSON_VALUE))
+                .andDo(print())
+                .andExpect(status().isBadRequest());
+    }
+
 }
