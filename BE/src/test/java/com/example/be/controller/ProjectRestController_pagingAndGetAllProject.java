@@ -21,7 +21,7 @@ public class ProjectRestController_pagingAndGetAllProject {
     /**
      * Created by: hoangNNH
      * Date created: 30/03/2023
-     * This function use to test get list project has size = 0
+     * This function use to test get list project has no parameter and size = 0
      */
     @Test
     public void pagingAndGetAllProject_5() throws Exception {
@@ -35,7 +35,7 @@ public class ProjectRestController_pagingAndGetAllProject {
     /**
      * Created by: hoangNNH
      * Date created: 30/03/2023
-     * This function use to test get list project has size > 0
+     * This function use to test get list project has no parameter and size > 0
      */
     @Test
     public void pagingAndGetAllProject_6() throws Exception {
@@ -121,7 +121,7 @@ public class ProjectRestController_pagingAndGetAllProject {
      * This function use to test get list project has name=web & page=0
      */
     @Test
-    public void pagingAndGetAllProject_10() throws Exception {
+    public void pagingAndGetAllProject_11() throws Exception {
         this.mockMvc.perform(
                         MockMvcRequestBuilders
                                 .get("/api/projects?name=web&page=0"))
