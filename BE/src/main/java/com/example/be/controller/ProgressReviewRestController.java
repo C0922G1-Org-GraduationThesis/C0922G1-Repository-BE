@@ -24,7 +24,7 @@ public class ProgressReviewRestController {
     /**
      * Created by: SyVT
      * Date created: 29/3/2023
-     * Function: find progress-review by id
+     * Function: find Max Percent progress-review by id
      *
      * @return HttpStatus.NO_CONTENT if result is null or HttpStatus.OK if result is not null
      */
