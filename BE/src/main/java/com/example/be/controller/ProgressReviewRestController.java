@@ -28,7 +28,7 @@ public class ProgressReviewRestController {
      *
      * @return HttpStatus.NO_CONTENT if result is null or HttpStatus.OK if result is not null
      */
-    @GetMapping("{id}")
+    @GetMapping("{project_id}/{stage_id}")
     public ResponseEntity<?> findMaxPercentProgressReport(@PathVariable Long project_id, @PathVariable int stage_id) {
         int progressReportPercent = progressReviewService.findMaxPercentProgressReport(project_id, stage_id);
         if (progressReportPercent == 0) {
