@@ -11,7 +11,6 @@ import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
 
 import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.print;
-import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
 @SpringBootTest
@@ -85,7 +84,6 @@ public class SecurityController_authenticateUser {
                 .andDo(print())
                 .andExpect(status().is4xxClientError());
     }
-
 
     @Test
     public void authenticateUser_18() throws Exception {

@@ -1,8 +1,6 @@
 package com.example.be.controller;
 
 import com.example.be.dto.PasswordDto;
-import com.example.be.payload.request.LoginRequest;
-import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -14,6 +12,7 @@ import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
 
 import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.print;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
+
 @SpringBootTest
 @AutoConfigureMockMvc
 public class SecurityController_changePassword {
@@ -23,7 +22,7 @@ public class SecurityController_changePassword {
     @Autowired
     private ObjectMapper objectMapper;
 
-    //[item] oldPassword = null
+    // [oldPassword] = null
     @Test
     public void changePassword_oldPassword_19() throws Exception {
         PasswordDto passwordDto = new PasswordDto();
@@ -40,7 +39,7 @@ public class SecurityController_changePassword {
                 .andExpect(status().is4xxClientError());
     }
 
-    //[item] oldPassword = ""
+    //[oldPassword] = ""
     @Test
     public void changePassword_oldPassword_20() throws Exception {
         PasswordDto passwordDto = new PasswordDto();
@@ -57,7 +56,7 @@ public class SecurityController_changePassword {
                 .andExpect(status().is4xxClientError());
     }
 
-    //[item] newPassword = null
+    //[newPassword] = null
     @Test
     public void changePassword_newPassword_19() throws Exception {
         PasswordDto passwordDto = new PasswordDto();
@@ -74,7 +73,7 @@ public class SecurityController_changePassword {
                 .andExpect(status().is4xxClientError());
     }
 
-    //[item] newPassword = ""
+    //[newPassword]  = ""
     @Test
     public void changePassword_newPassword_20() throws Exception {
         PasswordDto passwordDto = new PasswordDto();
@@ -91,7 +90,7 @@ public class SecurityController_changePassword {
                 .andExpect(status().is4xxClientError());
     }
 
-    //[item] passwordConfirm = null
+    //[passwordConfirm]  = null
     @Test
     public void changePassword_passwordConfirm_19() throws Exception {
         PasswordDto passwordDto = new PasswordDto();
@@ -108,7 +107,7 @@ public class SecurityController_changePassword {
                 .andExpect(status().is4xxClientError());
     }
 
-    //[item] passwordConfirm = ""
+    //[passwordConfirm]  = ""
     @Test
     public void changePassword_passwordConfirm_20() throws Exception {
         PasswordDto passwordDto = new PasswordDto();
@@ -125,7 +124,7 @@ public class SecurityController_changePassword {
                 .andExpect(status().is4xxClientError());
     }
 
-    //[newPassword] không >= minlength
+    //[không] không>= minlength
     @Test
     public void changePassword_newPassword_22() throws Exception {
         PasswordDto passwordDto = new PasswordDto();
@@ -159,7 +158,7 @@ public class SecurityController_changePassword {
                 .andExpect(status().is4xxClientError());
     }
 
-//    All [item] đều hợp lệ
+    //    All [item] đều hợp lệ
     @Test
     public void changePassword_24() throws Exception {
         PasswordDto passwordDto = new PasswordDto();
@@ -176,7 +175,7 @@ public class SecurityController_changePassword {
                 .andExpect(status().is2xxSuccessful());
     }
 
-    //[item] passwordConfirm different from newPassword
+    //[passwordConfirm]  different from [newPassword]
     @Test
     public void changePassword_29() throws Exception {
         PasswordDto passwordDto = new PasswordDto();
@@ -193,7 +192,7 @@ public class SecurityController_changePassword {
                 .andExpect(status().is4xxClientError());
     }
 
-    //[item] oldPassword different from password form database
+    //[oldPassword] different from [password] form database
     @Test
     public void changePassword_30() throws Exception {
         PasswordDto passwordDto = new PasswordDto();
