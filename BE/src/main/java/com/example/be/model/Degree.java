@@ -20,6 +20,11 @@ public class Degree {
     public Degree() {
     }
 
+    public Degree(int degreeId, String degreeName) {
+        this.degreeId = degreeId;
+        this.degreeName = degreeName;
+    }
+
     public Set<Teacher> getTeacherSet() {
         return teacherSet;
     }
