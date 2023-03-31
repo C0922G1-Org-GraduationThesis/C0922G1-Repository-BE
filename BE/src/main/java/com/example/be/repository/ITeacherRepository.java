@@ -15,24 +15,25 @@ public interface ITeacherRepository extends JpaRepository<Teacher, Long> {
     /**
      * Created by: TienP
      * Date: 29/03/2023
-     * Class: findTeacherByEmail
+     * function: findTeacherByEmail
      */
     @Query(value = "select * from teacher where teacher_email= :email", nativeQuery = true)
     Teacher findTeacherByEmail(@Param("email") String email);
+
     Teacher findTeacherByTeacherId(Long id);
 
     /**
      * Created by:TienP
      * Date: 29/03/2023
-     * Class: updateTeacherRoleAdmin
+     * function: updateTeacherRoleAdmin
      */
     @Modifying
     @Query(nativeQuery = true, value = " update teacher as t" +
             " set t.teacher_name= :teacherName," +
-            " t.email=:email," +
-            " t.phone_number=:phoneNumber," +
-            " t.teacher_address=:teacherAddress," +
-            " where t.teacher_id=:id")
+            " t.teacher_email=:email," +
+            " t.teacher_phone_number= :phoneNumber," +
+            " t.teacher_address= :teacherAddress," +
+            " where t.teacher_id= :id")
     void updateTeacherRoleAdmin(
             @Param("teacherName") String teacherName,
             @Param("email") String email,

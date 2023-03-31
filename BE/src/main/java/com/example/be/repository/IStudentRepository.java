@@ -5,11 +5,11 @@ import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
 
-public interface IStudentRepository extends JpaRepository<Student,Long> {
+public interface IStudentRepository extends JpaRepository<Student, Long> {
     /**
      * Created by: TienP
      * Date: 29/03/2023
-     * Class: findStudentByEmail
+     * function: findStudentByEmail
      */
     @Query(value = "select * from student where student_email= :email", nativeQuery = true)
     Student findStudentByEmail(@Param("email") String email);

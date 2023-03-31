@@ -7,7 +7,6 @@ import com.example.be.payload.request.LoginRequest;
 import com.example.be.payload.response.JwtResponse;
 import com.example.be.service.IAccountService;
 import com.example.be.service.Impl.AccountDetails;
-import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -19,7 +18,6 @@ import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.crypto.bcrypt.BCrypt;
 import org.springframework.validation.BindingResult;
 import org.springframework.validation.FieldError;
-import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
@@ -50,7 +48,6 @@ public class SecurityController {
     public ResponseEntity<?> authenticateUser(@RequestBody @Valid LoginRequest loginRequest) {
         UsernamePasswordAuthenticationToken usernamePasswordAuthenticationToken = new UsernamePasswordAuthenticationToken(loginRequest.getUsername(), loginRequest.getPassword());
         Authentication authentication = authenticationManager.authenticate(usernamePasswordAuthenticationToken);
-
         SecurityContextHolder.getContext().setAuthentication(authentication);
         String jwt = jwtUtility.generateJwtToken(loginRequest.getUsername());
         AccountDetails userDetails = (AccountDetails) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
@@ -65,31 +62,32 @@ public class SecurityController {
                         roles)
         );
     }
+
     /**
      * Created by: TienP
      * Date created: 31/03/2023
      * Function:  changePassword
      */
-     @PatchMapping("/change-password")
+    @PatchMapping("/change-password")
     public ResponseEntity<List<FieldError>> changePassword(@RequestBody @Valid PasswordDto passwordDto,
                                                            BindingResult bindingResult) {
-         new PasswordDto().validate(passwordDto, bindingResult);
-         Account account = accountService.findAccountByEmail(passwordDto.getUsername());
-         if (account == null) {
-             return new ResponseEntity<>(HttpStatus.NOT_FOUND);
-         }
-         String password = account.getPassword();
-         String oldPassWord = passwordDto.getOldPassword();
-         Boolean checkOldPassword = accountService.checkOldPassword(oldPassWord, password);
-         if (!checkOldPassword) {
-             bindingResult.rejectValue("oldPassword", "passwordError2", "Mật khẩu cũ sai");
-         }
-         if (bindingResult.hasErrors()) {
-             return new ResponseEntity<>(bindingResult.getFieldErrors(), HttpStatus.BAD_REQUEST);
-         }
-         String hashPassword = BCrypt.hashpw(passwordDto.getPasswordConfirm(), BCrypt.gensalt(12));
-         account.setPassword(hashPassword);
-         accountService.updateAccount(account);
-         return new ResponseEntity<>(HttpStatus.OK);
-     }
+        new PasswordDto().validate(passwordDto, bindingResult);
+        Account account = accountService.findAccountByEmail(passwordDto.getUsername());
+        if (account == null) {
+            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+        }
+        String password = account.getPassword();
+        String oldPassWord = passwordDto.getOldPassword();
+        Boolean checkOldPassword = accountService.checkOldPassword(oldPassWord, password);
+        if (!checkOldPassword) {
+            bindingResult.rejectValue("oldPassword", "passwordError2", "Mật khẩu cũ sai");
+        }
+        if (bindingResult.hasErrors()) {
+            return new ResponseEntity<>(bindingResult.getFieldErrors(), HttpStatus.BAD_REQUEST);
+        }
+        String hashPassword = BCrypt.hashpw(passwordDto.getPasswordConfirm(), BCrypt.gensalt(12));
+        account.setPassword(hashPassword);
+        accountService.updateAccount(account);
+        return new ResponseEntity<>(HttpStatus.OK);
+    }
 }

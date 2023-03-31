@@ -3,19 +3,20 @@ package com.example.be.dto;
 import org.springframework.validation.Errors;
 import org.springframework.validation.Validator;
 
-import javax.persistence.Column;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
 import javax.validation.constraints.*;
 
-public class UserRoleAdminDto implements Validator {
+/**
+ * Created by: TienP
+ * Date created: 31/03/2023
+ * Class: UserRoleAdminDto
+ */
 
+public class UserRoleAdminDto implements Validator {
     private Long teacherId;
     @NotBlank(message = "Không được để trống")
     @Pattern(regexp = "^([A-Za-z][a-z]*)(\\s[A-Za-z][a-z]*)*$",
             message = "Tên bắt đầu bằng chữ hoa, các từ cách nhau bởi khoảng trắng")
-    @Max(value = 50,message = "Tên không được quá 50 ký tự")
+    @Max(value = 50, message = "Tên không được quá 50 ký tự")
     private String teacherName;
     @NotBlank(message = "Không được để trống")
     @Email(message = "Không đúng định dạng email")
@@ -25,7 +26,7 @@ public class UserRoleAdminDto implements Validator {
             message = "Số điện thoại phải gồm 10 số 090xxxxxxx, 093xxxxxxx, 097xxxxxxx")
     private String teacherPhoneNumber;
     @NotBlank(message = "Không được để trống")
-    @Max(value = 75,message = "Tên không được quá 75 ký tự")
+    @Max(value = 75, message = "Tên không được quá 75 ký tự")
     private String teacherAddress;
 
     @Override

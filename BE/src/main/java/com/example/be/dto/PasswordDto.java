@@ -1,21 +1,25 @@
 package com.example.be.dto;
 
-import com.example.be.model.Account;
 import org.springframework.validation.Errors;
 import org.springframework.validation.Validator;
 
 import javax.validation.constraints.Min;
 import javax.validation.constraints.NotBlank;
 
+/**
+ * Created by: TienP
+ * Date created: 31/03/2023
+ * Class: PasswordDto
+ */
 public class PasswordDto implements Validator {
     private String username;
     @NotBlank(message = "Không được để trống")
     private String oldPassword;
     @NotBlank(message = "Không được để trống")
-    @Min(value = 8,message = "không được ít hơn 8 kí tự")
+    @Min(value = 8, message = "không được ít hơn 8 kí tự")
     private String newPassword;
     @NotBlank(message = "Không được để trống")
-    @Min(value = 8,message = "không được ít hơn 8 kí tự")
+    @Min(value = 8, message = "không được ít hơn 8 kí tự")
     private String passwordConfirm;
 
     public PasswordDto() {
@@ -61,11 +65,11 @@ public class PasswordDto implements Validator {
 
     @Override
     public void validate(Object target, Errors errors) {
-        PasswordDto passwordDto= (PasswordDto) target;
-        String newPassword=passwordDto.getNewPassword();
-        String passwordConfirm=passwordDto.getPasswordConfirm();
-        if (!newPassword.equals(passwordConfirm)){
-            errors.rejectValue("passwordConfirm","passwordError1","Nhập lại mật khẩu mới trùng khớp");
+        PasswordDto passwordDto = (PasswordDto) target;
+        String newPassword = passwordDto.getNewPassword();
+        String passwordConfirm = passwordDto.getPasswordConfirm();
+        if (!newPassword.equals(passwordConfirm)) {
+            errors.rejectValue("passwordConfirm", "passwordError1", "Nhập lại mật khẩu mới trùng khớp");
         }
     }
 }

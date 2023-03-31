@@ -12,6 +12,10 @@ import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
 
 import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.print;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
+/**
+ * Created by:TienP
+ * Date: 29/03/2023
+ */
 
 @SpringBootTest
 @AutoConfigureMockMvc
@@ -175,7 +179,7 @@ public class SecurityController_changePassword {
                 .andExpect(status().is2xxSuccessful());
     }
 
-    //[passwordConfirm]  different from [newPassword]
+    //[passwordConfirm]  khác với [newPassword]
     @Test
     public void changePassword_29() throws Exception {
         PasswordDto passwordDto = new PasswordDto();
@@ -192,7 +196,7 @@ public class SecurityController_changePassword {
                 .andExpect(status().is4xxClientError());
     }
 
-    //[oldPassword] different from [password] form database
+    //[oldPassword] khác với [password] từ database
     @Test
     public void changePassword_30() throws Exception {
         PasswordDto passwordDto = new PasswordDto();

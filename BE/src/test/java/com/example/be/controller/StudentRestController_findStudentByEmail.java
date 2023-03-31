@@ -9,6 +9,10 @@ import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
 
 import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.print;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
+/**
+ * Created by:TienP
+ * Date: 29/03/2023
+ */
 
 @SpringBootTest
 @AutoConfigureMockMvc
@@ -47,7 +51,7 @@ public class StudentRestController_findStudentByEmail {
     @Test
     public void findTeacherByEmail_4() throws Exception {
         this.mockMvc.perform(
-                        MockMvcRequestBuilders.get("/api/public/students/detail/{email}", "tien1234@gmail.com"))
+                        MockMvcRequestBuilders.get("/api/public/students/detail/{email}", "phanvana@gmail.com"))
                 .andDo(print())
                 .andExpect(status().is2xxSuccessful());
     }

@@ -13,6 +13,11 @@ import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
 import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.print;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
+/**
+ * Created by:TienP
+ * Date: 29/03/2023
+ */
+
 @SpringBootTest
 @AutoConfigureMockMvc
 public class SecurityController_authenticateUser {

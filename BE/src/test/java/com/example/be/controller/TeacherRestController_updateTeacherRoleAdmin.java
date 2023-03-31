@@ -1,6 +1,5 @@
 package com.example.be.controller;
 
-import com.example.be.dto.PasswordDto;
 import com.example.be.dto.UserRoleAdminDto;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.junit.jupiter.api.Test;
@@ -13,6 +12,10 @@ import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
 
 import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.print;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
+/**
+ * Created by:TienP
+ * Date: 29/03/2023
+ */
 
 @AutoConfigureMockMvc
 @SpringBootTest
@@ -41,7 +44,7 @@ public class TeacherRestController_updateTeacherRoleAdmin {
                 .andExpect(status().is4xxClientError());
     }
 
-    //[teacherName] = null
+    //[teacherEmail] = null
     @Test
     public void updateTeacherRoleAdmin_teacherEmail_19() throws Exception {
         UserRoleAdminDto userRoleAdminDto = new UserRoleAdminDto();
