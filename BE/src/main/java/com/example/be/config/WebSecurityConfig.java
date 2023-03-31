@@ -1,6 +1,5 @@
 package com.example.be.config;
 
-
 import com.example.be.jwt.JwtFilter;
 import com.example.be.service.Impl.AccountDetailService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -23,6 +22,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
     private AccountDetailService accountService;
     @Autowired
     private JwtFilter jwtFilter;
+
     @Override
     protected void configure(AuthenticationManagerBuilder auth) throws Exception {
         auth.userDetailsService(accountService);
@@ -46,7 +46,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
                 .authorizeRequests()
                 .antMatchers("/api/public/**")
                 .permitAll()
-                .antMatchers("/api/user/**").hasAnyRole("USER","ADMIN")
+                .antMatchers("/api/user/**").hasAnyRole("USER", "ADMIN")
                 .antMatchers("api/admin/**").hasRole("ADMIN")
                 .anyRequest()
                 .authenticated()

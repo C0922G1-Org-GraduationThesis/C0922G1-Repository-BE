@@ -15,7 +15,7 @@ import java.util.List;
 
 @RestController
 @CrossOrigin("*")
-@RequestMapping("/api/teachers")
+@RequestMapping("/api/public/teachers")
 public class TeacherRestController {
     @Autowired
     private ITeacherService teacherService;
@@ -27,8 +27,8 @@ public class TeacherRestController {
      * @Return: new ResponseEntity<>(HttpStatus.BAD_REQUEST) if result is error,
      * else new ResponseEntity<>(student, HttpStatus.OK)
      */
-    @RequestMapping(value = "detail/{email}", method = RequestMethod.GET)
-    public ResponseEntity<Teacher> findStudentById(@PathVariable String email) {
+    @RequestMapping(value = "/detail/{email}", method = RequestMethod.GET)
+    public ResponseEntity<Teacher> findTeacherByEmail(@PathVariable String email) {
         Teacher teacher = teacherService.findTeacherByEmail(email);
         if (teacher == null) {
             return new ResponseEntity<>(HttpStatus.NOT_FOUND);

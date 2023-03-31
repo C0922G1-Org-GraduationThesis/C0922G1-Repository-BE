@@ -11,6 +11,6 @@ public interface IStudentRepository extends JpaRepository<Student,Long> {
      * Date: 29/03/2023
      * Class: findStudentByEmail
      */
-    @Query(value = "select s.* from  student as s where s.email= :email", nativeQuery = true)
+    @Query(value = "select * from student where student_email= :email", nativeQuery = true)
     Student findStudentByEmail(@Param("email") String email);
 }

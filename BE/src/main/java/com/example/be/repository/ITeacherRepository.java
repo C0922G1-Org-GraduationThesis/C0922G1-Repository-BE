@@ -17,7 +17,7 @@ public interface ITeacherRepository extends JpaRepository<Teacher, Long> {
      * Date: 29/03/2023
      * Class: findTeacherByEmail
      */
-    @Query(value = "select t.* from  teacher as t where t.email= :email", nativeQuery = true)
+    @Query(value = "select * from teacher where teacher_email= :email", nativeQuery = true)
     Teacher findTeacherByEmail(@Param("email") String email);
     Teacher findTeacherByTeacherId(Long id);
 

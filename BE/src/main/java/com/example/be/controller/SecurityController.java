@@ -38,7 +38,6 @@ public class SecurityController {
     @Autowired
     private IAccountService accountService;
 
-
     /**
      * Created by: TienP
      * Date created: 29/03/2023

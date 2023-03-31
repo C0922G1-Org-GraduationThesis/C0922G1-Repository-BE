@@ -12,10 +12,10 @@ public class PasswordDto implements Validator {
     @NotBlank(message = "Không được để trống")
     private String oldPassword;
     @NotBlank(message = "Không được để trống")
-    @Min(8)
+    @Min(value = 8,message = "không được ít hơn 8 kí tự")
     private String newPassword;
     @NotBlank(message = "Không được để trống")
-    @Min(8)
+    @Min(value = 8,message = "không được ít hơn 8 kí tự")
     private String passwordConfirm;
 
     public PasswordDto() {

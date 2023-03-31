@@ -14,7 +14,7 @@ import org.springframework.stereotype.Service;
 @Service
 public class AccountService implements IAccountService {
     @Autowired
-    IAccountRepository accountRepository;
+    private IAccountRepository accountRepository;
 
     @Override
     public Account findAccountByEmail(String username) {
