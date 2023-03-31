@@ -21,7 +21,7 @@ public class ProjectRestController_getProjectById {
     /**
      * Created by: hoangNNH
      * Date created: 30/03/2023
-     * This function use to test get project by id with parameter id = ""
+     * This function use to test get project by id with parameter id is null
      */
     @Test
     public void getProjectById_id_1() throws Exception {
@@ -36,7 +36,7 @@ public class ProjectRestController_getProjectById {
     /**
      * Created by: hoangNNH
      * Date created: 30/03/2023
-     * This function use to test get project by id with parameter id = ""
+     * This function use to test get project by id with parameter id is blank
      */
     @Test
     public void getProjectById_id_2() throws Exception {
@@ -55,10 +55,10 @@ public class ProjectRestController_getProjectById {
      */
     @Test
     public void getProjectById_id_3() throws Exception {
-
+        int notExistId = 999;
         this.mockMvc.perform(
                         MockMvcRequestBuilders.get(
-                                "/api/projects/detail/{id}", 10))
+                                "/api/projects/detail/{id}", notExistId))
                 .andDo(print())
                 .andExpect(status().is4xxClientError());
     }
