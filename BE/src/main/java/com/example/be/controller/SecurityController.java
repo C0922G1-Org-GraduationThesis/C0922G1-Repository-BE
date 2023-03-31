@@ -65,6 +65,11 @@ public class SecurityController {
                         roles)
         );
     }
+    /**
+     * Created by: TienP
+     * Date created: 31/03/2023
+     * Function:  changePassword
+     */
      @PatchMapping("/change-password")
     public ResponseEntity<List<FieldError>> changePassword(@RequestBody @Valid PasswordDto passwordDto,
                                                            BindingResult bindingResult) {

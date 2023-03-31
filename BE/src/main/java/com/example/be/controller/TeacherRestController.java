@@ -11,6 +11,7 @@ import org.springframework.validation.BindingResult;
 import org.springframework.validation.FieldError;
 import org.springframework.web.bind.annotation.*;
 
+import javax.validation.Valid;
 import java.util.List;
 
 @RestController
@@ -44,7 +45,7 @@ public class TeacherRestController {
      * else new ResponseEntity<>(student, HttpStatus.OK)
      */
     @RequestMapping(value = "/update-user-role-admin", method = RequestMethod.PATCH)
-    public ResponseEntity<List<FieldError>> updateTeacherRoleAdmin(@RequestBody UserRoleAdminDto userRoleAdminDto,
+    public ResponseEntity<List<FieldError>> updateTeacherRoleAdmin(@RequestBody @Valid UserRoleAdminDto userRoleAdminDto,
                                                                    BindingResult bindingResult) {
         Teacher teacherUpdate = teacherService.findTeacherById(userRoleAdminDto.getTeacherId());
         if (teacherUpdate == null) {
