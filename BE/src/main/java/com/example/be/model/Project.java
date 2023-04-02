@@ -24,10 +24,11 @@ public class Project {
     @JsonIgnore
     @OneToMany(mappedBy = "project")
     private Set<ProgressReport> progressReportSet;
+
     @OneToOne
-    @JsonIgnore
     @JoinColumn(name = "team_id", referencedColumnName = "team_id")
     private Team team;
+
     @JsonIgnore
     @OneToMany(mappedBy = "project")
     private Set<ProgressReview> progressReviews;

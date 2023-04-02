@@ -29,19 +29,24 @@ public class Teacher {
     private String teacherImg;
     @Column(columnDefinition = "bit(1)")
     private boolean flagDelete;
+
     @ManyToOne
     @JoinColumn(name = "faculty_id", referencedColumnName = "faculty_id")
     private Faculty faculty;
+
     @ManyToOne
     @JoinColumn(name = "degree_id", referencedColumnName = "degree_id")
     private Degree degree;
+
     @OneToOne
     @JoinColumn(name = "account_id", referencedColumnName = "account_id")
     @JsonIgnore
     private Account account;
+
     @OneToMany(mappedBy = "teacher")
     @JsonIgnore
     private Set<Team> team;
+
     @OneToMany(mappedBy = "teacher")
     @JsonIgnore
     private Set<NotificationTeacher> notificationTeacherSet;
@@ -49,8 +54,10 @@ public class Teacher {
     @OneToMany(mappedBy = "teacher")
     @JsonIgnore
     private Set<ProgressReview> progressReviews;
+
     @OneToOne(mappedBy = "teacher")
     private Clazz clazz;
+
     @OneToMany(mappedBy = "teacher")
     @JsonIgnore
     private Set<Document> documentSet;
