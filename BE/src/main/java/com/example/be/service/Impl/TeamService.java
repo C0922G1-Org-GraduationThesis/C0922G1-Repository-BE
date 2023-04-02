@@ -1,6 +1,8 @@
 package com.example.be.service.Impl;
 
+import com.example.be.dto.ITeamDto;
 import com.example.be.dto.TeacherDto;
+import com.example.be.model.Teacher;
 import com.example.be.model.Team;
 import com.example.be.repository.ITeamRepository;
 import com.example.be.service.ITeamService;
@@ -34,9 +36,10 @@ public class TeamService implements ITeamService {
      * @return the team you looking for
      */
     @Override
-    public Team findTeamById(Long teamId) {
+    public ITeamDto findTeamById(Long teamId) {
         return teamRepository.findTeamById(teamId);
     }
+
 
     /**
      * Created by: DucND

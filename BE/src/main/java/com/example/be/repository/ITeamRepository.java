@@ -1,6 +1,8 @@
 package com.example.be.repository;
 
+import com.example.be.dto.ITeamDto;
 import com.example.be.dto.TeacherDto;
+import com.example.be.model.Teacher;
 import com.example.be.model.Team;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -22,18 +24,24 @@ public interface ITeamRepository extends JpaRepository<Team, Long> {
      * @return get all list teacher
      * @param: pageable
      */
-    @Query(value = "select tc.teacher_name as teacher, count(t.teacher_id) as total\n" +
+    @Query(value = "select tc.teacher_id as teacherId, tc.teacher_name as teacherName, count(t.teacher_id) as total\n" +
             "            from teacher as tc\n" +
             "            left join team as t on t.teacher_id = tc.teacher_id\n" +
             "            left join project as p on p.team_id = t.team_id\n" +
             "          group by tc.teacher_id",
-            countQuery = "select tc.teacher_name as teacher, count(t.teacher_id) as total\n" +
+            countQuery = "select tc.teacher_id as teacherId, tc.teacher_name as teacher, count(t.teacher_id) as total\n" +
                     "            from teacher as tc\n" +
                     "            left join team as t on t.teacher_id = tc.teacher_id\n" +
                     "            left join project as p on p.team_id = t.team_id\n" +
                     "          group by tc.teacher_id",
             nativeQuery = true)
     Page<TeacherDto> getAllInstructor(Pageable pageable);
+
+
+//    @Query(value = " select team.team_id, team.team_name. team.student_id " +
+//            "from student join team on student.team_id = team.team_id " +
+//            "where student.account_id = :accountId and student.flag_leader = true",nativeQuery = true)
+//    Team findTeamByAccount(@Param("accountId") Long accountId);
 
     /**
      * Created by: DucND
@@ -43,8 +51,12 @@ public interface ITeamRepository extends JpaRepository<Team, Long> {
      * @return the team you are looking for
      * @param: teamId
      */
-    @Query(value = "select * from team where team_id = :teamId ", nativeQuery = true)
-    Team findTeamById(@Param("teamId") Long teamId);
+    @Query(value = "select t.team_id as teamId, t.member_of_team as memberOfTeam, " +
+            "t.team_name as teamName, tc.teacher_id as teacherId, tc.teacher_name as teacherName " +
+            "from team as t left join teacher as tc on t.teacher_id = tc.teacher_id " +
+            "where team_id = :teamId ", nativeQuery = true)
+    ITeamDto findTeamById(@Param("teamId") Long teamId);
+
 
     /**
      * Created by: DucND

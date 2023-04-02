@@ -1,6 +1,8 @@
 package com.example.be.service;
 
+import com.example.be.dto.ITeamDto;
 import com.example.be.dto.TeacherDto;
+import com.example.be.model.Teacher;
 import com.example.be.model.Team;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -18,7 +20,7 @@ public interface ITeamService {
      * Date create: 29/03/2023
      * Function: find team by id
      */
-    Team findTeamById(Long teamId);
+    ITeamDto findTeamById(Long teamId);
 
     /**
      * Created by: DucND
