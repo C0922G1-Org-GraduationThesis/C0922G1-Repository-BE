@@ -8,33 +8,15 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
-import java.util.List;
-import java.util.Optional;
+
 
 @Service
 public class ProjectService implements IProjectService {
-    @Autowired
-    private IProjectRepository projectRepository;
+@Autowired
+private IProjectRepository projectRepository;
 
-    @Override
-    public List<Project> findAll() {
-        return projectRepository.findAll();
-    }
 
-    @Override
-    public Project findById(Long projectId) {
-        return projectRepository.findById(projectId).orElse(null);
-    }
 
-    @Override
-    public Project findProjectEnable(Long projectId) {
-        return null;
-    }
-
-    @Override
-    public List<Project> findProjectListEnable() {
-        return null;
-    }
     /**
      * Created by: hoangNNH
      * Date created: 29/03/2023
@@ -60,4 +42,5 @@ public class ProjectService implements IProjectService {
     public Project getProjectById(Long projectId) {
         return this.projectRepository.getProjectById(projectId);
     }
+
 }
