@@ -32,6 +32,6 @@ public interface ITeamService {
      *
      * @Param: team
      */
-    Team saveTeam(Team team);
+    boolean saveTeam(Team team);
 }
 

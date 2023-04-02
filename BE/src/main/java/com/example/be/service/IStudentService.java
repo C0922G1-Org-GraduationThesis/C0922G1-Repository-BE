@@ -4,6 +4,8 @@ import com.example.be.model.Student;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 
+import java.util.Optional;
+
 public interface IStudentService {
     /**
      * Create by: HauNN
@@ -22,4 +24,13 @@ public interface IStudentService {
      * @Param: teamId, pageable
      */
     Page<Student> findAllByTeamId(Long teamId, Pageable pageable);
+
+    /**
+     * Create by: HauNN
+     * Date create: 29/03/2023
+     * Function: find student by id
+     *
+     * @Param: id
+     */
+    Student findById(Long id);
 }

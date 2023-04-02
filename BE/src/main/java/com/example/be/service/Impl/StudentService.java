@@ -9,6 +9,8 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
+import java.util.Optional;
+
 @Service
 public class StudentService implements IStudentService {
     @Autowired
@@ -38,5 +40,18 @@ public class StudentService implements IStudentService {
     @Override
     public Page<Student> findAllByTeamId(Long teamId, Pageable pageable) {
         return this.studentRepository.findAllByTeamId(teamId, pageable);
+    }
+
+    /**
+     * Create by: HauNN
+     * Date create: 29/03/2023
+     * Function: find student by id
+     *
+     * @return student if result is not null else return null
+     * @Param: id
+     */
+    @Override
+    public Student findById(Long id) {
+        return this.studentRepository.findById(id).orElse(null);
     }
 }

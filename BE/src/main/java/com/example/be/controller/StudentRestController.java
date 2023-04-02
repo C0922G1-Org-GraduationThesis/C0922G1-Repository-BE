@@ -1,4 +1,5 @@
 package com.example.be.controller;
+
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -51,11 +52,11 @@ public class StudentRestController {
      * @return HttpStatus.OK if result is not error, return HttpStatus.NO_CONTENT if result is empty
      * @Param: teamId, size, page
      */
-    @GetMapping("/team/{teamId}")
+    @GetMapping("/team/{teamId}/{page}/{size}")
     public ResponseEntity<Page<Student>> findAllByTeamId
     (@PathVariable Long teamId,
-     @RequestParam int size,
-     @RequestParam int page) {
+     @PathVariable int page,
+     @PathVariable int size) {
         Pageable pageable = PageRequest.of(page, size);
         Page<Student> students = this.studentService.findAllByTeamId(teamId, pageable);
 
@@ -63,5 +64,23 @@ public class StudentRestController {
             return new ResponseEntity<>(HttpStatus.NOT_FOUND);
         }
         return new ResponseEntity<>(students, HttpStatus.OK);
+    }
+
+    /**
+     * Create by: HauNN
+     * Date create: 29/03/2023
+     * Function: find student by id
+     *
+     * @return HttpStatus.OK if result is not error, return HttpStatus.NO_CONTENT if result is null
+     * @Param: teamId, size, page
+     */
+    @GetMapping("/detail/{id}")
+    public ResponseEntity<Student> findById(@PathVariable Long id) {
+        Student student = this.studentService.findById(id);
+
+        if (student == null) {
+            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+        }
+        return new ResponseEntity<>(student, HttpStatus.OK);
     }
 }

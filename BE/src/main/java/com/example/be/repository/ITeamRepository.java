@@ -5,6 +5,7 @@ import com.example.be.model.Team;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
 import org.springframework.transaction.annotation.Transactional;
@@ -55,15 +56,12 @@ public interface ITeamRepository extends JpaRepository<Team, Long> {
      *
      * @Param: teamName, projectId, teacherId
      */
-    @Transactional
-    @Query(value = "" +
-            "INSERT INTO team " +
-            "(team_name, member_of_team, teacher_id) " +
-            "VALUES (:teamName,:memberOfTeam ,:teacherId);",
+    @Modifying
+    @Query(value = "INSERT INTO `sprint1`.`team` (`member_of_team`, `team_name`) VALUES (:memberOfTeam,:teamName)",
             nativeQuery = true)
-    Team saveTeam(@Param("teamName") String teamName,
-                  @Param("memberOfTeam") Integer memberOfTeam,
-                  @Param("teacherId") Long teacherId);
+    void saveTeam(@Param("teamName") String teamName,
+                  @Param("memberOfTeam") Integer memberOfTeam);
+
 
     /**
      * Create by: HauNN

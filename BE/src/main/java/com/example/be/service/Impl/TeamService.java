@@ -51,22 +51,24 @@ public class TeamService implements ITeamService {
      */
     @Transactional
     @Override
-    public Team saveTeam(Team team) {
+    public boolean saveTeam(Team team) {
         Team teamOptional = this.teamRepository.findByName(team.getTeamName()).orElse(null);
 
         if (teamOptional != null) {
-            return null;
+            return false;
         }
 
         if (team.getTeacher() != null) {
-            return null;
+            return false;
         }
 
         if (team.getProject() != null) {
-            return null;
+            return false;
         }
 
-        return this.teamRepository.saveTeam(team.getTeamName(), team.getMemberOfTeam(), team.getTeacher().getTeacherId());
+        this.teamRepository.saveTeam(team.getTeamName(), team.getMemberOfTeam());
+        return true;
+
     }
 }
 

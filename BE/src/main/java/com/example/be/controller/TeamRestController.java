@@ -38,20 +38,23 @@ public class TeamRestController {
      * @return HttpStatus.OK if result is not error else return HttpStatus.EXPECTATION_FAILED
      * @Param: teamDTO, bindingResult
      */
-    @PostMapping("/save")
-    public ResponseEntity<List<FieldError>> saveTeam(@Validated @RequestBody TeamDTO teamDTO, BindingResult bindingResult) {
-        if (bindingResult.hasErrors()) {
-            return new ResponseEntity<>(bindingResult.getFieldErrors(), HttpStatus.NOT_ACCEPTABLE);
-        }
+    @PostMapping(value = "/save/{nameTeam}/{memberOfTeam}")
+    public ResponseEntity<?> saveTeam(@PathVariable String nameTeam, @PathVariable Integer memberOfTeam) {
 
         Team team = new Team();
-        BeanUtils.copyProperties(teamDTO, team);
+        team.setTeamName(nameTeam);
+        team.setTeacher(null);
+        team.setTeamId(null);
+        team.setProject(null);
+        team.setMemberOfTeam(memberOfTeam);
 
-        if (this.teamService.saveTeam(team) != null) {
+        boolean savedTeam = this.teamService.saveTeam(team);
+        if (savedTeam) {
             return new ResponseEntity<>(HttpStatus.OK);
         }
         return new ResponseEntity<>(HttpStatus.NOT_ACCEPTABLE);
     }
+
 
     /**
      * Create by: HauNN

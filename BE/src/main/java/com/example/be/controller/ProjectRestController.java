@@ -67,9 +67,9 @@ public class ProjectRestController {
 
         Project project = new Project();
         BeanUtils.copyProperties(projectDTO, project);
-        Team team = new Team();
-        team.setTeamId(projectDTO.getTeamDTO().getTeamId());
-        project.setTeam(team);
+//        Team team = new Team();
+////        team.setTeamId(projectDTO.getTeamDTO().getTeamId());
+////        project.setTeam(team);
 
         if (this.projectService.save(project) != null) {
             return new ResponseEntity<>(HttpStatus.OK);
