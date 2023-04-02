@@ -11,11 +11,17 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Optional;
 
 @Service
 public class TeacherService implements ITeacherService {
     @Autowired
     private ITeacherRepository iTeacherRepository;
+
+    @Override
+    public Optional<Teacher> findByID(Long id) {
+        return iTeacherRepository.findById(id);
+    }
 
     @Override
     public ITeacherDTO getTeacher(Long idTeacher) {
@@ -25,6 +31,11 @@ public class TeacherService implements ITeacherService {
     @Override
     public ITeacherDTO maxIdTeacher() {
         return iTeacherRepository.maxIdTeacher();
+    }
+
+    @Override
+    public List<Teacher> findAll() {
+        return iTeacherRepository.findAll();
     }
 
     @Override

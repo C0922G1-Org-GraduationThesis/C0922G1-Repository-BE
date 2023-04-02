@@ -1,9 +1,6 @@
 package com.example.be.controller;
 
-import com.example.be.dto.teacher.IDegreeDTO;
-import com.example.be.dto.teacher.IFacultyDTO;
-import com.example.be.dto.teacher.ITeacherDTO;
-import com.example.be.dto.teacher.TeacherDTO;
+import com.example.be.dto.teacher.*;
 import com.example.be.model.Degree;
 import com.example.be.model.Faculty;
 import com.example.be.model.Teacher;
@@ -19,6 +16,7 @@ import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import java.util.Optional;
 
 @RestController
 @CrossOrigin("*")
@@ -110,17 +108,20 @@ public class TeacherRestController {
      * @return HttpStatus.OK when the data is saved to the database, HttpStatus.BAD_REQUEST when an error occurs
      */
     @PostMapping("createTeacher")
-    public ResponseEntity createTeacher(@Validated @RequestBody TeacherDTO teacherDTO, BindingResult bindingResult) {
-        teacherDTO.checkValidateCreateTeacher(iTeacherService.getAllPhoneNumberAndEmail(), teacherDTO,bindingResult);
-        if(bindingResult.hasErrors()){
-            return new ResponseEntity(HttpStatus.BAD_REQUEST);
+    public ResponseEntity<?> createTeacher(@Validated @RequestBody TeacherDTO teacherDTO, BindingResult bindingResult) {
+
+        teacherDTO.checkValidateCreateTeacher(iTeacherService.findAll(), teacherDTO, bindingResult);
+        System.out.println(iTeacherService.getAllPhoneNumberAndEmail());
+        if (bindingResult.hasErrors()) {
+            return new ResponseEntity<>(bindingResult.getAllErrors(), HttpStatus.BAD_REQUEST);
         }
+
         Teacher teacher = new Teacher();
         String teacherCode = "GV-" + (iTeacherService.maxIdTeacher().getTeacherId() + 1);
         teacherDTO.setTeacherCode(teacherCode);
-        BeanUtils.copyProperties(teacherDTO,teacher);
+        BeanUtils.copyProperties(teacherDTO, teacher);
         iTeacherService.addTeacher(teacher);
-        return new ResponseEntity(HttpStatus.OK);
+        return new ResponseEntity<>(HttpStatus.OK);
     }
 
     /**
@@ -132,15 +133,24 @@ public class TeacherRestController {
      * @return HttpStatus.OK when the data is saved to the database, HttpStatus.BAD_REQUEST when an error occurs
      */
     @PatchMapping("updateTeacher/{id}")
-    public ResponseEntity updateTeacher(@PathVariable("id") Long id ,@Validated @RequestBody TeacherDTO teacherDTO,BindingResult bindingResult) {
-        teacherDTO.checkValidateUpdateTeacher(iTeacherService.getAllPhoneNumberAndEmail(), teacherDTO,bindingResult);
-        if(bindingResult.hasErrors()){
-            return new ResponseEntity(HttpStatus.BAD_REQUEST);
+    public ResponseEntity updateTeacher(@PathVariable("id") Long id, @Validated @RequestBody TeacherDTO teacherDTO, BindingResult bindingResult) {
+        teacherDTO.checkValidateUpdateTeacher(iTeacherService.findAll(), teacherDTO, bindingResult);
+        if (bindingResult.hasErrors()) {
+            return new ResponseEntity(bindingResult.getAllErrors(), HttpStatus.BAD_REQUEST);
         }
         teacherDTO.setTeacherId(id);
         Teacher teacher = new Teacher();
-        BeanUtils.copyProperties(teacherDTO,teacher);
+        BeanUtils.copyProperties(teacherDTO, teacher);
         iTeacherService.updateTeacher(teacher);
         return new ResponseEntity(HttpStatus.OK);
     }
+
+    @GetMapping("getAllPhoneNumberAndEmail")
+    public ResponseEntity<?> listEmailAndPhoneNumber() {
+        System.out.println(iTeacherService.getAllPhoneNumberAndEmail());
+        List<Teacher> iEmailAndPhoneNumberDTOS = iTeacherService.findAll();
+
+        return new ResponseEntity<>(iEmailAndPhoneNumberDTOS, HttpStatus.OK);
+    }
+
 }
