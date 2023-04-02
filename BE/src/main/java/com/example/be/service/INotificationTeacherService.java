@@ -13,4 +13,14 @@ public interface INotificationTeacherService {
      */
     List<NotificationTeacher> getAllNotificationTeacher();
 
+
+    /**
+     * Create by: TuanNDN
+     * Date created: 29/03/2023
+     * Function: show List NotificationTeacher
+     *
+     * @param 'notificationTeacherName'
+     * @param 'notificationTeacherContent'
+     */
+    void addNotificationTeacher(String notificationTeacherTopic, String notificationTeacherContent);
 }

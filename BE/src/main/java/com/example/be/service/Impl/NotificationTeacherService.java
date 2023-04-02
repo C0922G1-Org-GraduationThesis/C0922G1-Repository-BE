@@ -26,4 +26,17 @@ public class NotificationTeacherService implements INotificationTeacherService {
         return this.notificationTeacherRepository.getAllNotificationTeacher();
     }
 
+    /**
+     * Create by: TuanNDN
+     * Date created: 29/03/2023
+     * Function: show List NotificationTeacher
+     *
+     * @param 'notificationTeacherName'
+     * @param 'notificationTeacherContent'
+     */
+    @Override
+    public void addNotificationTeacher(String notificationTeacherTopic, String notificationTeacherContent) {
+            notificationTeacherRepository.addNotificationTeacher(notificationTeacherTopic, notificationTeacherContent);
+    }
+
 }
