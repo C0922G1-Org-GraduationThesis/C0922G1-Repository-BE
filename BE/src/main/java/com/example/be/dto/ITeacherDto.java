@@ -20,8 +20,4 @@ public interface ITeacherDto {
     String getTeacherGender();
     String getFaculty();
     String getDegree();
-    int getDegreeId();
-    String getDegreeName();
-    int getFacultyId();
-    String getFacultyName();
 }
