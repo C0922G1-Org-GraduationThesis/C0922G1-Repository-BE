@@ -33,7 +33,6 @@ public class Teacher {
     @ManyToOne
     @JoinColumn(name = "faculty_id", referencedColumnName = "faculty_id")
     private Faculty faculty;
-
     @ManyToOne
     @JoinColumn(name = "degree_id", referencedColumnName = "degree_id")
     private Degree degree;
@@ -43,9 +42,11 @@ public class Teacher {
     @JsonIgnore
     private Account account;
 
+
     @OneToMany(mappedBy = "teacher")
     @JsonIgnore
     private Set<Team> team;
+
 
     @OneToMany(mappedBy = "teacher")
     @JsonIgnore
@@ -69,6 +70,35 @@ public class Teacher {
 
     public Teacher() {
     }
+
+
+    public Teacher(String teacherCode, String teacherName, String teacherDateOfBirth, String teacherEmail, String teacherPhoneNumber, boolean teacherGender, String teacherAddress, String teacherImg, Faculty faculty, Degree degree) {
+        this.teacherCode = teacherCode;
+        this.teacherName = teacherName;
+        this.teacherDateOfBirth = teacherDateOfBirth;
+        this.teacherEmail = teacherEmail;
+        this.teacherPhoneNumber = teacherPhoneNumber;
+        this.teacherGender = teacherGender;
+        this.teacherAddress = teacherAddress;
+        this.teacherImg = teacherImg;
+        this.faculty = faculty;
+        this.degree = degree;
+    }
+
+    public Teacher(Long teacherId, String teacherCode, String teacherName, String teacherDateOfBirth, String teacherEmail, String teacherPhoneNumber, boolean teacherGender, String teacherAddress, String teacherImg, Faculty faculty, Degree degree) {
+        this.teacherId = teacherId;
+        this.teacherCode = teacherCode;
+        this.teacherName = teacherName;
+        this.teacherDateOfBirth = teacherDateOfBirth;
+        this.teacherEmail = teacherEmail;
+        this.teacherPhoneNumber = teacherPhoneNumber;
+        this.teacherGender = teacherGender;
+        this.teacherAddress = teacherAddress;
+        this.teacherImg = teacherImg;
+        this.faculty = faculty;
+        this.degree = degree;
+    }
+
 
     public Set<Answers> getAnswersSet() {
         return answersSet;

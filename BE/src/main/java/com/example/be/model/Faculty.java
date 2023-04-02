@@ -23,6 +23,13 @@ public class Faculty {
     public Faculty() {
     }
 
+
+    public Faculty(int facultyId, String facultyName) {
+        this.facultyId = facultyId;
+        this.facultyName = facultyName;
+    }
+
+
     public Set<Clazz> getClazzSet() {
         return clazzSet;
     }

@@ -14,14 +14,11 @@ public class Team {
 
     @Column(columnDefinition = "varchar(50)", nullable = false, unique = true)
     private String teamName;
-
     @Column( nullable = false)
     private int memberOfTeam;
-
     @ManyToOne
     @JoinColumn(name = "teacher_id", referencedColumnName = "teacher_id")
     private Teacher teacher;
-
     @OneToOne(mappedBy = "team")
     @JsonIgnore
     private Project project;

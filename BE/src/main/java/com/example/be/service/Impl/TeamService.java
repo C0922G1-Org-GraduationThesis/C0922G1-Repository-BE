@@ -1,5 +1,6 @@
 package com.example.be.service.Impl;
 
+
 import com.example.be.dto.ITeamDto;
 import com.example.be.dto.TeacherDto;
 import com.example.be.model.Teacher;
@@ -9,10 +10,12 @@ import com.example.be.service.ITeamService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
+
 import org.springframework.stereotype.Service;
 
 @Service
 public class TeamService implements ITeamService {
+
     @Autowired
     private ITeamRepository teamRepository;
 
@@ -51,4 +54,5 @@ public class TeamService implements ITeamService {
     public void updateTeam(Long teacherId, Long teamId) {
         teamRepository.updateTeam(teacherId,teamId);
     }
+
 }

@@ -26,6 +26,7 @@ public class Project {
     private Set<ProgressReport> progressReportSet;
 
     @OneToOne
+    @JsonIgnore
     @JoinColumn(name = "team_id", referencedColumnName = "team_id")
     private Team team;
 

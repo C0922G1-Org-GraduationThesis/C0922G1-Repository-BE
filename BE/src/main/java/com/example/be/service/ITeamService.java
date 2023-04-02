@@ -1,9 +1,8 @@
 package com.example.be.service;
 
+
 import com.example.be.dto.ITeamDto;
 import com.example.be.dto.TeacherDto;
-import com.example.be.model.Teacher;
-import com.example.be.model.Team;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 
@@ -28,4 +27,5 @@ public interface ITeamService {
      * Function: edit team with teacher
      */
     void updateTeam(Long teacherId, Long teamId);
+
 }

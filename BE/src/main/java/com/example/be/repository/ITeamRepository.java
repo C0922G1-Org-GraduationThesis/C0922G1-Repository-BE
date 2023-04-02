@@ -1,5 +1,6 @@
 package com.example.be.repository;
 
+
 import com.example.be.dto.ITeamDto;
 import com.example.be.dto.TeacherDto;
 import com.example.be.model.Teacher;
@@ -69,4 +70,5 @@ public interface ITeamRepository extends JpaRepository<Team, Long> {
     @Modifying
     @Query(value = "update team set teacher_id = :teacherId where team_id = :teamId", nativeQuery = true)
     void updateTeam(@Param("teacherId") Long teacherId, @Param("teamId") Long teamId);
+
 }

@@ -1,6 +1,8 @@
 package com.example.be.model;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import org.springframework.beans.factory.annotation.Value;
+
 
 import javax.persistence.*;
 import java.util.Set;
@@ -28,8 +30,10 @@ public class Student {
     @Column(columnDefinition = "text", nullable = false)
     private String studentImg;
     @Column(columnDefinition = "bit(1)")
-    private boolean flagDelete;
+
+    private boolean flagDelete = false;
     @Column(columnDefinition = "bit(1)")
+    @Value("false")
     private boolean flagLeader;
     @OneToOne
     @JoinColumn(name = "account_id", referencedColumnName = "account_id")
