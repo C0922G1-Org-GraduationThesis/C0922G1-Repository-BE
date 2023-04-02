@@ -32,4 +32,6 @@ public interface IProjectRepository extends JpaRepository<Project, Long> {
      */
     @Query(value = "select * from project where project_id = :projectId", nativeQuery = true)
     Project getProjectById(@Param("projectId") Long projectId);
+
+
 }

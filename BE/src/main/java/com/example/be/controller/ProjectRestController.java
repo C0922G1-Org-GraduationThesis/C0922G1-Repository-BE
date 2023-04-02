@@ -9,8 +9,6 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.Optional;
-
 @RestController
 @CrossOrigin("*")
 @RequestMapping("/api/projects")
@@ -23,7 +21,7 @@ public class ProjectRestController {
      * Function: get project list
      *
      * @param page, name
-     * @return HttpStatus.NO_CONTENT if result is error or HttpStatus.OK if result is not error
+     * @return HttpStatus.NO_CONTENT if result is error or HttpStatusOK if result is not error
      */
     @GetMapping("")
     public ResponseEntity<Page<Project>> pagingAndGetAllProject(
@@ -41,8 +39,7 @@ public class ProjectRestController {
      * Date created: 29/03/2023
      * Function: get project by id
      *
-     * @param id
-     * @return HttpStatus.NO_CONTENT if result is error or HttpStatus.OK if result is not error
+     * @return HttpStatus.NO_CONTENT if result is error or HttpStatusOK if result is not error
      */
     @GetMapping("detail/{id}")
     public ResponseEntity<Project> getProjectById(@PathVariable Long id) {
