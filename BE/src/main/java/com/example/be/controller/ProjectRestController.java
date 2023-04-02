@@ -29,7 +29,7 @@ public class ProjectRestController {
     public ResponseEntity<Page<Project>> pagingAndGetAllProject(
             @RequestParam(defaultValue = "0", required = false) int page,
             @RequestParam(defaultValue = "", required = false) String name) {
-        Pageable pageable = PageRequest.of(page, 2);
+        Pageable pageable = PageRequest.of(page, 3);
         Page<Project> projectPage = this.projectService.getAllProject(pageable, name);
         if (!projectPage.hasContent()) {
             return new ResponseEntity<>(HttpStatus.NO_CONTENT);
