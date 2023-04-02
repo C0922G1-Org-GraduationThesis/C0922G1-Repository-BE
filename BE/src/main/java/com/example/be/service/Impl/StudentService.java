@@ -24,4 +24,24 @@ public class StudentService implements IStudentService {
                            String studentAddress, String studentImg, Long clazzId) {
         studentRepository.addStudent(studentName,studentCode,studentDateOfBirth,studentEmail,studentPhoneNumber,studentGender,studentAddress,studentImg,clazzId);
     }
+
+    @Override
+    public Student findById(long studentId) {
+        return studentRepository.findById(studentId);
+    }
+
+    @Override
+    public void updateStudent(long studentId, Student student) {
+        studentRepository.updateStudent(student.getStudentName(),student.getStudentCode(),
+                student.getStudentDateOfBirth(),student.getStudentEmail(),
+                student.getStudentPhoneNumber(),student.isStudentGender(),student.getStudentAddress(),
+                student.getStudentImg(),student.getClazz().getClazzId(),studentId);
+    }
+
+    @Override
+    public Long maxIdStudent() {
+        return studentRepository.getStudentId();
+    }
+
+
 }

@@ -16,4 +16,10 @@ public interface IStudentService {
                     String studentAddress,
                     String studentImg,
                     Long clazzId);
+
+    Student findById(long studentId);
+
+    void updateStudent(long studentId,Student student);
+    Long maxIdStudent();
+
 }
