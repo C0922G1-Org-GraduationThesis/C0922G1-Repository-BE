@@ -44,22 +44,35 @@ public interface IProgressReportRepository extends JpaRepository<ProgressReport,
     @Query(value = "SELECT pr.* FROM progress_report as pr WHERE progress_report_id = :progress_report_id", nativeQuery = true)
     ProgressReport findProgressReportById(@Param("progress_report_id") Long progress_report_id);
 
-
-//     Function : Find ProgressReport By StageId And ProjectId
-
-//    @Query(value = "SELECT pr.* FROM progress_report as pr WHERE project_id =:project_id and stage_id =:stage_id", nativeQuery = true)
-//    ProgressReport findProgressReportByStageIdAndProjectId(@Param("project_id") Long project_id, @Param("stage_id") int stage_id);
+    /**
+     * Created by: SyVT,
+     * Date created : 29/03/2023
+     * Function : Find ProgressReport By StageId And ProjectId
+     */
+    @Query(value = "SELECT pr.* FROM progress_report as pr WHERE project_id =:project_id and stage_id =:stage_id", nativeQuery = true)
+    List<ProgressReport> findProgressReportByStageIdAndProjectId(@Param("project_id") Long project_id, @Param("stage_id") int stage_id);
 
     /**
      * Created by: SyVT,
      * Date created : 29/03/2023
-     * Function : Find Student ProgressReport By ProjectId
+     * Function : Find ProgressReport MaxPercent By StageId And ProjectId
      */
-    @Query(value = "SELECT DISTINCT pr.progress_report_content as progressReportContent ,pr.progress_report_file as progressReportFile,pr.progress_report_time as progressReportTime,s.student_name as studentName,s.student_img as studentImg " +
+    @Query(value = "SELECT pr.* FROM progress_report as pr " +
+            "WHERE project_id =:project_id and stage_id =:stage_id ORDER BY progress_report_time DESC\n" +
+            "LIMIT 1", nativeQuery = true)
+    ProgressReport findProgressReportMaxPercentByStageIdAndProjectId(@Param("project_id") Long project_id, @Param("stage_id") int stage_id);
+
+    /**
+     * Created by: SyVT,
+     * Date created : 29/03/2023
+     * Function : Find StudentProgressReport By StageId And ProjectId
+     */
+    @Query(value = "SELECT DISTINCT pr.progress_report_content as progressReportContent ,pr.progress_report_file as progressReportFile,pr.progress_report_time as progressReportTime,s.student_name as studentName,s.student_img as studentImg,sta.stage_name as stageName " +
             "FROM progress_report pr " +
             "join project p on pr.project_id = p.project_id " +
             "join team t on p.team_id = t.team_id " +
             "join student s on t.team_id = s.team_id " +
+            "join stage sta on pr.stage_id = sta.stage_id " +
             "WHERE p.project_id = :project_id and s.flag_leader = true " +
             "ORDER BY pr.progress_report_time DESC", nativeQuery = true)
     List<IStudentProgressReportDTO> findStudentProgressReportProjectId(@Param("project_id") Long project_id);

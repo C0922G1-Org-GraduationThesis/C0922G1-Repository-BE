@@ -15,4 +15,6 @@ public interface IStudentProgressReportDTO {
 
     String getStudentImg();
 
+    String getStageName();
+
 }

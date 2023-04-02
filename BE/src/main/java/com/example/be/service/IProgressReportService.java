@@ -15,6 +15,20 @@ public interface IProgressReportService {
     /**
      * Created by: SyVT,
      * Date created : 29/03/2023
+     * Function : Find All Progress Report By ProjectId And StageId
+     */
+    List<ProgressReport> findAllProgressReportByProjectIdAndStageId(Long projectId, int stageId);
+
+    /**
+     * Created by: SyVT,
+     * Date created : 29/03/2023
+     * Function : Find All Progress Report Max Percent By ProjectId And StageId
+     */
+    ProgressReport findProgressReportMaxPercentByStageIdAndProjectId(Long projectId, int stageId);
+
+    /**
+     * Created by: SyVT,
+     * Date created : 29/03/2023
      * Function : FindById
      */
     ProgressReport findProgressReportById(Long progressReportId);
@@ -26,4 +40,5 @@ public interface IProgressReportService {
      * Function : Save
      */
     void saveProgressReport(ProgressReport progressReport);
+
 }

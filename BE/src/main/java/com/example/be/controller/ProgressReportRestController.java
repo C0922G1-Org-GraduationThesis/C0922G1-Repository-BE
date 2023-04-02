@@ -11,6 +11,8 @@ import org.springframework.validation.BindingResult;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
+
 @RestController
 @CrossOrigin("*")
 @RequestMapping("/api/progress-reports")
@@ -26,26 +28,29 @@ public class ProgressReportRestController {
      *
      * @return HttpStatus.CREATED if result is not error or HttpStatus.NOT_ACCEPTABLE if no content
      */
-//    @PostMapping()
-//    public ResponseEntity<?> saveProgressReport(@Validated @RequestBody ProgressReportDTO progressReportDTO, BindingResult bindingResult) {
-//        if (bindingResult.hasErrors()) {
-//            return new ResponseEntity<>(bindingResult.getFieldErrors(), HttpStatus.NOT_ACCEPTABLE);
-//        }
-//        ProgressReport progressReport = new ProgressReport();
-//        BeanUtils.copyProperties(progressReportDTO, progressReport);
-//        this.progressReportService.saveProgressReport(progressReport.getProgressReportContent(), progressReport.getProgressReportFile(),
-//                 progressReport.getProgressReportTime(),progressReport.getProject().getProjectId(),progressReport.getStage().getStageId());
-//        return new ResponseEntity<>(HttpStatus.CREATED);}
-
     @PostMapping()
-    public ResponseEntity<?> saveProgressReport(@Validated @RequestBody ProgressReportDTO progressReportDTO, BindingResult bindingResult) {
+    public ResponseEntity<?> saveProgressReport(@Validated @RequestBody ProgressReport progressReport, BindingResult bindingResult) {
         if (bindingResult.hasErrors()) {
             return new ResponseEntity<>(bindingResult.getFieldErrors(), HttpStatus.NOT_ACCEPTABLE);
         }
-        ProgressReport progressReport = new ProgressReport();
-        BeanUtils.copyProperties(progressReportDTO, progressReport);
         this.progressReportService.saveProgressReport(progressReport);
         return new ResponseEntity<>(HttpStatus.CREATED);
+    }
+
+    /**
+     * Created by: SyVT,
+     * Date created : 29/03/2023
+     * Function : find All ProgressReport
+     *
+     * @return HttpStatus.OK if result is not error or HttpStatus.NO_CONTENT if no content
+     */
+    @GetMapping()
+    public ResponseEntity<List<ProgressReport>> findAllProgressReport() {
+        List<ProgressReport> progressReportList = progressReportService.findAllProgressReport();
+        if (progressReportList.isEmpty()) {
+            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+        }
+        return new ResponseEntity<>(progressReportList, HttpStatus.OK);
     }
 
     /**
@@ -63,6 +68,7 @@ public class ProgressReportRestController {
         }
         return new ResponseEntity<>(progressReport, HttpStatus.OK);
     }
+
     /**
      * Created by: SyVT,
      * Date created : 29/03/2023
@@ -70,14 +76,30 @@ public class ProgressReportRestController {
      *
      * @return HttpStatus.OK if result is not error or HttpStatus.NO_CONTENT if no content
      */
-//    @GetMapping("/searchProjectIdAndStageId/{project_id}/{stage_id}")
-//    public ResponseEntity<ProgressReport> findProgressReportByProjectIdAndStageId(@PathVariable("project_id") Long projectId,
-//                                                                                  @PathVariable("stage_id") int stageId) {
-//        ProgressReport progressReport = progressReportService.findProgressReportByStageIdAndProjectId(projectId, stageId);
-//        if (progressReport == null) {
-//            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
-//        }
-//        return new ResponseEntity<>(progressReport, HttpStatus.OK);
-//    }
+    @GetMapping("/{project_id}/{stage_id}")
+    public ResponseEntity<List<ProgressReport>> findProgressReportByProjectIdAndStageId(@PathVariable("project_id") Long projectId,
+                                                                                        @PathVariable("stage_id") int stageId) {
+        List<ProgressReport> progressReportList = progressReportService.findAllProgressReportByProjectIdAndStageId(projectId, stageId);
+        if (progressReportList.isEmpty()) {
+            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+        }
+        return new ResponseEntity<>(progressReportList, HttpStatus.OK);
+    }
 
+    /**
+     * Created by: SyVT,
+     * Date created : 29/03/2023
+     * Function : find ProgressReport By projectId and stageId
+     *
+     * @return HttpStatus.OK if result is not error or HttpStatus.NO_CONTENT if no content
+     */
+    @GetMapping("/maxPercent/{project_id}/{stage_id}")
+    public ResponseEntity<ProgressReport> findProgressReportMaxPercentByProjectIdAndStageId(@PathVariable("project_id") Long projectId,
+                                                                                            @PathVariable("stage_id") int stageId) {
+        ProgressReport progressReport = progressReportService.findProgressReportMaxPercentByStageIdAndProjectId(projectId, stageId);
+        if (progressReport == null) {
+            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+        }
+        return new ResponseEntity<>(progressReport, HttpStatus.OK);
+    }
 }

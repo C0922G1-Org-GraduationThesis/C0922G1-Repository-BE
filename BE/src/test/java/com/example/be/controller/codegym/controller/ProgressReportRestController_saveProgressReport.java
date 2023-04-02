@@ -279,7 +279,7 @@ public class ProgressReportRestController_saveProgressReport {
                 .andExpect(status().is4xxClientError());
     }
     @Test
-    public void createProgressReport_ProgressReportTime_20() throws Exception {
+    public void createProgressReport_ProgressReportTime_18() throws Exception {
 
         ProgressReportDTO progressReportDTO = new ProgressReportDTO();
         progressReportDTO.setProgressReportContent("Các cầu thủ Indonesia");

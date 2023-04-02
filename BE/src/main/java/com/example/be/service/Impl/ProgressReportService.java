@@ -19,6 +19,16 @@ public class ProgressReportService implements IProgressReportService {
     }
 
     @Override
+    public List<ProgressReport> findAllProgressReportByProjectIdAndStageId(Long projectId, int stageId) {
+        return progressReportRepository.findProgressReportByStageIdAndProjectId(projectId,stageId);
+    }
+
+    @Override
+    public ProgressReport findProgressReportMaxPercentByStageIdAndProjectId(Long projectId, int stageId) {
+        return progressReportRepository.findProgressReportMaxPercentByStageIdAndProjectId(projectId,stageId);
+    }
+
+    @Override
     public ProgressReport findProgressReportById(Long progressReportId) {
         return progressReportRepository.findProgressReportById(progressReportId);
     }
