@@ -57,7 +57,7 @@ public class TeacherRestController_getTeacherById {
 
         this.mockMvc.perform(
                         MockMvcRequestBuilders.get(
-                                "/api/teachers/list/1000 "))
+                                "/api/teachers/list/1000"))
                 .andDo(print())
                 .andExpect(status().is4xxClientError());
     }

@@ -29,7 +29,7 @@ public class TeacherRestController {
      */
     @GetMapping("/list")
     public ResponseEntity<Page<ITeacherDto>> getAllTeacher(@RequestParam(defaultValue = "") String name,
-                                                           @PageableDefault(size = 8, page = 0) Pageable pageable) {
+                                                           @PageableDefault(size = 4, page = 0) Pageable pageable) {
         Page<ITeacherDto> teacherPage = teacherService.getAllTeacher(name, pageable);
         if (teacherPage.isEmpty()) {
             return new ResponseEntity<>(HttpStatus.BAD_REQUEST);

@@ -1,7 +1,5 @@
 package com.example.be.controller;
 
-
-import com.fasterxml.jackson.databind.ObjectMapper;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
@@ -44,7 +42,7 @@ public class TeacherRestController_getListTeacher {
     @Test
     public void getAllTeacher_7_2() throws Exception {
         this.mockMvc.perform(
-                        MockMvcRequestBuilders.get("/api/teachers/list?name=''&page=null"))
+                        MockMvcRequestBuilders.get("/api/teachers/list?name=&page=null"))
                 .andDo(print())
                 .andExpect(status().is4xxClientError());
 
