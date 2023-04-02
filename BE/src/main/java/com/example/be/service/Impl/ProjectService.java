@@ -24,12 +24,12 @@ private IProjectRepository projectRepository;
 
     @Override
     public Project findProjectEnable(Long projectId) {
-        return projectRepository.findProjectEnable(projectId);
+        return null;
     }
 
     @Override
     public List<Project> findProjectListEnable() {
-        return projectRepository.findProjectListEnable();
+        return null;
     }
 
 
