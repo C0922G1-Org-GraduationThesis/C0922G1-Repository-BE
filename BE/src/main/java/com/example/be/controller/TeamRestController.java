@@ -3,7 +3,7 @@ package com.example.be.controller;
 import com.example.be.dto.ITeacherDto;
 import com.example.be.dto.ITeamDto;
 import com.example.be.dto.TeacherDto;
-import com.example.be.dto.TeamDto;
+import com.example.be.dto.TeamDTO;
 import com.example.be.model.Team;
 import com.example.be.service.ITeacherService;
 import com.example.be.service.ITeamService;
@@ -132,7 +132,7 @@ public class TeamRestController {
      * @param: teamId, teamDto
      */
     @PatchMapping("/edit/{teamId}")
-    public ResponseEntity<?> updateTeam(@Valid @RequestBody TeamDto teamDto, BindingResult bindingResult, @PathVariable Long teamId) {
+    public ResponseEntity<?> updateTeam(@Valid @RequestBody TeamDTO teamDto, BindingResult bindingResult, @PathVariable Long teamId) {
         if (bindingResult.hasErrors()) {
             return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(bindingResult.getAllErrors());
         }

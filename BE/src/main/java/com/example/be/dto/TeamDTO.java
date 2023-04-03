@@ -1,20 +1,13 @@
 package com.example.be.dto;
 
-import com.example.be.model.Project;
-import com.example.be.model.Student;
-import com.example.be.model.Teacher;
-
-import javax.persistence.JoinColumn;
-import javax.persistence.ManyToOne;
-import javax.persistence.OneToMany;
-import javax.persistence.OneToOne;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Pattern;
 import javax.validation.constraints.Size;
-import java.util.Set;
 
 public class TeamDTO {
+
+    private Long teamId;
     @Size(max = 45)
     @NotBlank(message = "Không được để trống")
     @NotNull(message = "Phải nhập trường này")
@@ -23,38 +16,21 @@ public class TeamDTO {
                     "Tên nhóm không được chứa kí tự đặc biệt, " +
                             "chữ cái đầu tiên phải viết hoa")
     private String teamName;
+
     private int memberOfTeam;
-    private Teacher teacher;
-    private Project project;
-    private Set<Student> studentSet;
 
-    public void setMemberOfTeam(int memberOfTeam) {
-        this.memberOfTeam = memberOfTeam;
-    }
-
-    public Teacher getTeacher() {
-        return teacher;
-    }
-
-    public void setTeacher(Teacher teacher) {
-        this.teacher = teacher;
-    }
-
-    public Project getProject() {
-        return project;
-    }
-
-    public void setProject(Project project) {
-        this.project = project;
-    }
+    private Long teacherId;
 
     public TeamDTO() {
     }
 
-    public TeamDTO(String teamName) {
-        this.teamName = teamName;
+    public Long getTeamId() {
+        return teamId;
     }
 
+    public void setTeamId(Long teamId) {
+        this.teamId = teamId;
+    }
 
     public String getTeamName() {
         return teamName;
@@ -64,20 +40,19 @@ public class TeamDTO {
         this.teamName = teamName;
     }
 
-
-    public Set<Student> getStudentSet() {
-        return studentSet;
+    public Long getTeacherId() {
+        return teacherId;
     }
 
-    public void setStudentSet(Set<Student> studentSet) {
-        this.studentSet = studentSet;
+    public void setTeacherId(Long teacherId) {
+        this.teacherId = teacherId;
     }
 
-    public Integer getMemberOfTeam() {
+    public int getMemberOfTeam() {
         return memberOfTeam;
     }
 
-    public void setMemberOfTeam(Integer memberOfTeam) {
+    public void setMemberOfTeam(int memberOfTeam) {
         this.memberOfTeam = memberOfTeam;
     }
 }

@@ -1,12 +1,9 @@
 package com.example.be.dto;
 
-import com.example.be.model.ProgressReport;
-
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Pattern;
 import javax.validation.constraints.Size;
-import java.util.Set;
 
 public class ProjectDTO {
     private Long projectId;
@@ -28,7 +25,7 @@ public class ProjectDTO {
     @NotBlank(message = "Không được để trống")
     @NotNull(message = "Phải nhập trường này")
     private String description;
-    private TeamDto teamDTO;
+    private TeamDTO teamDTO;
 
     public ProjectDTO() {
     }
@@ -80,11 +77,11 @@ public class ProjectDTO {
         this.description = description;
     }
 
-    public TeamDto getTeamDTO() {
+    public TeamDTO getTeamDTO() {
         return teamDTO;
     }
 
-    public void setTeamDTO(TeamDto teamDTO) {
+    public void setTeamDTO(TeamDTO teamDTO) {
         this.teamDTO = teamDTO;
     }
 }
