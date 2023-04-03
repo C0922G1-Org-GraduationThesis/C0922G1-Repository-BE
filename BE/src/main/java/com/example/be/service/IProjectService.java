@@ -26,7 +26,7 @@ public interface IProjectService {
      * Created by: VuLX
      * Date created: 01/04/2023
      */
-    List<Project> findProjectListEnable();
+    List<Project> findProjectListEnableAndSetStatusIsTrue();
     /**
      * Created by: VuLX
      * Date created: 01/04/2023

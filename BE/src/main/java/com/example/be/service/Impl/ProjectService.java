@@ -30,7 +30,7 @@ public class ProjectService implements IProjectService {
     }
 
     @Override
-    public List<Project> findProjectListEnable() {
+    public List<Project> findProjectListEnableAndSetStatusIsTrue() {
         return projectRepository.findProjectListEnable();
     }
 

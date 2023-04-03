@@ -25,6 +25,16 @@ public class ProgressDetail {
     public ProgressDetail() {
     }
 
+    public ProgressDetail(String progressDetailName, int progressDetailPercent, String progressDateStart, String progressDateEnd, Boolean progressStatus, Long projectId, Stage stage) {
+        this.progressDetailName = progressDetailName;
+        this.progressDetailPercent = progressDetailPercent;
+        this.progressDateStart = progressDateStart;
+        this.progressDateEnd = progressDateEnd;
+        this.progressStatus = progressStatus;
+        this.projectId = projectId;
+        this.stage = stage;
+    }
+
     public Boolean getProgressStatus() {
         return progressStatus;
     }

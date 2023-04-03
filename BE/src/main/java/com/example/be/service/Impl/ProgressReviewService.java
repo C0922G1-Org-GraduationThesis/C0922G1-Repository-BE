@@ -4,6 +4,7 @@ import com.example.be.model.ProgressReview;
 import com.example.be.repository.IProgressReviewRepository;
 import com.example.be.service.IProgressReviewService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Service;
 
 

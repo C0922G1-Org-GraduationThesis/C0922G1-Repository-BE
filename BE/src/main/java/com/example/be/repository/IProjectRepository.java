@@ -3,13 +3,14 @@ package com.example.be.repository;
 import com.example.be.dto.ProgressProjectDto;
 import com.example.be.model.Project;
 import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
+import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 import java.util.Optional;
-
 
 public interface IProjectRepository extends JpaRepository<Project, Long> {
     /**
@@ -24,7 +25,7 @@ public interface IProjectRepository extends JpaRepository<Project, Long> {
      * Date created: 01/04/2023
      */
 
-    @Query(value = "select * from project where project.project_status = true", nativeQuery = true)
+    @Query(value = "select p.* from project p left join progress_detail pd on p.project_id = pd.project_id where p.project_status = true and pd.project_id is null ", nativeQuery = true)
     List<Project> findProjectListEnable();
 
     /**
