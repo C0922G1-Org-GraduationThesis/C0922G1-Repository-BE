@@ -49,7 +49,7 @@ public interface IProgressReportRepository extends JpaRepository<ProgressReport,
      * Date created : 29/03/2023
      * Function : Find ProgressReport By StageId And ProjectId
      */
-    @Query(value = "SELECT pr.* FROM progress_report as pr WHERE project_id =:project_id and stage_id =:stage_id", nativeQuery = true)
+    @Query(value = "SELECT pr.* FROM progress_report as pr WHERE project_id =:project_id and stage_id =:stage_id ORDER BY progress_report_time DESC", nativeQuery = true)
     List<ProgressReport> findProgressReportByStageIdAndProjectId(@Param("project_id") Long project_id, @Param("stage_id") int stage_id);
 
     /**
