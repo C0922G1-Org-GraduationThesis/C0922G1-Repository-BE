@@ -29,7 +29,7 @@ public class StudentRestController {
 
     @GetMapping("")
     public ResponseEntity<Page<StudentDto>> getAllStudent(@RequestParam(value = "nameSearch",defaultValue = "") String nameSearch,
-                                                          @PageableDefault(size = 8) Pageable pageable) {
+                                                          @PageableDefault(size = 4) Pageable pageable) {
         Page<StudentDto> studentDtos = studentService.getStudentList(pageable, nameSearch);
         if (studentDtos.isEmpty()) {
             return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
@@ -51,7 +51,7 @@ public class StudentRestController {
 
     @GetMapping("/list-id-teacher/{teacherId}")
     public ResponseEntity<Page<StudentInfo>>getStudentListIdTeacher(@RequestParam(value = "nameSearch",defaultValue = "") String nameSearch,
-                                                                    @PageableDefault(size = 8) Pageable pageable,
+                                                                    @PageableDefault(size = 4) Pageable pageable,
                                                                     @PathVariable Long teacherId){
         Page<StudentInfo> studentInfos= studentService.findAllStudent(pageable,nameSearch,teacherId);
         if (studentInfos.isEmpty()){
