@@ -4,6 +4,7 @@ import com.example.be.model.Student;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 
+import java.util.List;
 import java.util.Optional;
 
 public interface IStudentService {
@@ -33,4 +34,22 @@ public interface IStudentService {
      * @Param: id
      */
     Student findById(Long id);
+
+    List<Student> findAll();
+
+
+    void addStudent(String studentName,
+                    String studentCode,
+                    String studentDateOfBirth,
+                    String studentEmail,
+                    String studentPhoneNumber,
+                    boolean studentGender,
+                    String studentAddress,
+                    String studentImg,
+                    Long clazzId);
+
+    Student findById(long studentId);
+
+    void updateStudent(long studentId,Student student);
+    Long maxIdStudent();
 }

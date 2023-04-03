@@ -28,7 +28,7 @@ public class ProjectDTO {
     @NotBlank(message = "Không được để trống")
     @NotNull(message = "Phải nhập trường này")
     private String description;
-    private TeamDTO teamDTO;
+    private TeamDto teamDTO;
 
     public ProjectDTO() {
     }
@@ -80,12 +80,11 @@ public class ProjectDTO {
         this.description = description;
     }
 
-
-    public TeamDTO getTeamDTO() {
+    public TeamDto getTeamDTO() {
         return teamDTO;
     }
 
-    public void setTeamDTO(TeamDTO teamDTO) {
+    public void setTeamDTO(TeamDto teamDTO) {
         this.teamDTO = teamDTO;
     }
 }

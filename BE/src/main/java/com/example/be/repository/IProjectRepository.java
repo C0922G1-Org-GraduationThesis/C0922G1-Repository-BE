@@ -5,11 +5,8 @@ import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
-
-
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
-import org.springframework.transaction.annotation.Transactional;
 
 import java.util.Optional;
 
@@ -92,5 +89,25 @@ public interface IProjectRepository extends JpaRepository<Project, Long> {
             "FROM project " +
             "WHERE project_name LIKE CONCAT('%',:searchName,'%')", nativeQuery = true)
     Page<Project> findAllByNameContaining(@Param("searchName") String searchName, Pageable pageable);
-}
 
+    /**
+     * Created by: hoangNNH
+     * Date created: 29/03/2023
+     * Function: get project list
+     *
+     * @param pageable, name
+     */
+    @Query(value = "select * from `project` " +
+            "where `project_name` like concat('%', :name, '%')" +
+            "and `project_status` = true ", nativeQuery = true)
+    Page<Project> getAllProject(Pageable pageable, @Param("name") String name);
+    /**
+     * Created by: hoangNNH
+     * Date created: 29/03/2023
+     * Function: get project by id
+     *
+     * @param projectId
+     */
+    @Query(value = "select * from project where project_id = :projectId", nativeQuery = true)
+    Project getProjectById(@Param("projectId") Long projectId);
+}

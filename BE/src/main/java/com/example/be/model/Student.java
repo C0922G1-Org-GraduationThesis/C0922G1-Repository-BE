@@ -1,8 +1,6 @@
 package com.example.be.model;
 
-import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonIgnore;
-
 import javax.persistence.*;
 import java.util.Set;
 
@@ -41,7 +39,6 @@ public class Student {
     @JsonIgnore
     private Clazz clazz;
     @ManyToOne
-    @JsonIgnore
     @JoinColumn(name = "team_id", referencedColumnName = "team_id")
     private Team team;
     @OneToMany(mappedBy = "student")

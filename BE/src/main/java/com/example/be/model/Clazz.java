@@ -1,8 +1,6 @@
 package com.example.be.model;
 
-import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonIgnore;
-
 import javax.persistence.*;
 import java.util.Set;
 
@@ -17,11 +15,13 @@ public class Clazz {
     @ManyToOne
     @JoinColumn(name = "faculty_id", referencedColumnName = "faculty_id")
     private Faculty faculty;
+
     @OneToMany(mappedBy = "clazz")
-    @JsonBackReference
+    @JsonIgnore
     private Set<Student> studentSet;
+
     @OneToOne
-    @JsonBackReference
+    @JsonIgnore
     @JoinColumn(name = "teacher_id",referencedColumnName = "teacher_id")
     private Teacher teacher;
 
