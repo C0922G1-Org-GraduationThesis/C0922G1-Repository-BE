@@ -2,6 +2,7 @@ package com.example.be.controller;
 
 import com.example.be.dto.StudentDto;
 import com.example.be.dto.StudentDto1;
+import com.example.be.dto.StudentInfo;
 import com.example.be.model.Student;
 import com.example.be.service.IStudentService;
 import org.springframework.beans.BeanUtils;
@@ -143,5 +144,26 @@ public class StudentRestController {
             return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
         }
         return  new ResponseEntity<>(studentDtos, HttpStatus.OK);
+    }
+
+    /**
+     * Create by : Vinh LD
+     * Date create: 29/3/2023
+     * Function: show the instructor's list of students
+     * @param nameSearch
+     * @param pageable
+     * @param teacherId
+     * @return HttpStatus.OK if connect to database return json the instructor's list of students or HttpStatus.NOT_FOUND if the instructor's list of students is empty
+     */
+
+    @GetMapping("/list-id-teacher/{teacherId}")
+    public ResponseEntity<Page<StudentInfo>>getStudentListIdTeacher(@RequestParam(value = "nameSearch",defaultValue = "") String nameSearch,
+                                                                    @PageableDefault(size = 4) Pageable pageable,
+                                                                    @PathVariable Long teacherId){
+        Page<StudentInfo> studentInfos= studentService.findAllStudent(pageable,nameSearch,teacherId);
+        if (studentInfos.isEmpty()){
+            return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+        }
+        return new ResponseEntity<>(studentInfos,HttpStatus.OK);
     }
 }

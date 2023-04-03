@@ -76,6 +76,7 @@ public class Project {
         this.projectDescription = projectDescription;
     }
 
+    @JsonIgnore
     public boolean isProjectStatus() {
         return projectStatus;
     }

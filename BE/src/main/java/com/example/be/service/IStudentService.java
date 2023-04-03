@@ -1,6 +1,8 @@
 package com.example.be.service;
 
+import com.example.be.dto.IMailStudentDto;
 import com.example.be.dto.StudentDto1;
+import com.example.be.dto.StudentInfo;
 import com.example.be.model.Student;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -64,4 +66,22 @@ public interface IStudentService {
      * @return json list student
      */
     Page<StudentDto1> getStudentList(Pageable pageable, String nameSearch);
+
+    /**
+     * Created by: NuongHT
+     * Date create: 29/03/2023
+     */
+    List<IMailStudentDto> getInfomation(Long teamId);
+
+    /**
+     * Create by : VinhLD
+     * Date create 29/03/2023
+     * Function: show the instructor's list of students
+     *
+     * @param pageable
+     * @param nameSearch
+     * @param idTeacher
+     * @return json the instructor's list of students
+     */
+    Page<StudentInfo> findAllStudent(Pageable pageable, String nameSearch, Long idTeacher);
 }

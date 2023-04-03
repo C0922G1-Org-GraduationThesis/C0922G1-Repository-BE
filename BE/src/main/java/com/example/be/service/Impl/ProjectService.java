@@ -1,5 +1,6 @@
 package com.example.be.service.Impl;
 
+import com.example.be.dto.ITopicDto;
 import com.example.be.model.Project;
 import com.example.be.repository.IProjectRepository;
 import com.example.be.service.IProjectService;
@@ -90,5 +91,39 @@ public class ProjectService implements IProjectService {
     @Override
     public Project getProjectById(Long projectId) {
         return this.projectRepository.getProjectById(projectId);
+    }
+
+    /**
+     * Created by: NuongHT
+     * Date create: 29/03/2023
+     */
+    @Override
+    @Transactional
+    public void updatePro(Long projectId) {
+        projectRepository.updatePro(projectId);
+    }
+
+    /**
+     * Created by: NuongHT
+     * Date create: 29/03/2023
+     */
+    @Override
+    @Transactional
+    public void updatePro2(Long projectId) {
+        projectRepository.updatePro2(projectId);
+    }
+
+    /**
+     * Created by: NuongHT
+     * Date create: 29/03/2023
+     */
+    @Override
+    public Project findProById(Long projectId) {
+        return projectRepository.findProById(projectId);
+    }
+
+    @Override
+    public Page<ITopicDto> pagePro(Pageable pageable) {
+        return projectRepository.pagePro(pageable);
     }
 }

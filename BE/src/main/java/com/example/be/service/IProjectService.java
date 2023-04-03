@@ -1,5 +1,6 @@
 package com.example.be.service;
 
+import com.example.be.dto.ITopicDto;
 import com.example.be.model.Project;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -48,4 +49,29 @@ public interface IProjectService {
      * @param projectId
      */
     Project getProjectById(Long projectId);
+
+    /**
+     * Created by: NuongHT
+     * Date create: 29/03/2023
+     */
+
+    void updatePro(Long projectId);
+
+    /**
+     * Created by: NuongHT
+     * Date create: 29/03/2023
+     */
+    void updatePro2(Long projectId);
+
+    /**
+     * Created by: NuongHT
+     * Date create: 29/03/2023
+     */
+    Project findProById(Long projectId);
+
+    /**
+     * Created by: NuongHT
+     * Date create: 29/03/2023
+     */
+    Page<ITopicDto> pagePro(Pageable pageable);
 }

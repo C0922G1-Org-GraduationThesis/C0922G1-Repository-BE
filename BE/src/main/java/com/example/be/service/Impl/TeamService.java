@@ -1,6 +1,7 @@
 package com.example.be.service.Impl;
 
 import com.example.be.dto.ITeamDto;
+import com.example.be.dto.InstructorDTO;
 import com.example.be.dto.teacher.TeacherDTO;
 import com.example.be.model.Team;
 import com.example.be.repository.ITeamRepository;
@@ -81,7 +82,7 @@ public class TeamService implements ITeamService {
      * @param: pageable
      */
     @Override
-    public Page<TeacherDTO> getAllInstructor(Pageable pageable) {
+    public Page<InstructorDTO> getAllInstructor(Pageable pageable) {
         return teamRepository.getAllInstructor(pageable);
     }
 

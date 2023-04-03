@@ -1,6 +1,7 @@
 package com.example.be.repository;
 
 import com.example.be.dto.ITeamDto;
+import com.example.be.dto.InstructorDTO;
 import com.example.be.dto.teacher.TeacherDTO;
 import com.example.be.model.Team;
 import org.springframework.data.domain.Page;
@@ -101,7 +102,7 @@ public interface ITeamRepository extends JpaRepository<Team, Long> {
                     "            left join project as p on p.team_id = t.team_id\n" +
                     "          group by tc.teacher_id",
             nativeQuery = true)
-    Page<TeacherDTO> getAllInstructor(Pageable pageable);
+    Page<InstructorDTO> getAllInstructor(Pageable pageable);
 
 
 //    @Query(value = " select team.team_id, team.team_name. team.student_id " +

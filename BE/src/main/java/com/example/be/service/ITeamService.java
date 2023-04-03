@@ -1,6 +1,7 @@
 package com.example.be.service;
 
 import com.example.be.dto.ITeamDto;
+import com.example.be.dto.InstructorDTO;
 import com.example.be.dto.teacher.TeacherDTO;
 import com.example.be.model.Team;
 import org.springframework.data.domain.Page;
@@ -39,7 +40,7 @@ public interface ITeamService {
      * Date create: 29/03/2023
      * Function: paging list teacher
      */
-    Page<TeacherDTO> getAllInstructor(Pageable pageable);
+    Page<InstructorDTO> getAllInstructor(Pageable pageable);
 
     /**
      * Created by: DucND

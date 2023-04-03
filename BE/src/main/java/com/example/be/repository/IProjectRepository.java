@@ -1,5 +1,6 @@
 package com.example.be.repository;
 
+import com.example.be.dto.ITopicDto;
 import com.example.be.model.Project;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Modifying;
@@ -121,5 +122,37 @@ public interface IProjectRepository extends JpaRepository<Project, Long> {
      */
     @Query(value = "select * from project where project_id = :projectId", nativeQuery = true)
     Project getProjectById(@Param("projectId") Long projectId);
+
+    /**
+     * Created by: NuongHT
+     * Date create: 29/03/2023
+     */
+
+    @Modifying
+    @Query(value = "update `project` set project_status = true where project_Id = :projectId",nativeQuery = true)
+    void updatePro(@Param("projectId") Long projectId);
+    /**
+     * Created by: NuongHT
+     * Date create: 29/03/2023
+     */
+
+    @Modifying
+    @Query(value = "update `project` set project_status = false where project_Id = :projectId",nativeQuery = true)
+    void updatePro2(@Param("projectId") Long projectId);
+
+    /**
+     * Created by: NuongHT
+     * Date create: 29/03/2023
+     */
+
+    @Query(value = "select * from `project` where project_id = :projectId", nativeQuery = true)
+    Project findProById(@Param("projectId") Long projectId);
+
+    /**
+     * Created by: NuongHT
+     * Date create: 29/03/2023
+     */
+    @Query(value = "select p.project_id as projectId, t.team_name as teamName, p.project_name as projectName,p.project_description as projectDescription,p.project_status as projectStatus from `project` as p join team t on p.team_id = t.team_id", countQuery = "select p.project_id as projectId, t.team_name as teamName, p.project_name as projectName,p.project_description as projectDescription,p.project_status as projectStatus from `project` as p join team t on p.team_id = t.team_id", nativeQuery = true)
+    Page<ITopicDto> pagePro(Pageable pageable);
 }
 

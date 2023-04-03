@@ -1,6 +1,8 @@
 package com.example.be.repository;
 
+import com.example.be.dto.IMailStudentDto;
 import com.example.be.dto.StudentDto1;
+import com.example.be.dto.StudentInfo;
 import com.example.be.model.Student;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -10,6 +12,7 @@ import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.List;
 import java.util.Optional;
 
 public interface IStudentRepository extends JpaRepository<Student, Long> {
@@ -151,4 +154,26 @@ public interface IStudentRepository extends JpaRepository<Student, Long> {
     @Query(value = "select `student`.student_id as studentId, `student`.student_code as studentCode,`student`.student_img as studentImg, `student`.student_name as studentName, `student`.student_email as studentEmail, `student`.student_phone_number as studentPhoneNumber, `clazz`.clazz_name as nameClazz from `student` join `clazz` on `student`.clazz_id = `clazz`.clazz_id where `student`.student_name like %:nameSearch% and `student`.flag_delete= false",
             countQuery = "select `student`.student_id as studentId, `student`.student_code as studentCode,`student`.student_img as studentImg, `student`.student_name as studentName, `student`.student_email as studentEmail, `student`.student_phone_number as studentPhoneNumber, `clazz`.clazz_name as nameClazz from `student` join `clazz` on `student`.clazz_id = `clazz`.clazz_id where `student`.student_name like %:nameSearch% and `student`.flag_delete= false", nativeQuery = true)
     Page<StudentDto1> getStudentList(Pageable pageable, @Param("nameSearch") String nameSearch);
+
+    /**
+     * Created by: NuongHT
+     * Date create: 29/03/2023
+     */
+    @Modifying
+    @Query(value = "select s.student_id as studentId,t.team_id as teamId,p.project_id as projectId,p.project_name as projectName,t.team_name as teamName,s.student_email as email from student as s join project p on s.team_id = p.team_id join team t on p.team_id = t.team_id join teacher te on te.teacher_id = t.teacher_id where p.team_id = :teamId", nativeQuery = true)
+    List<IMailStudentDto> getInfomation(@Param("teamId") Long teamId);
+
+    /**
+     * Create by : VinhLD
+     * Date create 29/03/2023
+     * Function: show the instructor's list of students
+     *
+     * @param pageable
+     * @param nameSearch
+     * @param idTeacher
+     * @return json the instructor's list of students
+     */
+    @Query(value = "select `student`.student_id as idStudent, `student`.student_code as codeStudent,`student`.student_name as nameStudent,`student`.student_email as emailStudent, `student`.student_phone_number as phoneNumberStudent,`student`.student_img as imgStudent, `clazz`.clazz_name as nameClazz, `teacher`.teacher_name as nameTeacher from `student` join `clazz` on `student`.clazz_id=`clazz`.clazz_id join `team` on `student`.team_id= `team`.team_id join `teacher` on `team`.teacher_id= teacher.teacher_id where `student`.student_name like %:nameSearch% and `student`.flag_delete =false and `teacher`.teacher_id= :idTeacher",
+            countQuery = "select `student`.student_id as idStudent, `student`.student_code as codeStudent,`student`.student_name as nameStudent,`student`.student_email as emailStudent, `student`.student_phone_number as phoneNumberStudent,`student`.student_img as imgStudent, `clazz`.clazz_name as nameClazz, `teacher`.teacher_name as nameTeacher from `student` join `clazz` on `student`.clazz_id=`clazz`.clazz_id join `team` on `student`.team_id= `team`.team_id join `teacher` on `team`.teacher_id= teacher.teacher_id where `student`.student_name like %:nameSearch% and `student`.flag_delete =false and `teacher`.teacher_id= :idTeacher", nativeQuery = true)
+    Page<StudentInfo> findAllStudent(Pageable pageable, @Param("nameSearch") String nameSearch, @Param("idTeacher") Long idTeacher);
 }

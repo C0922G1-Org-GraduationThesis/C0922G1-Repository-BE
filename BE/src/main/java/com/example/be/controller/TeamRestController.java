@@ -2,6 +2,7 @@ package com.example.be.controller;
 
 import com.example.be.dto.ITeacherDto;
 import com.example.be.dto.ITeamDto;
+import com.example.be.dto.InstructorDTO;
 import com.example.be.dto.TeamDTO;
 import com.example.be.dto.teacher.TeacherDTO;
 import com.example.be.model.Team;
@@ -96,8 +97,8 @@ public class TeamRestController {
      * @param: pageable
      */
     @GetMapping("")
-    public ResponseEntity<Page<TeacherDTO>> getAllInstructor(@PageableDefault(size = 5) Pageable pageable) {
-        Page<TeacherDTO> instructorPage = teamService.getAllInstructor(pageable);
+    public ResponseEntity<Page<InstructorDTO>> getAllInstructor(@PageableDefault(size = 5) Pageable pageable) {
+        Page<InstructorDTO> instructorPage = teamService.getAllInstructor(pageable);
         if (instructorPage.isEmpty()) {
             return new ResponseEntity<>(HttpStatus.NOT_FOUND);
         } else {
