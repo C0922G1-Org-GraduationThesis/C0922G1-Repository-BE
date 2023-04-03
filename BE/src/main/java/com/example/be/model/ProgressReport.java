@@ -12,7 +12,7 @@ public class ProgressReport {
     private String progressReportContent;
     @Column(columnDefinition = "dateTime", nullable = false)
     private String progressReportTime;
-    @Column(columnDefinition = "text", nullable = false)
+    @Column(columnDefinition = "LongText", nullable = false)
     private String progressReportFile;
 
     @ManyToOne

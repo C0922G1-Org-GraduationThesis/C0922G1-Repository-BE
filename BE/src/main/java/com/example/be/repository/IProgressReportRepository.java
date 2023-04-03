@@ -74,6 +74,17 @@ public interface IProgressReportRepository extends JpaRepository<ProgressReport,
             "join student s on t.team_id = s.team_id " +
             "join stage sta on pr.stage_id = sta.stage_id " +
             "WHERE p.project_id = :project_id and s.flag_leader = true " +
+            "ORDER BY pr.progress_report_time DESC " +
+            "limit :totalElement", nativeQuery = true)
+    List<IStudentProgressReportDTO> findStudentProgressReportProjectId(@Param("project_id") Long project_id, @Param("totalElement") int totalElement);
+
+    @Query(value = "SELECT DISTINCT pr.progress_report_content as progressReportContent ,pr.progress_report_file as progressReportFile,pr.progress_report_time as progressReportTime,s.student_name as studentName,s.student_img as studentImg,sta.stage_name as stageName " +
+            "FROM progress_report pr " +
+            "join project p on pr.project_id = p.project_id " +
+            "join team t on p.team_id = t.team_id " +
+            "join student s on t.team_id = s.team_id " +
+            "join stage sta on pr.stage_id = sta.stage_id " +
+            "WHERE p.project_id = :project_id and s.flag_leader = true " +
             "ORDER BY pr.progress_report_time DESC", nativeQuery = true)
     List<IStudentProgressReportDTO> findStudentProgressReportProjectId(@Param("project_id") Long project_id);
 

@@ -11,10 +11,15 @@ import org.springframework.stereotype.Service;
 import java.util.List;
 
 @Service
-public class StudentProgressReportService implements IStudentProgressReportService{
+public class StudentProgressReportService implements IStudentProgressReportService {
     @Autowired
     private IProgressReportRepository progressReportRepository;
-//    private IStudentProgressReportRepository studentProgressReportRepository ;
+
+    @Override
+    public List<IStudentProgressReportDTO> findStudentProgressReportProjectId(Long project_id, int totalElement) {
+
+        return progressReportRepository.findStudentProgressReportProjectId(project_id, totalElement);
+    }
 
     @Override
     public List<IStudentProgressReportDTO> findStudentProgressReportProjectId(Long project_id) {

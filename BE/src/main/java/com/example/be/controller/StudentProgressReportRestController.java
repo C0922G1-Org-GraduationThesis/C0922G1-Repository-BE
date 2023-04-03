@@ -23,6 +23,16 @@ public class StudentProgressReportRestController {
      *
      * @return HttpStatus.OK if result is not error or HttpStatus.NO_CONTENT if no content
      */
+    @GetMapping("/{id}/{totalElement}")
+    public ResponseEntity<List<IStudentProgressReportDTO>> findStudentProgressReportById(@PathVariable Long id, @PathVariable("totalElement") Integer totalElement) {
+
+        List<IStudentProgressReportDTO> studentProgressReportList = studentProgressReportService.findStudentProgressReportProjectId(id, totalElement);
+        if (studentProgressReportList.isEmpty()) {
+            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+        }
+        return new ResponseEntity<>(studentProgressReportList, HttpStatus.OK);
+    }
+
     @GetMapping("/{id}")
     public ResponseEntity<List<IStudentProgressReportDTO>> findStudentProgressReportById(@PathVariable Long id) {
 

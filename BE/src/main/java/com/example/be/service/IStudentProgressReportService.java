@@ -10,5 +10,6 @@ import java.util.List;
 @Repository
 @Transactional
 public interface IStudentProgressReportService {
+    List<IStudentProgressReportDTO> findStudentProgressReportProjectId(Long project_id, int totalElement);
     List<IStudentProgressReportDTO> findStudentProgressReportProjectId(Long project_id);
 }
