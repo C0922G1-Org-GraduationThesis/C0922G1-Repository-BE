@@ -2,6 +2,7 @@ package com.example.be.repository;
 
 import com.example.be.model.Project;
 import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
 
@@ -20,7 +21,7 @@ public interface IProjectRepository extends JpaRepository<Project, Long> {
      *
      * @Param: name, content, description, img
      */
-    @Transactional
+    @Modifying
     @Query(value = "" +
             "INSERT INTO project " +
             "(project_name, project_content, project_description, project_status, project_img, team_id)" +

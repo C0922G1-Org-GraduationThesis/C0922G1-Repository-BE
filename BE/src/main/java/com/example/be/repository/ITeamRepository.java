@@ -43,9 +43,9 @@ public interface ITeamRepository extends JpaRepository<Team, Long> {
             "team_id," +
             "team_name," +
             "member_of_team," +
-            "teacher_id " +
+            "teacher_id "+
             "FROM team " +
-            "WHERE team_id = :teamId;",
+            "WHERE team_id = :teamId",
             nativeQuery = true)
     Optional<Team> findById(@Param("teamId") Long id);
 
@@ -59,7 +59,8 @@ public interface ITeamRepository extends JpaRepository<Team, Long> {
     @Modifying
     @Query(value = "INSERT INTO `sprint1`.`team` (`member_of_team`, `team_name`) VALUES (:memberOfTeam,:teamName)",
             nativeQuery = true)
-    void saveTeam(@Param("teamName") String teamName,
+    @org.springframework.transaction.annotation.Transactional
+    Long saveTeam(@Param("teamName") String teamName,
                   @Param("memberOfTeam") Integer memberOfTeam);
 
 

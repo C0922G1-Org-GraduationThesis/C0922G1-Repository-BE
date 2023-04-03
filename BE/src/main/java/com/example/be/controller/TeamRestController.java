@@ -48,9 +48,9 @@ public class TeamRestController {
         team.setProject(null);
         team.setMemberOfTeam(memberOfTeam);
 
-        boolean savedTeam = this.teamService.saveTeam(team);
-        if (savedTeam) {
-            return new ResponseEntity<>(HttpStatus.OK);
+        Team savedTeam = this.teamService.saveTeam(team);
+        if (savedTeam != null) {
+            return new ResponseEntity<>(savedTeam, HttpStatus.OK);
         }
         return new ResponseEntity<>(HttpStatus.NOT_ACCEPTABLE);
     }
