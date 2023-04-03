@@ -29,12 +29,12 @@ public class ProgressReviewDto {
 
     private TeacherDto teacherDto;
 
-    private ProjectDto projectDto;
+    private ProjectDTO projectDto;
 
     public ProgressReviewDto() {
     }
 
-    public ProgressReviewDto(Long progressReviewId, String progressReviewTitle, String progressReviewContent, int progressReviewPercent, String progressReviewDateCreate, TeacherDto teacherDto, ProjectDto projectDto) {
+    public ProgressReviewDto(Long progressReviewId, String progressReviewTitle, String progressReviewContent, int progressReviewPercent, String progressReviewDateCreate, TeacherDto teacherDto, ProjectDTO projectDto) {
         this.progressReviewId = progressReviewId;
         this.progressReviewTitle = progressReviewTitle;
         this.progressReviewContent = progressReviewContent;
@@ -92,11 +92,11 @@ public class ProgressReviewDto {
         this.teacherDto = teacherDto;
     }
 
-    public ProjectDto getProjectDto() {
+    public ProjectDTO getProjectDto() {
         return projectDto;
     }
 
-    public void setProjectDto(ProjectDto projectDto) {
+    public void setProjectDto(ProjectDTO projectDto) {
         this.projectDto = projectDto;
     }
 }

@@ -11,9 +11,9 @@ public class ProgressReview {
     private String progressReviewTitle;
     @Column(columnDefinition = "text",nullable = false)
     private String progressReviewContent;
-//    @Column(nullable = false)
+    //    @Column(nullable = false)
     private int progressReviewPercent;
-//    @Column(columnDefinition = "dateTime",nullable = false)
+    //    @Column(columnDefinition = "dateTime",nullable = false)
     private String progressReviewDateCreate;
 
     @ManyToOne

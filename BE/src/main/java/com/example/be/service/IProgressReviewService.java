@@ -19,7 +19,7 @@ public interface IProgressReviewService {
      * Created by: VuLX
      * Date created: 01/04/2023
      */
-    ProgressReview save(ProgressReview progressReview);
+    ProgressReview saveProgressReview(ProgressReview progressReview);
     /**
      * Created by: VuLX
      * Date created: 01/04/2023
@@ -35,4 +35,7 @@ public interface IProgressReviewService {
      * Date created: 01/04/2023
      */
     int findAllByProjectIdAndSize(Long projectId);
+
+    int findMaxPercentProgressReport(Long project_id,int stage_id );
+
 }

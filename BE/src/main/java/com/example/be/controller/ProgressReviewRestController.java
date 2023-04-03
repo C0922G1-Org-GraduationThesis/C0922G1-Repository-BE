@@ -1,7 +1,7 @@
 package com.example.be.controller;
 
 import com.example.be.dto.ProgressReviewDto;
-import com.example.be.dto.ProjectDto;
+import com.example.be.dto.ProjectDTO;
 import com.example.be.model.ProgressDetail;
 import com.example.be.model.ProgressReview;
 import com.example.be.model.Project;
@@ -85,7 +85,7 @@ public class ProgressReviewRestController {
             progressDetail.setProgressStatus(false);
             project.setProjectStatus(false);
         }
-        ProgressReview progressReview = progressReviewService.save(progressReviews);
+        ProgressReview progressReview = progressReviewService.saveProgressReview(progressReviews);
 
         return new ResponseEntity<>(progressReview, HttpStatus.OK);
     }
@@ -181,13 +181,32 @@ public class ProgressReviewRestController {
      * @return HttpStatus.NO_CONTENT if result is null or HttpStatus.OK if result is not null
      */
     @GetMapping("api/progressReview/project/{projectId}")
-    public ResponseEntity<ProjectDto> findProjectDtoById(@PathVariable Long projectId) {
+    public ResponseEntity<ProjectDTO> findProjectDtoById(@PathVariable Long projectId) {
         Project project = projectService.findById(projectId);
         if (project == null) {
             return new ResponseEntity<>(HttpStatus.NOT_FOUND);
         }
-        ProjectDto projectDto = new ProjectDto();
+        ProjectDTO projectDto = new ProjectDTO();
         BeanUtils.copyProperties(project, projectDto);
         return new ResponseEntity<>(projectDto, HttpStatus.OK);
+    }
+
+
+
+
+    /**
+     * Created by: SyVT
+     * Date created: 29/3/2023
+     * Function: find Max Percent progress-review by id
+     *
+     * @return HttpStatus.NO_CONTENT if result is null or HttpStatus.OK if result is not null
+     */
+    @GetMapping("/api/progress-reviews/{project_id}/{stage_id}")
+    public ResponseEntity<?> findMaxPercentProgressReport(@PathVariable Long project_id, @PathVariable int stage_id) {
+        int progressReportPercent = progressReviewService.findMaxPercentProgressReport(project_id, stage_id);
+        if (progressReportPercent == 0) {
+            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+        }
+        return new ResponseEntity<>(progressReportPercent, HttpStatus.OK);
     }
 }

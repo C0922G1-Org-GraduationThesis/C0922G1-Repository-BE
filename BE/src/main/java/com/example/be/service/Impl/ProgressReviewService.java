@@ -6,6 +6,7 @@ import com.example.be.service.IProgressReviewService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -42,7 +43,7 @@ public class ProgressReviewService implements IProgressReviewService {
      */
 
     @Override
-    public ProgressReview save(ProgressReview progressReview) {
+    public ProgressReview saveProgressReview(ProgressReview progressReview) {
         return progressReviewRepository.save(progressReview);
     }
 
@@ -92,5 +93,14 @@ public class ProgressReviewService implements IProgressReviewService {
     public int findAllByProjectIdAndSize(Long projectId) {
         List<ProgressReview> progressReviews = progressReviewRepository.findAllByProjectId(projectId);
         return progressReviews.size();
+    }
+/**
+     * Created by: SyVT,
+     * Date created : 30/03/2023
+     * Function : findMaxPercentProgressReport
+     */
+    @Override
+    public int findMaxPercentProgressReport(Long project_id, int stage_id) {
+        return progressReviewRepository.findMaxPercentProgressReport(project_id,stage_id);
     }
 }

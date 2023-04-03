@@ -12,8 +12,8 @@ import java.util.List;
 
 @Service
 public class ProjectService implements IProjectService {
-@Autowired
-private IProjectRepository projectRepository;
+    @Autowired
+    private IProjectRepository projectRepository;
     @Override
     public List<Project> findAll() {
         return projectRepository.findAll();
