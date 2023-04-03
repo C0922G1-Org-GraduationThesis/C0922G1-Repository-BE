@@ -8,6 +8,10 @@ import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Pattern;
 import javax.validation.constraints.Size;
 import java.util.Set;
+/**
+ * Created by: VuLX
+ * Date created: 01/04/2023
+ */
 
 public class ProjectDto {
     private Long projectId;
@@ -18,29 +22,27 @@ public class ProjectDto {
             message =
                     "Tên đề tài không được chứa kí tự đặc biệt, " +
                             "chữ cái đầu tiên phải viết hoa")
-    private String name;
+    private String projectName;
     @Size(max = 2000, message = "Nội dung miêu tả không được dài quá 2000 kí tự")
     @NotBlank(message = "Không được để trống")
     @NotNull(message = "Phải nhập trường này")
-    private String content;
+    private String projectContent;
     @NotBlank(message = "Không được để trống")
     @NotNull(message = "Phải nhập trường này")
-    private String img;
+    private String projectImg;
     @NotBlank(message = "Không được để trống")
     @NotNull(message = "Phải nhập trường này")
-    private String description;
+    private String projectDescription;
     private boolean projectStatus;
-    private Set<ProgressReport> progressReportSet;
     private Team team;
 
     public ProjectDto(Long projectId, String name, String content, String img, String description, boolean projectStatus, Set<ProgressReport> progressReportSet, Team team) {
         this.projectId = projectId;
-        this.name = name;
-        this.content = content;
-        this.img = img;
-        this.description = description;
+        this.projectName = name;
+        this.projectContent = content;
+        this.projectImg = img;
+        this.projectDescription = description;
         this.projectStatus = projectStatus;
-        this.progressReportSet = progressReportSet;
         this.team = team;
     }
 
@@ -55,36 +57,36 @@ public class ProjectDto {
         this.projectId = projectId;
     }
 
-    public String getName() {
-        return name;
+    public String getProjectName() {
+        return projectName;
     }
 
-    public void setName(String name) {
-        this.name = name;
+    public void setProjectName(String projectName) {
+        this.projectName = projectName;
     }
 
-    public String getContent() {
-        return content;
+    public String getProjectContent() {
+        return projectContent;
     }
 
-    public void setContent(String content) {
-        this.content = content;
+    public void setProjectContent(String projectContent) {
+        this.projectContent = projectContent;
     }
 
-    public String getImg() {
-        return img;
+    public String getProjectImg() {
+        return projectImg;
     }
 
-    public void setImg(String img) {
-        this.img = img;
+    public void setProjectImg(String projectImg) {
+        this.projectImg = projectImg;
     }
 
-    public String getDescription() {
-        return description;
+    public String getProjectDescription() {
+        return projectDescription;
     }
 
-    public void setDescription(String description) {
-        this.description = description;
+    public void setProjectDescription(String projectDescription) {
+        this.projectDescription = projectDescription;
     }
 
     public boolean isProjectStatus() {
@@ -95,13 +97,7 @@ public class ProjectDto {
         this.projectStatus = projectStatus;
     }
 
-    public Set<ProgressReport> getProgressReportSet() {
-        return progressReportSet;
-    }
 
-    public void setProgressReportSet(Set<ProgressReport> progressReportSet) {
-        this.progressReportSet = progressReportSet;
-    }
 
     public Team getTeam() {
         return team;

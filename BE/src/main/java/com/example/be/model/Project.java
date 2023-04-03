@@ -1,6 +1,8 @@
 package com.example.be.model;
 
+
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonProperty;
 
 import javax.persistence.*;
 import java.util.Set;
@@ -25,7 +27,6 @@ public class Project {
     @OneToMany(mappedBy = "project")
     private Set<ProgressReport> progressReportSet;
     @OneToOne
-    @JsonIgnore
     @JoinColumn(name = "team_id", referencedColumnName = "team_id")
     private Team team;
     @JsonIgnore
@@ -33,6 +34,10 @@ public class Project {
     private Set<ProgressReview> progressReviews;
 
     public Project() {
+    }
+
+    public Boolean getProjectStatus() {
+        return projectStatus;
     }
 
     public Long getProjectId() {
@@ -75,11 +80,11 @@ public class Project {
         this.projectDescription = projectDescription;
     }
 
-    public boolean isProjectStatus() {
+    public Boolean isProjectStatus() {
         return projectStatus;
     }
 
-    public void setProjectStatus(boolean projectStatus) {
+    public void setProjectStatus(Boolean projectStatus) {
         this.projectStatus = projectStatus;
     }
     public Set<ProgressReport> getProgressReportSet() {
@@ -105,4 +110,5 @@ public class Project {
     public void setProgressReviews(Set<ProgressReview> progressReviews) {
         this.progressReviews = progressReviews;
     }
+
 }

@@ -43,6 +43,19 @@ public class ProgressRestController_getListProgressProject {
                 .andExpect(jsonPath("content[0].projectName").value("Thiết kế ứng dụng đặt vé xem phim"))
                 .andExpect(jsonPath("content[0].memberTotal").value(4));
     }
+    @Test
+    public void getListProgressProject_6_1() throws Exception {
+        this.mockMvc.perform(
+                        MockMvcRequestBuilders
+                                .get("/api/progress/list?page=0","")).andDo(print())
+                .andExpect(status().is2xxSuccessful())
+                .andExpect(jsonPath("totalPages").value(1))
+                .andExpect(jsonPath("totalElements").value(1))
+                .andExpect(jsonPath("content[-1].projectId").value(1))
+                .andExpect(jsonPath("content[-1].teamName").value("FB09"))
+                .andExpect(jsonPath("content[-1].projectName").value("Thiết kế ứng dụng đặt vé xem phim"))
+                .andExpect(jsonPath("content[-1].memberTotal").value(4));
+    }
 
     /**
      * Danh sach rong,..

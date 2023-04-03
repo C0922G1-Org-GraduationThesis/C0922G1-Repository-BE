@@ -1,5 +1,6 @@
 package com.example.be.model;
 import javax.persistence.*;
+import java.util.Set;
 
 
 @Entity
@@ -20,6 +21,14 @@ public class Answers {
     private Question question;
 
     public Answers() {
+    }
+
+    public Question getQuestion() {
+        return question;
+    }
+
+    public void setQuestion(Question question) {
+        this.question = question;
     }
 
     public Long getAnswerId() {
@@ -46,11 +55,5 @@ public class Answers {
         this.teacher = teacher;
     }
 
-    public Question getQuestion() {
-        return question;
-    }
 
-    public void setQuestion(Question question) {
-        this.question = question;
-    }
 }

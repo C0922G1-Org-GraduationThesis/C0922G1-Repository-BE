@@ -4,6 +4,10 @@ import com.example.be.model.Degree;
 import com.example.be.model.Faculty;
 
 import javax.validation.constraints.*;
+/**
+ * Created by: VuLX
+ * Date created: 01/04/2023
+ */
 
 public class TeacherDto {
     private Long teacherId;
@@ -128,6 +132,7 @@ public class TeacherDto {
     }
 
     public void setFaculty(Faculty faculty) {
+
         this.faculty = faculty;
     }
 

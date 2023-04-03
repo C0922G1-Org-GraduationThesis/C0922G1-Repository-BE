@@ -54,9 +54,7 @@ public class ProgressRestController_getProject {
                         jsonPath("projectImg").value("https://cdn.pixabay.com/photo/2023/03/18/12/28/bonfire-7860562__340.jpg"),
                         jsonPath("projectDescription").value("starlight"),
                         jsonPath("projectStatus").value(true),
-                        jsonPath("flagDelete").value(false)
+                        jsonPath("team.teamName").value("FB09")
                 );
-
-
     }
 }

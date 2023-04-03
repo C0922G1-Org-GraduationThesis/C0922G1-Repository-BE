@@ -1,13 +1,35 @@
 package com.example.be.service;
 
+import com.example.be.dto.ProgressProjectDto;
 import com.example.be.model.Project;
-import org.springframework.data.repository.query.Param;
 
 import java.util.List;
 
 public interface IProjectService {
+    /**
+     * Created by: VuLX
+     * Date created: 01/04/2023
+     */
+
     List<Project> findAll();
+    /**
+     * Created by: VuLX
+     * Date created: 01/04/2023
+     */
     Project findById(Long projectId);
-    Project findProjectEnable( Long projectId);
+    /**
+     * Created by: VuLX
+     * Date created: 01/04/2023
+     */
+    Project findProjectById(Long projectId);
+    /**
+     * Created by: VuLX
+     * Date created: 01/04/2023
+     */
     List<Project> findProjectListEnable();
+    /**
+     * Created by: VuLX
+     * Date created: 01/04/2023
+     */
+    ProgressProjectDto findByProjectId(Long projectId);
 }

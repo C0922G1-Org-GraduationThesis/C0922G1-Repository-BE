@@ -1,5 +1,7 @@
 package com.example.be.service.Impl;
 
+
+import com.example.be.dto.ProgressProjectDto;
 import com.example.be.model.Project;
 import com.example.be.repository.IProjectRepository;
 import com.example.be.service.IProjectService;
@@ -19,17 +21,22 @@ private IProjectRepository projectRepository;
 
     @Override
     public Project findById(Long projectId) {
-        return projectRepository.findById(projectId).orElse(null);
+        return projectRepository.findByAId(projectId).orElse(null);
     }
 
     @Override
-    public Project findProjectEnable(Long projectId) {
-        return projectRepository.findProjectEnable(projectId);
+    public Project findProjectById(Long projectId) {
+        return projectRepository.findByAId(projectId).orElse(null);
     }
 
     @Override
     public List<Project> findProjectListEnable() {
         return projectRepository.findProjectListEnable();
+    }
+
+    @Override
+    public ProgressProjectDto findByProjectId(Long projectId) {
+        return projectRepository.findProgressDtoByProjectId(projectId).orElse(null);
     }
 
 

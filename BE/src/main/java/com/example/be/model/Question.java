@@ -20,15 +20,24 @@ public class Question {
     @Column(nullable = false,columnDefinition = "dateTime")
     private LocalDateTime dateTime;
 
-    @OneToMany(mappedBy = "question")
-    @JsonIgnore
-    private Set<Student> studentSet;
+    @ManyToOne
+    @JoinColumn(name = "student_id", referencedColumnName = "student_id")
+    private Student student;
 
     @OneToMany(mappedBy = "question")
     @JsonIgnore
     private Set<Answers> answers;
 
     public Question() {
+    }
+
+
+    public Student getStudent() {
+        return student;
+    }
+
+    public void setStudent(Student student) {
+        this.student = student;
     }
 
     public Long getQuestionId() {
@@ -63,13 +72,6 @@ public class Question {
         this.dateTime = dateTime;
     }
 
-    public Set<Student> getStudentSet() {
-        return studentSet;
-    }
-
-    public void setStudentSet(Set<Student> studentSet) {
-        this.studentSet = studentSet;
-    }
 
     public Set<Answers> getAnswers() {
         return answers;
@@ -78,4 +80,5 @@ public class Question {
     public void setAnswers(Set<Answers> answers) {
         this.answers = answers;
     }
+
 }

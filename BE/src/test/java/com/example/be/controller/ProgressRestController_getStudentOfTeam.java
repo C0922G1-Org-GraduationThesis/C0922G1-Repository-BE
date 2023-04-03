@@ -64,4 +64,17 @@ public class ProgressRestController_getStudentOfTeam {
                         jsonPath("$[0].studentImg").value("profile2.png")
                         , jsonPath("$", hasSize(1)));
     }
+    @Test
+    public void getStudentOfTeam_14_1() throws Exception {
+        this.mockMvc.perform(
+                        MockMvcRequestBuilders
+                                .get("/api/progress/progressStudent/{projectId}", 1)).andDo(print())
+                .andExpect(status().is2xxSuccessful())
+                .andExpectAll(
+                        jsonPath("$[-1].studentName").value("John Doe"),
+                        jsonPath("$[-1].studentEmail").value("john.doe@gmail.com"),
+                        jsonPath("$[-1].studentPhoneNumber").value("090001004"),
+                        jsonPath("$[-1].studentImg").value("profile2.png")
+                       );
+    }
 }

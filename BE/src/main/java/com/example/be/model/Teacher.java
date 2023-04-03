@@ -50,6 +50,7 @@ public class Teacher {
     @JsonIgnore
     private Set<ProgressReview> progressReviews;
     @OneToOne(mappedBy = "teacher")
+    @JsonIgnore
     private Clazz clazz;
     @OneToMany(mappedBy = "teacher")
     @JsonIgnore

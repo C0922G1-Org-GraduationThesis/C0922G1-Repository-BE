@@ -5,6 +5,8 @@ import com.example.be.repository.IProgressReviewRepository;
 import com.example.be.service.IProgressReviewService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+
+import java.util.ArrayList;
 import java.util.List;
 
 @Service
@@ -25,7 +27,7 @@ public class ProgressReviewService implements IProgressReviewService {
     /**
      * Created by: VuLX
      * Date created: 29/3/2023
-     * Function: display  progress-review by id
+     * Function: display  progress-review-detail by id
      */
 
     @Override
@@ -36,7 +38,7 @@ public class ProgressReviewService implements IProgressReviewService {
     /**
      * Created by: VuLX
      * Date created: 29/3/2023
-     * Function: create  progress-review
+     * Function: create progress-review
      */
 
     @Override
@@ -44,8 +46,51 @@ public class ProgressReviewService implements IProgressReviewService {
         return progressReviewRepository.save(progressReview);
     }
 
+    /**
+     * Created by: VuLX
+     * Date created: 01/04/2023
+     * <p>
+     * Function: find list progressReview By projectId
+     */
+
     @Override
     public List<ProgressReview> findAllByProjectId(Long projectId) {
         return progressReviewRepository.findAllByProjectId(projectId);
+    }
+
+
+    /**
+     * Created by: VuLX
+     * Date created: 01/04/2023
+     * <p>
+     * Function: find list progressReview By projectId and record
+     */
+
+    @Override
+    public List<ProgressReview> findAllByProjectIdAndRecord(Long projectId, int record) {
+        List<ProgressReview> progressReviews = progressReviewRepository.findAllByProjectId(projectId);
+        List<ProgressReview> progressReviewsRecords = new ArrayList<>();
+        int count = 0;
+        for (ProgressReview progressReview : progressReviews) {
+            if (record <= count) {
+                break;
+            }
+            progressReviewsRecords.add(progressReview);
+            count++;
+        }
+        return progressReviewsRecords;
+    }
+
+    /**
+     * Created by: VuLX
+     * Date created: 01/04/2023
+     * <p>
+     * Function: find size list progressReview By projectId and record
+     */
+
+    @Override
+    public int findAllByProjectIdAndSize(Long projectId) {
+        List<ProgressReview> progressReviews = progressReviewRepository.findAllByProjectId(projectId);
+        return progressReviews.size();
     }
 }

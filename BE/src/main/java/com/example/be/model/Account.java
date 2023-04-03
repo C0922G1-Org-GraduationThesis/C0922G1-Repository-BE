@@ -20,8 +20,10 @@ public class Account {
     @JsonIgnore
     private Set<AccountRole> accountRoleSet;
     @OneToOne(mappedBy = "account")
+    @JsonIgnore
     private Teacher teacher;
     @OneToOne(mappedBy = "account")
+    @JsonIgnore
     private Student student;
 
     public Teacher getTeacher() {

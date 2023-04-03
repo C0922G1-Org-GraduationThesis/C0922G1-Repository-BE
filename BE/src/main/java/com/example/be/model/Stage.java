@@ -16,8 +16,18 @@ public class Stage {
     @OneToMany(mappedBy = "stage")
     @JsonIgnore
     private Set<ProgressReport> progressReportSet;
-
+    @OneToOne(mappedBy = "stage")
+    @JsonIgnore
+    private ProgressDetail progressDetail;
     public Stage() {
+    }
+
+    public ProgressDetail getProgressDetail() {
+        return progressDetail;
+    }
+
+    public void setProgressDetail(ProgressDetail progressDetail) {
+        this.progressDetail = progressDetail;
     }
 
     public Set<ProgressReport> getProgressReportSet() {

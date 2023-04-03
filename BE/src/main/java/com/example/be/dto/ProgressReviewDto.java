@@ -1,12 +1,13 @@
 package com.example.be.dto;
 
-import com.example.be.model.Project;
-import com.example.be.model.Teacher;
-
 
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.Size;
+/**
+ * Created by: VuLX
+ * Date created: 01/04/2023
+ */
 
 public class ProgressReviewDto {
 
@@ -23,8 +24,6 @@ public class ProgressReviewDto {
 
 
     private int progressReviewPercent;
-    @NotEmpty(message = "Bạn phải nhập ô tiêu đề")
-    @NotBlank(message = "Bạn phải nhập ô tiêu đề")
 
     private String progressReviewDateCreate;
 
