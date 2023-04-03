@@ -6,6 +6,8 @@ public interface IStudentProgressReportDTO {
 
     String getProgressReportFile();
 
+    String getProgressReportFileName();
+
 
     String getProgressReportTime();
 

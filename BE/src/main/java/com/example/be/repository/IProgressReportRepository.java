@@ -28,10 +28,10 @@ public interface IProgressReportRepository extends JpaRepository<ProgressReport,
      * Function : Save ProgressReport
      */
     @Modifying
-    @Query(value = "INSERT INTO progress_report(progress_report_content,progress_report_file,progress_report_time,project_id,stage_id) " +
-            "VALUES (:progress_report_content,:progress_report_file,:progress_report_time,:project_id,:stage_id)",
+    @Query(value = "INSERT INTO progress_report(progress_report_content,progress_report_file,progress_report_file_name,progress_report_time,project_id,stage_id) " +
+            "VALUES (:progress_report_content,:progress_report_file,:progress_report_file_name,:progress_report_time,:project_id,:stage_id)",
             nativeQuery = true)
-    void saveProgressReport(@Param("progress_report_content") String progress_report_content, @Param("progress_report_file") String progress_report_file,
+    void saveProgressReport(@Param("progress_report_content") String progress_report_content, @Param("progress_report_file") String progress_report_file,@Param("progress_report_file_name") String progress_report_file_name,
                             @Param("progress_report_time") String progress_report_time,
                             @Param("project_id") Long project_id,
                             @Param("stage_id") int stage_id);
@@ -67,7 +67,7 @@ public interface IProgressReportRepository extends JpaRepository<ProgressReport,
      * Date created : 29/03/2023
      * Function : Find StudentProgressReport By StageId And ProjectId
      */
-    @Query(value = "SELECT DISTINCT pr.progress_report_content as progressReportContent ,pr.progress_report_file as progressReportFile,pr.progress_report_time as progressReportTime,s.student_name as studentName,s.student_img as studentImg,sta.stage_name as stageName " +
+    @Query(value = "SELECT DISTINCT pr.progress_report_content as progressReportContent ,pr.progress_report_file as progressReportFile,pr.progress_report_file_name as progressReportFileName,pr.progress_report_time as progressReportTime,s.student_name as studentName,s.student_img as studentImg,sta.stage_name as stageName " +
             "FROM progress_report pr " +
             "join project p on pr.project_id = p.project_id " +
             "join team t on p.team_id = t.team_id " +
@@ -78,7 +78,13 @@ public interface IProgressReportRepository extends JpaRepository<ProgressReport,
             "limit :totalElement", nativeQuery = true)
     List<IStudentProgressReportDTO> findStudentProgressReportProjectId(@Param("project_id") Long project_id, @Param("totalElement") int totalElement);
 
-    @Query(value = "SELECT DISTINCT pr.progress_report_content as progressReportContent ,pr.progress_report_file as progressReportFile,pr.progress_report_time as progressReportTime,s.student_name as studentName,s.student_img as studentImg,sta.stage_name as stageName " +
+
+    /**
+     * Created by: SyVT,
+     * Date created : 29/03/2023
+     * Function : Find StudentProgressReport By ProjectId
+     */
+    @Query(value = "SELECT DISTINCT pr.progress_report_content as progressReportContent ,pr.progress_report_file as progressReportFile,pr.progress_report_file_name as progressReportFileName,pr.progress_report_time as progressReportTime,s.student_name as studentName,s.student_img as studentImg,sta.stage_name as stageName " +
             "FROM progress_report pr " +
             "join project p on pr.project_id = p.project_id " +
             "join team t on p.team_id = t.team_id " +

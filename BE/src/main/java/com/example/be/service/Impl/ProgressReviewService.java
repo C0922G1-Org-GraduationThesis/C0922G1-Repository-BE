@@ -12,6 +12,11 @@ public class ProgressReviewService implements IProgressReviewService {
     @Autowired
     private IProgressReviewRepository progressReviewRepository;
 
+    /**
+     * Created by: SyVT,
+     * Date created : 30/03/2023
+     * Function : findMaxPercentProgressReport
+     */
     @Override
     public int findMaxPercentProgressReport(Long project_id, int stage_id) {
         return progressReviewRepository.findMaxPercentProgressReport(project_id,stage_id);
