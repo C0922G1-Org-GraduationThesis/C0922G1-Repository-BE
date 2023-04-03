@@ -159,8 +159,6 @@ public class TeacherRestController {
         return new ResponseEntity<>(iEmailAndPhoneNumberDTOS, HttpStatus.OK);
     }
 
-    private TeacherService teacherService;
-
     /**
      * create by : HungPV ,
      * Date Create : 29/03/2023
@@ -171,9 +169,9 @@ public class TeacherRestController {
      * @return HttpStatus.BAD_REQUEST if result is error or HttpStatus.OK if result is not error
      */
     @GetMapping("/list")
-    public ResponseEntity<Page<ITeacherDto>> getAllTeacher(@RequestParam(defaultValue = "") String name,
+    public ResponseEntity<Page<ITeacherDto>> getAllTeacher(@RequestParam(defaultValue = "", required = false) String name,
                                                            @PageableDefault(size = 4, page = 0) Pageable pageable) {
-        Page<ITeacherDto> teacherPage = teacherService.getAllTeacher(name, pageable);
+        Page<ITeacherDto> teacherPage = iTeacherService.getAllTeacher(name, pageable);
         if (teacherPage.isEmpty()) {
             return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
         }
@@ -190,7 +188,7 @@ public class TeacherRestController {
      */
     @GetMapping("/list/{id}")
     public ResponseEntity<ITeacherDto> getTeacherById(@PathVariable Long id) {
-        Optional<ITeacherDto> categoryOptional = teacherService.findTeacherById(id);
+        Optional<ITeacherDto> categoryOptional = iTeacherService.findTeacherById(id);
         return categoryOptional.map(teacher -> new ResponseEntity<>(teacher, HttpStatus.OK))
                 .orElseGet(() -> new ResponseEntity<>(HttpStatus.NOT_FOUND));
     }
@@ -205,12 +203,12 @@ public class TeacherRestController {
      */
     @DeleteMapping("/delete/{id}")
     public ResponseEntity<ITeacherDto> deleteTeacherById(@PathVariable Long id) {
-        Optional<ITeacherDto> teacher = teacherService.findTeacherById(id);
+        Optional<ITeacherDto> teacher = iTeacherService.findTeacherById(id);
 
         if (!teacher.isPresent()) {
             return ResponseEntity.notFound().build();
         }
-        teacherService.deleteTeacherById(id);
+        iTeacherService.deleteTeacherById(id);
         return new ResponseEntity<>(HttpStatus.OK);
     }
 }

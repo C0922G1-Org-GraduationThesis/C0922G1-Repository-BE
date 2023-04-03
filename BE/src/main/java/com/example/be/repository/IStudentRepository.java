@@ -1,5 +1,6 @@
 package com.example.be.repository;
 
+import com.example.be.dto.StudentDto1;
 import com.example.be.model.Student;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -138,4 +139,16 @@ public interface IStudentRepository extends JpaRepository<Student, Long> {
             ,nativeQuery = true)
     Long getStudentId();
 
+    /**
+     * Create by : VinhLD
+     * Date create 29/03/2023
+     * Function: show list student
+     *
+     * @param pageable
+     * @param nameSearch
+     * @return json list student
+     */
+    @Query(value = "select `student`.student_id as studentId, `student`.student_code as studentCode,`student`.student_img as studentImg, `student`.student_name as studentName, `student`.student_email as studentEmail, `student`.student_phone_number as studentPhoneNumber, `clazz`.clazz_name as nameClazz from `student` join `clazz` on `student`.clazz_id = `clazz`.clazz_id where `student`.student_name like %:nameSearch% and `student`.flag_delete= false",
+            countQuery = "select `student`.student_id as studentId, `student`.student_code as studentCode,`student`.student_img as studentImg, `student`.student_name as studentName, `student`.student_email as studentEmail, `student`.student_phone_number as studentPhoneNumber, `clazz`.clazz_name as nameClazz from `student` join `clazz` on `student`.clazz_id = `clazz`.clazz_id where `student`.student_name like %:nameSearch% and `student`.flag_delete= false", nativeQuery = true)
+    Page<StudentDto1> getStudentList(Pageable pageable, @Param("nameSearch") String nameSearch);
 }

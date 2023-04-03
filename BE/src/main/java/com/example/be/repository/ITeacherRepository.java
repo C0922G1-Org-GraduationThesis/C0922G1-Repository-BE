@@ -93,6 +93,8 @@ public interface ITeacherRepository extends JpaRepository<Teacher, Long> {
             "             where teacher.teacher_name like concat('%',:nameSearch,'%') and teacher.flag_delete=0", nativeQuery = true)
     Page<ITeacherDto> getAllTeacher(@Param("nameSearch") String name, Pageable pageable);
 
+    Page<Teacher> findAllByTeacherNameContaining(String name, Pageable pageable);
+
     /**
      * create by : HungPV ,
      * Date Create : 29/03/2023

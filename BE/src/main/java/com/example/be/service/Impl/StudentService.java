@@ -1,5 +1,6 @@
 package com.example.be.service.Impl;
 
+import com.example.be.dto.StudentDto1;
 import com.example.be.model.Student;
 import com.example.be.repository.IStudentRepository;
 import com.example.be.service.IStudentService;
@@ -83,5 +84,19 @@ public class StudentService implements IStudentService {
     @Override
     public Long maxIdStudent() {
         return studentRepository.getStudentId();
+    }
+
+    /**
+     * Create by : VinhLD
+     * Date create 29/03/2023
+     * Function: show list student
+     *
+     * @param pageable
+     * @param nameSearch
+     * @return json list student
+     */
+    @Override
+    public Page<StudentDto1> getStudentList(Pageable pageable, String nameSearch) {
+        return studentRepository.getStudentList(pageable, nameSearch);
     }
 }

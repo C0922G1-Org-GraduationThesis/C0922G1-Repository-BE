@@ -34,6 +34,8 @@ public interface ITeacherService {
      */
     Page<ITeacherDto> getAllTeacher(String name, Pageable pageable);
 
+    Page<Teacher> getAllTeacher1(String name, Pageable pageable);
+
     /**
      *create by : HungPV ,
      * Date Create : 29/03/2023

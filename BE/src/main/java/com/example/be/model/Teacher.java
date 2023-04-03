@@ -28,7 +28,7 @@ public class Teacher {
     @Column(columnDefinition = "text", nullable = false)
     private String teacherImg;
     @Column(columnDefinition = "bit(1)")
-    private boolean flagDelete;
+    private boolean flagDelete = false;
 
     @ManyToOne
     @JoinColumn(name = "faculty_id", referencedColumnName = "faculty_id")

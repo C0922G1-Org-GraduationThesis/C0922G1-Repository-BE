@@ -1,5 +1,6 @@
 package com.example.be.service;
 
+import com.example.be.dto.StudentDto1;
 import com.example.be.model.Student;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -52,4 +53,15 @@ public interface IStudentService {
 
     void updateStudent(long studentId,Student student);
     Long maxIdStudent();
+
+    /**
+     * Create by : VinhLD
+     * Date create 29/03/2023
+     * Function: show list student
+     *
+     * @param pageable
+     * @param nameSearch
+     * @return json list student
+     */
+    Page<StudentDto1> getStudentList(Pageable pageable, String nameSearch);
 }

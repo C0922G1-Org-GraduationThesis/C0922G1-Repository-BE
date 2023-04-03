@@ -57,6 +57,8 @@ public class TeacherService implements ITeacherService {
         return iTeacherRepository.getAllPhoneNumberAndEmail();
     }
 
+
+
     /**
      * create by : HungPV ,
      * Date Create : 29/03/2023
@@ -66,6 +68,11 @@ public class TeacherService implements ITeacherService {
      * @param pageable
      * @return Page<ITeacherDto>
      */
+    @Override
+    public Page<Teacher> getAllTeacher1(String name, Pageable pageable) {
+        return this.iTeacherRepository.findAllByTeacherNameContaining(name, pageable);
+    }
+
     @Override
     public Page<ITeacherDto> getAllTeacher(String name, Pageable pageable) {
         return this.iTeacherRepository.getAllTeacher(name, pageable);

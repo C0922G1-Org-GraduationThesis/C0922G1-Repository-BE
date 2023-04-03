@@ -1,10 +1,12 @@
 package com.example.be.controller;
 
 import com.example.be.dto.StudentDto;
+import com.example.be.dto.StudentDto1;
 import com.example.be.model.Student;
 import com.example.be.service.IStudentService;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.web.PageableDefault;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.BindingResult;
@@ -16,7 +18,7 @@ import org.springframework.data.domain.Pageable;
 
 @RestController
 @CrossOrigin("*")
-@RequestMapping("/students")
+@RequestMapping("/api/students")
 public class StudentRestController {
     @Autowired
     private IStudentService studentService;
@@ -122,5 +124,24 @@ public class StudentRestController {
             studentService.updateStudent(studentId, student);
             return new ResponseEntity<>(HttpStatus.OK);
         }
+    }
+
+    /**
+     * Create by : VinhLD
+     * Date create : 29/3/2023
+     * Function: show list student
+     * @param nameSearch
+     * @param pageable
+     * @return HttpStatus.OK if connect to database return json list student or HttpStatus.NOT_FOUND if list student is empty
+     */
+
+    @GetMapping("")
+    public ResponseEntity<Page<StudentDto1>> getAllStudent(@RequestParam(value = "nameSearch",defaultValue = "") String nameSearch,
+                                                          @PageableDefault(size = 4) Pageable pageable) {
+        Page<StudentDto1> studentDtos = studentService.getStudentList(pageable, nameSearch);
+        if (studentDtos.isEmpty()) {
+            return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+        }
+        return  new ResponseEntity<>(studentDtos, HttpStatus.OK);
     }
 }

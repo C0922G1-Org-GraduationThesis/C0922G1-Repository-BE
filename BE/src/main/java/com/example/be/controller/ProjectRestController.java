@@ -37,9 +37,9 @@ public class ProjectRestController {
      */
 
     @GetMapping("/")
-    public ResponseEntity<Page<Project>> findAll(@RequestParam String searchName,
-                                                 @RequestParam int size,
-                                                 @RequestParam int page) {
+    public ResponseEntity<Page<Project>> findAll(@RequestParam(required = false, defaultValue = "") String searchName,
+                                                 @RequestParam(required = false, defaultValue = "5") int size,
+                                                 @RequestParam(required = false, defaultValue = "0") int page) {
 
         Pageable pageable = PageRequest.of(page, size);
         Page<Project> projects = this.projectService.findAllByNameContaining(searchName, pageable);
