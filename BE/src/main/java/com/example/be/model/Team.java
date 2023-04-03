@@ -1,5 +1,7 @@
 package com.example.be.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import javax.persistence.*;
 import java.util.Set;
 
@@ -13,12 +15,16 @@ public class Team {
     private String teamName;
     @Column( nullable = false)
     private int memberOfTeam;
+
     @ManyToOne
     @JoinColumn(name = "teacher_id", referencedColumnName = "teacher_id")
     private Teacher teacher;
+
     @OneToOne(mappedBy = "team")
     private Project project;
+
     @OneToMany(mappedBy = "team")
+    @JsonIgnore
     private Set<Student> studentSet;
 
     public Team() {

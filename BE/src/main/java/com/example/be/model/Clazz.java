@@ -1,7 +1,6 @@
 package com.example.be.model;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
-
 import javax.persistence.*;
 import java.util.Set;
 
@@ -16,9 +15,11 @@ public class Clazz {
     @ManyToOne
     @JoinColumn(name = "faculty_id", referencedColumnName = "faculty_id")
     private Faculty faculty;
+
     @OneToMany(mappedBy = "clazz")
     @JsonIgnore
     private Set<Student> studentSet;
+
     @OneToOne
     @JsonIgnore
     @JoinColumn(name = "teacher_id",referencedColumnName = "teacher_id")

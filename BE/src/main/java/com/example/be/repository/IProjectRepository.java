@@ -2,11 +2,13 @@ package com.example.be.repository;
 
 import com.example.be.model.Project;
 import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 
-import java.util.List;
-
+import java.util.Optional;
 
 import com.example.be.model.Project;
 import org.springframework.data.domain.Page;
@@ -26,16 +28,18 @@ public interface IProjectRepository extends JpaRepository<Project, Long> {
      *
      * @Param: name, content, description, img
      */
-    @Transactional
+
+    @Modifying
     @Query(value = "" +
             "INSERT INTO project " +
-            "(name, content, description, project_status, img)" +
-            " VALUES (:name,:content ,:description ,0 ,:img );",
+            "(project_name, project_content, project_description, project_status, project_img, team_id)" +
+            " VALUES (:projectName,:projectContent ,:projectDescription ,0 ,:projectImg,:teamId );",
             nativeQuery = true)
-    Project saveProject(@Param("name") String name,
-                        @Param("content") String content,
-                        @Param("description") String description,
-                        @Param("img") String img);
+    Project saveProject(@Param("projectName") String projectName,
+                        @Param("projectContent") String projectContent,
+                        @Param("projectDescription") String projectDescription,
+                        @Param("projectImg") String projectImg,
+                        @Param("teamId") Long teamId);
 
     /**
      * Create by: HauNN
@@ -47,11 +51,12 @@ public interface IProjectRepository extends JpaRepository<Project, Long> {
     @Query(value = "" +
             "SELECT " +
             "project_id," +
-            "name," +
-            "content," +
-            "img," +
-            "description," +
-            "project_status " +
+            "project_name," +
+            "project_content," +
+            "project_img," +
+            "project_description," +
+            "project_status," +
+            "team_id " +
             "FROM project " +
             "WHERE project_id = :projectId", nativeQuery = true)
     Optional<Project> findById(@Param("projectId") Long id);
@@ -66,13 +71,14 @@ public interface IProjectRepository extends JpaRepository<Project, Long> {
     @Query(value = "" +
             "SELECT " +
             "project_id," +
-            "name," +
-            "content," +
-            "img," +
-            "description," +
-            "project_status " +
+            "project_name," +
+            "project_content," +
+            "project_img," +
+            "project_description," +
+            "project_status," +
+            "team_id " +
             "FROM project " +
-            "WHERE name = LOWER(TRIM(REGEXP_REPLACE(:projectName, '\\s+', ' ')))", nativeQuery = true)
+            "WHERE project_name = LOWER(TRIM(REGEXP_REPLACE(:projectName, '\\s+', ' ')))", nativeQuery = true)
     Optional<Project> findByName(@Param("projectName") String name);
 
     /**
@@ -85,13 +91,35 @@ public interface IProjectRepository extends JpaRepository<Project, Long> {
     @Query(value = "" +
             "SELECT " +
             "project_id," +
-            "name," +
-            "content," +
-            "img," +
-            "description," +
-            "project_status " +
+            "project_name," +
+            "project_content," +
+            "project_img," +
+            "project_description," +
+            "project_status," +
+            "team_id " +
             "FROM project " +
-            "WHERE name LIKE CONCAT('%',:searchName,'%')", nativeQuery = true)
+            "WHERE project_name LIKE CONCAT('%',:searchName,'%')", nativeQuery = true)
     Page<Project> findAllByNameContaining(@Param("searchName") String searchName, Pageable pageable);
+
+    /**
+     * Created by: hoangNNH
+     * Date created: 29/03/2023
+     * Function: get project list
+     *
+     * @param pageable, name
+     */
+    @Query(value = "select * from `project` " +
+            "where `project_name` like concat('%', :name, '%')" +
+            "and `project_status` = true ", nativeQuery = true)
+    Page<Project> getAllProject(Pageable pageable, @Param("name") String name);
+    /**
+     * Created by: hoangNNH
+     * Date created: 29/03/2023
+     * Function: get project by id
+     *
+     * @param projectId
+     */
+    @Query(value = "select * from project where project_id = :projectId", nativeQuery = true)
+    Project getProjectById(@Param("projectId") Long projectId);
 }
 

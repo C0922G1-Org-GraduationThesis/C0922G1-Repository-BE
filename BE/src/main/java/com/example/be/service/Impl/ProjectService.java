@@ -9,7 +9,6 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-
 @Service
 public class ProjectService implements IProjectService {
     @Autowired
@@ -36,7 +35,9 @@ public class ProjectService implements IProjectService {
                 project.getProjectName(),
                 project.getProjectContent(),
                 project.getProjectDescription(),
-                project.getProjectImg());
+                project.getProjectImg(),
+                project.getTeam().getTeamId()
+        );
     }
 
     /**
@@ -63,5 +64,31 @@ public class ProjectService implements IProjectService {
     @Override
     public Page<Project> findAllByNameContaining(String searchName, Pageable pageable) {
         return this.projectRepository.findAllByNameContaining(searchName, pageable);
+    }
+
+    /**
+     * Created by: hoangNNH
+     * Date created: 29/03/2023
+     * Function: get project by id
+     *
+     * @param pageable, name
+     * @return project list
+     */
+
+    @Override
+    public Page<Project> getAllProject(Pageable pageable, String name) {
+        return this.projectRepository.getAllProject(pageable, name);
+    }
+    /**
+     * Created by: hoangNNH
+     * Date created: 29/03/2023
+     * Function: get project by id
+     *
+     * @param projectId
+     * @return project
+     */
+    @Override
+    public Project getProjectById(Long projectId) {
+        return this.projectRepository.getProjectById(projectId);
     }
 }

@@ -1,4 +1,5 @@
 package com.example.be.controller;
+
 import com.example.be.dto.ProjectDTO;
 import com.example.be.model.Project;
 import com.example.be.model.Team;
@@ -14,11 +15,10 @@ import org.springframework.validation.BindingResult;
 import org.springframework.validation.FieldError;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
-
+import org.springframework.web.bind.annotation.CrossOrigin;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RestController;
 import java.util.List;
-import java.util.Map;
-import java.util.stream.Collectors;
-
 
 @RestController
 @CrossOrigin("*")
@@ -37,9 +37,10 @@ public class ProjectRestController {
      */
 
     @GetMapping("/")
-    public ResponseEntity<Page<Project>> findAll(@RequestParam(required = false, defaultValue = "") String searchName,
-                                                 @RequestParam(required = false, defaultValue = "5") int size,
-                                                 @RequestParam(required = false, defaultValue = "0") int page) {
+    public ResponseEntity<Page<Project>> findAll(@RequestParam String searchName,
+                                                 @RequestParam int size,
+                                                 @RequestParam int page) {
+
         Pageable pageable = PageRequest.of(page, size);
         Page<Project> projects = this.projectService.findAllByNameContaining(searchName, pageable);
 
@@ -91,6 +92,41 @@ public class ProjectRestController {
         if (project != null) {
             return new ResponseEntity<>(project, HttpStatus.OK);
         }
-        return new ResponseEntity<>(HttpStatus.NO_CONTENT);
+        return new ResponseEntity<>(HttpStatus.NOT_FOUND);
     }
+
+    /**
+     * Created by: hoangNNH
+     * Date created: 29/03/2023
+     * Function: get project list
+     *
+     * @param page, name
+     * @return HttpStatus.NO_CONTENT if result is error or HttpStatusOK if result is not error
+     */
+    @GetMapping("")
+    public ResponseEntity<Page<Project>> pagingAndGetAllProject(
+            @RequestParam(defaultValue = "0", required = false) int page,
+            @RequestParam(defaultValue = "", required = false) String name) {
+        Pageable pageable = PageRequest.of(page, 3);
+        Page<Project> projectPage = this.projectService.getAllProject(pageable, name);
+        if (!projectPage.hasContent()) {
+            return new ResponseEntity<>(HttpStatus.NO_CONTENT);
+        }
+        return new ResponseEntity<>(projectPage, HttpStatus.OK);
+    }
+    /**
+     * Created by: hoangNNH
+     * Date created: 29/03/2023
+     * Function: get project by id
+     *
+     * @return HttpStatus.NO_CONTENT if result is error or HttpStatusOK if result is not error
+     */
+//    @GetMapping("detail/{id}")
+//    public ResponseEntity<Project> getProjectById(@PathVariable Long id) {
+//        Project project = this.projectService.getProjectById(id);
+//        if (project== null){
+//            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+//        }
+//        return new ResponseEntity<>(project, HttpStatus.OK);
+//    }
 }
