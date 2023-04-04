@@ -6,6 +6,9 @@ import com.example.be.model.ProgressReport;
 import com.example.be.service.IProgressReportService;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.web.PageableDefault;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.BindingResult;
@@ -78,9 +81,9 @@ public class ProgressReportRestController {
      * @return HttpStatus.OK if result is not error or HttpStatus.NO_CONTENT if no content
      */
     @GetMapping("/{project_id}/{stage_id}")
-    public ResponseEntity<List<ProgressReport>> findProgressReportByProjectIdAndStageId(@PathVariable("project_id") Long projectId,
-                                                                                        @PathVariable("stage_id") int stageId) {
-        List<ProgressReport> progressReportList = progressReportService.findAllProgressReportByProjectIdAndStageId(projectId, stageId);
+    public ResponseEntity<Page<ProgressReport>> findProgressReportByProjectIdAndStageId(@PathVariable("project_id") Long projectId,
+                                                                                        @PathVariable("stage_id") int stageId,@PageableDefault(page = 0,size = 4) Pageable pageable) {
+        Page<ProgressReport> progressReportList = progressReportService.findAllProgressReportByProjectIdAndStageId(projectId, stageId,pageable);
         if (progressReportList.isEmpty()) {
             return new ResponseEntity<>(HttpStatus.NOT_FOUND);
         }

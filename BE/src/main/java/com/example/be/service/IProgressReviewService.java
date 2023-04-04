@@ -1,5 +1,6 @@
 package com.example.be.service;
 
+import com.example.be.model.ProgressDetail;
 import com.example.be.model.ProgressReview;
 
 import java.util.List;

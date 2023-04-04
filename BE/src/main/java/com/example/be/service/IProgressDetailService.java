@@ -1,6 +1,7 @@
 package com.example.be.service;
 
 import com.example.be.model.ProgressDetail;
+import org.springframework.data.jpa.repository.Query;
 
 import java.util.List;
 
@@ -20,4 +21,6 @@ public interface IProgressDetailService {
      * Date created: 01/04/2023
      */
     ProgressDetail findById(Long progressDetailId);
+
+    List<ProgressDetail> findProgressDetailAndStatusIsTrue();
 }

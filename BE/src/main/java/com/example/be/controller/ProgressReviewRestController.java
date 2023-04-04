@@ -85,13 +85,16 @@ public class ProgressReviewRestController {
         if (progressReviews.getProgressReviewPercent() == 100 && progressDetail.getProgressDetailId() < 4) {
             progressDetail.setProgressStatus(false);
             progressDetailNext.setProgressStatus(true);
+            progressDetailRepository.save(progressDetail);
+            progressDetailRepository.save(progressDetailNext);
         }
-        if (progressDetail.getStage().getStageId() == 4 && progressDetail.getProgressDetailPercent() == 100) {
+        if (progressDetail.getStageId() == 4 && progressDetail.getProgressDetailPercent() == 100) {
             progressDetail.setProgressStatus(false);
             project.setProjectStatus(false);
+            progressDetailRepository.save(progressDetail);
+
         }
-        progressDetailRepository.save(progressDetail);
-        progressDetailRepository.save(progressDetailNext);
+
         ProgressReview progressReview = progressReviewService.saveProgressReview(progressReviews);
 
         return new ResponseEntity<>(progressReview, HttpStatus.OK);
@@ -221,22 +224,25 @@ public class ProgressReviewRestController {
 
     boolean flag = false;
 
-    @Scheduled(cron = "0 44 22 * * ?")
-    public void changeStatusProgressDetailAuto() {
+    @Scheduled(cron = "0 52 18 * * ?")
+    public void changeStatusProgressDetailAutoAndId() {
         System.out.println(this.projectId);
         this.flag = true;
-        changeProgressDetailStatus(this.projectId);
+        changeProgressDetailStatusAndId(this.projectId);
     }
 
     @GetMapping("/api/progressReview/saveAuto/{projectId}")
-    public void changeProgressDetailStatus(@PathVariable Long projectId) {
+    public void changeProgressDetailStatusAndId(@PathVariable Long projectId) {
         Project project = projectService.findById(projectId);
         System.out.println(this.projectId + "68686868");
         ProgressDetail progressDetailAuto = progressDetailService.findProgressDetailByProjectId(projectId);
-        if (progressDetailAuto.getStage().getStageId() == 4 && flag) {
+        System.out.println(progressDetailAuto.getStageId()+ "aaaaaaa");
+        System.out.println(progressDetailAuto.getProgressStatus());
+        if (progressDetailAuto.getStageId() == 4 && flag) {
             progressDetailAuto.setProgressStatus(false);
             project.setProjectStatus(false);
-            if (progressDetailAuto.getStage().getStageId() < 4 && flag)
+        }
+            if (progressDetailAuto.getStageId() < 4 && flag){
                 progressDetailAuto.setProgressStatus(false);
             ProgressDetail progressDetailNext = progressDetailService.findById(progressDetailAuto.getProgressDetailId() + 1);
             progressDetailNext.setProgressStatus(true);
@@ -245,6 +251,38 @@ public class ProgressReviewRestController {
             System.out.println(progressDetailNext.getProgressStatus());
         }
         System.out.println("a hi hi đồ ngốc");
+    }
+
+
+    @Scheduled(cron = "0 05 20 * * ?")
+    public void changeStatusProgressDetailAuto() {
+        changeProgressDetailStatus();
+    }
+
+    public void changeProgressDetailStatus() {
+        List<ProgressDetail> progressDetails = progressDetailService.findProgressDetailAndStatusIsTrue();
+    for (ProgressDetail progressDetail: progressDetails){
+        Project project = projectService.findById(progressDetail.getProjectId());
+        System.out.println(this.projectId + "68686868");
+        ProgressDetail progressDetailAuto = progressDetailService.findProgressDetailByProjectId(project.getProjectId());
+        System.out.println(progressDetailAuto.getStageId()+ "aaaaaaa");
+        System.out.println(progressDetailAuto.getProgressStatus());
+        if (progressDetailAuto.getStageId() == 4 ) {
+            progressDetailAuto.setProgressStatus(false);
+            progressDetailRepository.save(progressDetailAuto);
+            project.setProjectStatus(false);
+
+        }
+        if (progressDetailAuto.getStageId() < 4 ){
+            progressDetailAuto.setProgressStatus(false);
+            ProgressDetail progressDetailNext = progressDetailService.findById(progressDetailAuto.getProgressDetailId() + 1);
+            progressDetailNext.setProgressStatus(true);
+            progressDetailRepository.save(progressDetailAuto);
+            progressDetailRepository.save(progressDetailNext);
+            System.out.println(progressDetailNext.getProgressStatus());
+        }
+        System.out.println("a hi hi đồ ngốc kkkk");
+    }
     }
 // Đừng xóa bạn nhé ----------------------------Sau 17 giây sẽ tự động insert vào
 //    @Scheduled(fixedDelay = 17000)
@@ -255,19 +293,12 @@ public class ProgressReviewRestController {
     public void saveAutoProgressDetail() {
         System.out.println("aaaaa");
         List<Project> projectList = projectService.findProjectListEnableAndSetStatusIsTrue();
-        Stage stage1 = new Stage();
-        stage1.setStageId(1);
-        Stage stage2 = new Stage();
-        stage2.setStageId(2);
-        Stage stage3 = new Stage();
-        stage3.setStageId(3);
-        Stage stage4 = new Stage();
-        stage4.setStageId(4);
+
         for (Project project1 : projectList) {
-            ProgressDetail progressDetail1 = new ProgressDetail("Báo cáo giai đoạn 1", 1, "2023-03-01", "2023-03-30", true, project1.getProjectId(), stage1);
-            ProgressDetail progressDetail2 = new ProgressDetail("Báo cáo giai đoạn 2", 0, "2023-04-01", "2023-04-30", false, project1.getProjectId(), stage2);
-            ProgressDetail progressDetail3 = new ProgressDetail("Báo cáo giai đoạn 3", 0, "2023-05-01", "2023-05-30", false, project1.getProjectId(), stage3);
-            ProgressDetail progressDetail4 = new ProgressDetail("Báo cáo giai đoạn 4", 0, "2023-06-01", "2023-06-30", false, project1.getProjectId(), stage4);
+            ProgressDetail progressDetail1 = new ProgressDetail("Báo cáo giai đoạn 1", 1, "2023-03-01", "2023-03-30", true, project1.getProjectId(), 1);
+            ProgressDetail progressDetail2 = new ProgressDetail("Báo cáo giai đoạn 2", 0, "2023-04-01", "2023-04-30", false, project1.getProjectId(), 2);
+            ProgressDetail progressDetail3 = new ProgressDetail("Báo cáo giai đoạn 3", 0, "2023-05-01", "2023-05-30", false, project1.getProjectId(), 3);
+            ProgressDetail progressDetail4 = new ProgressDetail("Báo cáo giai đoạn 4", 0, "2023-06-01", "2023-06-30", false, project1.getProjectId(), 4);
             if (project1.getProjectStatus()) {
                 progressDetailRepository.save(progressDetail1);
                 progressDetailRepository.save(progressDetail2);

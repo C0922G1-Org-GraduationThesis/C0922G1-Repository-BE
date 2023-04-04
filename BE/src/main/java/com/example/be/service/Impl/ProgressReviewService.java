@@ -1,5 +1,6 @@
 package com.example.be.service.Impl;
 
+import com.example.be.model.ProgressDetail;
 import com.example.be.model.ProgressReview;
 import com.example.be.repository.IProgressReviewRepository;
 import com.example.be.service.IProgressReviewService;
@@ -104,4 +105,6 @@ public class ProgressReviewService implements IProgressReviewService {
     public int findMaxPercentProgressReport(Long project_id, int stage_id) {
         return progressReviewRepository.findMaxPercentProgressReport(project_id,stage_id);
     }
+
+
 }

@@ -3,6 +3,8 @@ package com.example.be.repository;
 
 import com.example.be.dto.IStudentProgressReportDTO;
 import com.example.be.model.ProgressReport;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;
@@ -50,9 +52,8 @@ public interface IProgressReportRepository extends JpaRepository<ProgressReport,
      * Date created : 29/03/2023
      * Function : Find ProgressReport By StageId And ProjectId
      */
-    @Query(value = "SELECT pr.* FROM progress_report as pr WHERE project_id =:project_id and stage_id =:stage_id ORDER BY progress_report_time DESC", nativeQuery = true)
-    List<ProgressReport> findProgressReportByStageIdAndProjectId(@Param("project_id") Long project_id, @Param("stage_id") int stage_id);
-
+    @Query(value = "SELECT pr.* FROM `progress_report` as pr WHERE project_id =:project_id and stage_id =:stage_id ORDER BY progress_report_time DESC", nativeQuery = true)
+    Page<ProgressReport> findProgressReportByStageIdAndProjectId(@Param("project_id") Long project_id, @Param("stage_id") int stage_id, Pageable pageable);
     /**
      * Created by: SyVT,
      * Date created : 29/03/2023

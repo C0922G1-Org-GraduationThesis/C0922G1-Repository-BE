@@ -1,6 +1,8 @@
 package com.example.be.model;
 
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import javax.persistence.*;
 
 @Entity
@@ -18,21 +20,19 @@ public class ProgressDetail {
     private Boolean progressStatus;
     private Long projectId;
 
-    @OneToOne
-    @JoinColumn(name = "stage_id",referencedColumnName = "stage_id")
-    private Stage stage;
+    private int stageId;
 
     public ProgressDetail() {
     }
 
-    public ProgressDetail(String progressDetailName, int progressDetailPercent, String progressDateStart, String progressDateEnd, Boolean progressStatus, Long projectId, Stage stage) {
+    public ProgressDetail(String progressDetailName, int progressDetailPercent, String progressDateStart, String progressDateEnd, Boolean progressStatus, Long projectId, int stageId) {
         this.progressDetailName = progressDetailName;
         this.progressDetailPercent = progressDetailPercent;
         this.progressDateStart = progressDateStart;
         this.progressDateEnd = progressDateEnd;
         this.progressStatus = progressStatus;
         this.projectId = projectId;
-        this.stage = stage;
+        this.stageId = stageId;
     }
 
     public Boolean getProgressStatus() {
@@ -95,11 +95,11 @@ public class ProgressDetail {
         this.projectId = projectId;
     }
 
-    public Stage getStage() {
-        return stage;
+    public int getStageId() {
+        return stageId;
     }
 
-    public void setStage(Stage stage) {
-        this.stage = stage;
+    public void setStageId(int stageId) {
+        this.stageId = stageId;
     }
 }
