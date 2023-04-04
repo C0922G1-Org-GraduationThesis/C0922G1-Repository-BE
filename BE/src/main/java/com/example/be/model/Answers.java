@@ -1,7 +1,7 @@
 package com.example.be.model;
-import javax.persistence.*;
-import java.util.Set;
 
+import javax.persistence.*;
+import java.time.LocalDateTime;
 
 @Entity
 public class Answers {
@@ -9,8 +9,11 @@ public class Answers {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "answer_id")
     private Long answerId;
-    @Column(columnDefinition = "text",nullable = false)
+    @Column(columnDefinition = "text", nullable = false)
     private String answerContent;
+
+    @Column(columnDefinition = "dateTime")
+    private LocalDateTime dateTime;
 
     @ManyToOne
     @JoinColumn(name = "teacher_id", referencedColumnName = "teacher_id")
@@ -23,12 +26,12 @@ public class Answers {
     public Answers() {
     }
 
-    public Question getQuestion() {
-        return question;
+    public LocalDateTime getDateTime() {
+        return dateTime;
     }
 
-    public void setQuestion(Question question) {
-        this.question = question;
+    public void setDateTime(LocalDateTime dateTime) {
+        this.dateTime = dateTime;
     }
 
     public Long getAnswerId() {
@@ -55,5 +58,11 @@ public class Answers {
         this.teacher = teacher;
     }
 
+    public Question getQuestion() {
+        return question;
+    }
 
+    public void setQuestion(Question question) {
+        this.question = question;
+    }
 }

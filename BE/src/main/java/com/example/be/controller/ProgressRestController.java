@@ -5,10 +5,15 @@ import com.example.be.dto.ProgressProjectDto;
 import com.example.be.dto.ProgressStudentDto;
 import com.example.be.service.IProgressService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageImpl;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.web.PageableDefault;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.Collections;
 import java.util.List;
 
 import org.springframework.web.bind.annotation.CrossOrigin;
@@ -29,12 +34,22 @@ public class ProgressRestController {
      */
 
     @GetMapping("/api/progress/list")
-    public ResponseEntity<List<ProgressDto>> findAll() {
+    public ResponseEntity<Page<ProgressDto>> findAll(@PageableDefault(size = 4,page = 0) Pageable pageable) {
         List<ProgressDto> progressDtos = progressService.findAll();
-        if (progressDtos == null) {
-            return new ResponseEntity<>(null, HttpStatus.NOT_FOUND);
+        int pageSize = pageable.getPageSize();
+        int currentPage = pageable.getPageNumber();
+        int startItem = currentPage * pageSize;
+        List<ProgressDto> currentProgressDtos;
+
+        if (progressDtos.size() < startItem) {
+            currentProgressDtos = Collections.emptyList();
+        } else {
+            int toIndex = Math.min(startItem + pageSize, progressDtos.size());
+            currentProgressDtos = progressDtos.subList(startItem, toIndex);
         }
-        return new ResponseEntity<>(progressDtos, HttpStatus.OK);
+
+        Page<ProgressDto> progressDtoPage = new PageImpl<>(currentProgressDtos, pageable, progressDtos.size());
+        return new ResponseEntity<>(progressDtoPage, HttpStatus.OK);
     }
 
     /**

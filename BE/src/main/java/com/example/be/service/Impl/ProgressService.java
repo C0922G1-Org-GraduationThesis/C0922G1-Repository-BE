@@ -9,6 +9,9 @@ import com.example.be.model.Team;
 import com.example.be.service.IProgressService;
 import com.example.be.service.IProjectService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageImpl;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
@@ -32,7 +35,6 @@ public class ProgressService implements IProgressService {
     public List<ProgressDto> findAll() {
         List<Project> projectList = projectService.findAll();
         List<ProgressDto> progressDtos = new ArrayList<>();
-//        Pageable pageable = Pageable.ofSize(3);
         for (Project project : projectList) {
             progressDtos.add(new ProgressDto(project.getProjectId(), project.getTeam().getTeamName(), project.getProjectName(), project.getTeam().getMemberOfTeam(), project.isProjectStatus()));
         }

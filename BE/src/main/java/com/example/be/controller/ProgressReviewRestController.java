@@ -246,7 +246,7 @@ public class ProgressReviewRestController {
         }
         System.out.println("a hi hi đồ ngốc");
     }
-//Sau 17 giây sẽ tự động insert vào
+// Đừng xóa bạn nhé ----------------------------Sau 17 giây sẽ tự động insert vào
 //    @Scheduled(fixedDelay = 17000)
 //    public void saveProgressDetailAuto() {
 //        saveAutoProgressDetail();
