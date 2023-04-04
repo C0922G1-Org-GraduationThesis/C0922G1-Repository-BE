@@ -28,6 +28,11 @@ public class Clazz {
     public Clazz() {
     }
 
+    public Clazz(Long clazzId, String clazzName) {
+        this.clazzId = clazzId;
+        this.clazzName = clazzName;
+    }
+
     public Long getClazzId() {
         return clazzId;
     }

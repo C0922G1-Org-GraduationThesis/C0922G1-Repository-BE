@@ -1,7 +1,5 @@
 package com.example.be.model;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
-
 import javax.persistence.*;
 import java.time.LocalDateTime;
 import java.util.Set;
@@ -17,16 +15,15 @@ public class Question {
     private String questionTopic;
     @Column(nullable = false,columnDefinition = "text")
     private String questionContent;
-    @Column(nullable = false,columnDefinition = "dateTime")
+    @Column(columnDefinition = "dateTime")
     private LocalDateTime dateTime;
 
-    @OneToMany(mappedBy = "question")
-    @JsonIgnore
-    private Set<Student> studentSet;
+    @ManyToOne
+    @JoinColumn(name = "student_id", referencedColumnName = "student_id")
+    private Student student;
 
     @OneToMany(mappedBy = "question")
-    @JsonIgnore
-    private Set<Answers> answers;
+    private Set<Answers> answersSet;
 
     public Question() {
     }
@@ -63,19 +60,19 @@ public class Question {
         this.dateTime = dateTime;
     }
 
-    public Set<Student> getStudentSet() {
-        return studentSet;
+    public Student getStudent() {
+        return student;
     }
 
-    public void setStudentSet(Set<Student> studentSet) {
-        this.studentSet = studentSet;
+    public void setStudent(Student student) {
+        this.student = student;
     }
 
-    public Set<Answers> getAnswers() {
-        return answers;
+    public Set<Answers> getAnswersSet() {
+        return answersSet;
     }
 
-    public void setAnswers(Set<Answers> answers) {
-        this.answers = answers;
+    public void setAnswersSet(Set<Answers> answersSet) {
+        this.answersSet = answersSet;
     }
 }

@@ -1,9 +1,12 @@
 package com.example.be.service;
 
 import com.example.be.dto.ITopicDto;
+import com.example.be.dto.ProgressProjectDto;
 import com.example.be.model.Project;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
+
+import java.util.List;
 
 public interface IProjectService {
     /**
@@ -74,4 +77,31 @@ public interface IProjectService {
      * Date create: 29/03/2023
      */
     Page<ITopicDto> pagePro(Pageable pageable);
+
+    /**
+     * Created by: VuLX
+     * Date created: 01/04/2023
+     */
+
+    List<Project> findAll();
+    /**
+     * Created by: VuLX
+     * Date created: 01/04/2023
+     */
+    Project findByIdProject(Long projectId);
+    /**
+     * Created by: VuLX
+     * Date created: 01/04/2023
+     */
+    Project findProjectById(Long projectId);
+    /**
+     * Created by: VuLX
+     * Date created: 01/04/2023
+     */
+    List<Project> findProjectListEnableAndSetStatusIsTrue();
+    /**
+     * Created by: VuLX
+     * Date created: 01/04/2023
+     */
+    ProgressProjectDto findByProjectId(Long projectId);
 }

@@ -1,6 +1,7 @@
 package com.example.be.service.Impl;
 
 import com.example.be.dto.ITopicDto;
+import com.example.be.dto.ProgressProjectDto;
 import com.example.be.model.Project;
 import com.example.be.repository.IProjectRepository;
 import com.example.be.service.IProjectService;
@@ -9,6 +10,8 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+
+import java.util.List;
 
 @Service
 public class ProjectService implements IProjectService {
@@ -125,5 +128,30 @@ public class ProjectService implements IProjectService {
     @Override
     public Page<ITopicDto> pagePro(Pageable pageable) {
         return projectRepository.pagePro(pageable);
+    }
+
+    @Override
+    public List<Project> findAll() {
+        return projectRepository.findAll();
+    }
+
+    @Override
+    public Project findByIdProject(Long projectId) {
+        return projectRepository.findByAId(projectId).orElse(null);
+    }
+
+    @Override
+    public Project findProjectById(Long projectId) {
+        return projectRepository.findByAId(projectId).orElse(null);
+    }
+
+    @Override
+    public List<Project> findProjectListEnableAndSetStatusIsTrue() {
+        return projectRepository.findProjectListEnable();
+    }
+
+    @Override
+    public ProgressProjectDto findByProjectId(Long projectId) {
+        return projectRepository.findProgressDtoByProjectId(projectId).orElse(null);
     }
 }

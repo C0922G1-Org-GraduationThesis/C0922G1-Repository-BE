@@ -44,21 +44,20 @@ public class Student {
     @OneToMany(mappedBy = "student")
     @JsonIgnore
     private Set<StudentAnnouncement> studentAnnouncementSet;
-    @ManyToOne
-    @JoinColumn(name = "question_id", referencedColumnName = "question_id")
+    @OneToMany(mappedBy = "student")
     @JsonIgnore
-    private Question question;
+    private Set<Question> questionSet;
 
     public boolean isFlagLeader() {
         return flagLeader;
     }
 
-    public Question getQuestion() {
-        return question;
+    public Set<Question> getQuestionSet() {
+        return questionSet;
     }
 
-    public void setQuestion(Question question) {
-        this.question = question;
+    public void setQuestionSet(Set<Question> questionSet) {
+        this.questionSet = questionSet;
     }
 
     public void setFlagLeader(boolean flagLeader) {

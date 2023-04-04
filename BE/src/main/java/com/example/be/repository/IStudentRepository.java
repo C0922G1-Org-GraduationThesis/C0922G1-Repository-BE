@@ -1,6 +1,7 @@
 package com.example.be.repository;
 
 import com.example.be.dto.IMailStudentDto;
+import com.example.be.dto.IStudentDTO;
 import com.example.be.dto.StudentDto1;
 import com.example.be.dto.StudentInfo;
 import com.example.be.model.Student;
@@ -117,8 +118,10 @@ public interface IStudentRepository extends JpaRepository<Student, Long> {
                     @Param("student_img") String studentImg,
                     @Param("clazz_id") Long clazzId);
 
-    @Query(value = "select * from student where student_id= :studentId",nativeQuery = true)
-    Student findById(@Param("studentId") long studentId);
+    @Query(value = "select student_id as studentId, student_name as studentName,student_date_of_birth as studentDateOfBirth, student_email as studentEmail, student_phone_number as  studentPhoneNumber,student_address as studentAddress,student_gender as  studentGender,student_code as studentCode,student_img as studentImg,c.clazz_id as clazzId,clazz_name as clazzName from student join clazz c on student.clazz_id = c.clazz_id where student_id = :studentId",
+            countQuery = "select student_id as studentId, student_name as studentName,student_date_of_birth as studentDateOfBirth, student_email as studentEmail, student_phone_number as  studentPhoneNumber,student_address as studentAddress,student_gender as  studentGender,student_code as studentCode,student_img as studentImg,c.clazz_id as clazzId,clazz_name as clazzName from student join clazz c on student.clazz_id = c.clazz_id where student_id = :studentId",
+            nativeQuery = true)
+    IStudentDTO findStudentById(@Param("studentId") long studentId);
 
     @Transactional
     @Modifying

@@ -1,6 +1,7 @@
 package com.example.be.service.Impl;
 
 import com.example.be.dto.IMailStudentDto;
+import com.example.be.dto.IStudentDTO;
 import com.example.be.dto.StudentDto1;
 import com.example.be.dto.StudentInfo;
 import com.example.be.model.Project;
@@ -81,8 +82,8 @@ public class StudentService implements IStudentService {
     }
 
     @Override
-    public Student findById(long studentId) {
-        return studentRepository.findById(studentId);
+    public IStudentDTO findStudentsById(long studentId) {
+        return studentRepository.findStudentById(studentId);
     }
 
     @Override

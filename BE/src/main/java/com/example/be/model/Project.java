@@ -107,4 +107,12 @@ public class Project {
     public void setProgressReviews(Set<ProgressReview> progressReviews) {
         this.progressReviews = progressReviews;
     }
+
+    public Boolean getProjectStatus() {
+        return projectStatus;
+    }
+
+    public void setProjectStatus(Boolean projectStatus) {
+        this.projectStatus = projectStatus;
+    }
 }

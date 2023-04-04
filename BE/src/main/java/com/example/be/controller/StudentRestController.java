@@ -1,8 +1,10 @@
 package com.example.be.controller;
 
+import com.example.be.dto.IStudentDTO;
 import com.example.be.dto.StudentDto;
 import com.example.be.dto.StudentDto1;
 import com.example.be.dto.StudentInfo;
+import com.example.be.model.Clazz;
 import com.example.be.model.Student;
 import com.example.be.service.IStudentService;
 import org.springframework.beans.BeanUtils;
@@ -112,10 +114,33 @@ public class StudentRestController {
         }
     }
 
+    @GetMapping("/getStd/{studentId}")
+    public ResponseEntity<StudentDto> findStudentsById(@PathVariable long studentId) {
+        StudentDto studentDto = new StudentDto();
+        IStudentDTO student = studentService.findStudentsById(studentId);
+        studentDto.setStudentId(student.getStudentId());
+        studentDto.setStudentName(student.getStudentName());
+        studentDto.setStudentDateOfBirth(student.getStudentDateOfBirth());
+        studentDto.setStudentEmail(student.getStudentEmail());
+        studentDto.setStudentPhoneNumber(student.getStudentPhoneNumber());
+        studentDto.setStudentAddress(student.getStudentPhoneNumber());
+        studentDto.setStudentGender(student.getStudentGender());
+        studentDto.setStudentCode(student.getStudentCode());
+        studentDto.setStudentImg(student.getStudentImg());
+        Clazz clazz = new Clazz(student.getClazzId(),student.getClazzName());
+        studentDto.setClazz(clazz);
+        if (student == null) {
+            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+        } else {
+            return new ResponseEntity<>(studentDto, HttpStatus.OK);
+        }
+    }
+
     @PatchMapping("/update/{studentId}")
     public ResponseEntity<Student> updateStudent(@Validated @RequestBody StudentDto studentDto, @PathVariable long studentId, BindingResult bindingResult) {
-        Student student = studentService.findById(studentId);
-        if (student == null) {
+        Student student = new Student();
+        IStudentDTO studentDTO = studentService.findStudentsById(studentId);
+        if (studentDTO == null) {
             return new ResponseEntity<>(HttpStatus.NOT_FOUND);
         } else {
             if (bindingResult.hasErrors()) {
@@ -131,25 +156,27 @@ public class StudentRestController {
      * Create by : VinhLD
      * Date create : 29/3/2023
      * Function: show list student
+     *
      * @param nameSearch
      * @param pageable
      * @return HttpStatus.OK if connect to database return json list student or HttpStatus.NOT_FOUND if list student is empty
      */
 
     @GetMapping("")
-    public ResponseEntity<Page<StudentDto1>> getAllStudent(@RequestParam(value = "nameSearch",defaultValue = "") String nameSearch,
-                                                          @PageableDefault(size = 4) Pageable pageable) {
+    public ResponseEntity<Page<StudentDto1>> getAllStudent(@RequestParam(value = "nameSearch", defaultValue = "") String nameSearch,
+                                                           @PageableDefault(size = 4) Pageable pageable) {
         Page<StudentDto1> studentDtos = studentService.getStudentList(pageable, nameSearch);
         if (studentDtos.isEmpty()) {
             return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
         }
-        return  new ResponseEntity<>(studentDtos, HttpStatus.OK);
+        return new ResponseEntity<>(studentDtos, HttpStatus.OK);
     }
 
     /**
      * Create by : Vinh LD
      * Date create: 29/3/2023
      * Function: show the instructor's list of students
+     *
      * @param nameSearch
      * @param pageable
      * @param teacherId
@@ -157,13 +184,13 @@ public class StudentRestController {
      */
 
     @GetMapping("/list-id-teacher/{teacherId}")
-    public ResponseEntity<Page<StudentInfo>>getStudentListIdTeacher(@RequestParam(value = "nameSearch",defaultValue = "") String nameSearch,
-                                                                    @PageableDefault(size = 4) Pageable pageable,
-                                                                    @PathVariable Long teacherId){
-        Page<StudentInfo> studentInfos= studentService.findAllStudent(pageable,nameSearch,teacherId);
-        if (studentInfos.isEmpty()){
+    public ResponseEntity<Page<StudentInfo>> getStudentListIdTeacher(@RequestParam(value = "nameSearch", defaultValue = "") String nameSearch,
+                                                                     @PageableDefault(size = 4) Pageable pageable,
+                                                                     @PathVariable Long teacherId) {
+        Page<StudentInfo> studentInfos = studentService.findAllStudent(pageable, nameSearch, teacherId);
+        if (studentInfos.isEmpty()) {
             return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
         }
-        return new ResponseEntity<>(studentInfos,HttpStatus.OK);
+        return new ResponseEntity<>(studentInfos, HttpStatus.OK);
     }
 }

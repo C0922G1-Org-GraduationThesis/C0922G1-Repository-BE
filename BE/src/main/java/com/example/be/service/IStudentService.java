@@ -1,6 +1,7 @@
 package com.example.be.service;
 
 import com.example.be.dto.IMailStudentDto;
+import com.example.be.dto.IStudentDTO;
 import com.example.be.dto.StudentDto1;
 import com.example.be.dto.StudentInfo;
 import com.example.be.model.Student;
@@ -51,7 +52,7 @@ public interface IStudentService {
                     String studentImg,
                     Long clazzId);
 
-    Student findById(long studentId);
+    IStudentDTO findStudentsById(long studentId);
 
     void updateStudent(long studentId,Student student);
     Long maxIdStudent();

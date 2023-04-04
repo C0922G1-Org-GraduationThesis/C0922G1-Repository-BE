@@ -15,6 +15,8 @@ public class ProgressReport {
     @Column(columnDefinition = "text", nullable = false)
     private String progressReportFile;
 
+    @Column(columnDefinition = "text", nullable = false)
+    private String progressReportFileName;
     @ManyToOne
     @JoinColumn(name = "stage_id" , referencedColumnName = "stage_id")
     private Stage stage;
@@ -72,5 +74,13 @@ public class ProgressReport {
 
     public void setProject(Project project) {
         this.project = project;
+    }
+
+    public String getProgressReportFileName() {
+        return progressReportFileName;
+    }
+
+    public void setProgressReportFileName(String progressReportFileName) {
+        this.progressReportFileName = progressReportFileName;
     }
 }

@@ -1,6 +1,7 @@
 package com.example.be.repository;
 
 import com.example.be.dto.ITopicDto;
+import com.example.be.dto.ProgressProjectDto;
 import com.example.be.model.Project;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Modifying;
@@ -9,6 +10,7 @@ import org.springframework.data.repository.query.Param;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 
+import java.util.List;
 import java.util.Optional;
 
 import com.example.be.model.Project;
@@ -154,5 +156,40 @@ public interface IProjectRepository extends JpaRepository<Project, Long> {
      */
     @Query(value = "select p.project_id as projectId, t.team_name as teamName, p.project_name as projectName,p.project_description as projectDescription,p.project_status as projectStatus from `project` as p join team t on p.team_id = t.team_id", countQuery = "select p.project_id as projectId, t.team_name as teamName, p.project_name as projectName,p.project_description as projectDescription,p.project_status as projectStatus from `project` as p join team t on p.team_id = t.team_id", nativeQuery = true)
     Page<ITopicDto> pagePro(Pageable pageable);
+
+    /**
+     * Created by: VuLX
+     * Date created: 01/04/2023
+     */
+    @Query(value = "select * from project where project.project_status = true and project_id = :id", nativeQuery = true)
+    Project findProjectEnable(@Param("id") Long projectId);
+
+    /**
+     * Created by: VuLX
+     * Date created: 01/04/2023
+     */
+
+    @Query(value = "select p.* from project p left join progress_detail pd on p.project_id = pd.project_id where p.project_status = true and pd.project_id is null ", nativeQuery = true)
+    List<Project> findProjectListEnable();
+
+    /**
+     * Created by: VuLX
+     * Date created: 01/04/2023
+     */
+    @Transactional
+
+    @Query(value = "select * from project where project_id = :id", nativeQuery = true)
+    Optional<Project> findByAId(@Param("id") Long projectId);
+
+    /**
+     * Created by: VuLX
+     * Date created: 01/04/2023
+     */
+
+    @Query(value = "select p.project_id as projectId, p.project_name as projectName," +
+            " t.team_name as teamName, t.member_of_team as memberTotal, " +
+            "p.project_status as status  from project p" +
+            " join team t on p.team_id = t.team_id where p.project_id = :id", nativeQuery = true)
+    Optional<ProgressProjectDto> findProgressDtoByProjectId(@Param("id") Long projectId);
 }
 
