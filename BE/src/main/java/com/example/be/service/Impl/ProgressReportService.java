@@ -27,9 +27,10 @@ public class ProgressReportService implements IProgressReportService {
     }
 
     @Override
-    public Page<ProgressReport> findAllProgressReportByProjectIdAndStageId(Long projectId, int stageId, Pageable pageable) {
-        return progressReportRepository.findProgressReportByStageIdAndProjectId(projectId,stageId,pageable);
+    public Page<ProgressReport> findAllProgressReportByProjectIdAndStageId(Long project_id, String nameFileSearch, Pageable pageable) {
+        return progressReportRepository.findProgressReportByStageIdAndProjectId(project_id,nameFileSearch,pageable);
     }
+
 
     @Override
     public ProgressReport findProgressReportMaxPercentByStageIdAndProjectId(Long projectId, int stageId) {

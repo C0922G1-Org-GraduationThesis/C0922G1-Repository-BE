@@ -32,7 +32,4 @@ public interface IProgressReviewRepository extends JpaRepository<ProgressReview,
             "               project_id = :project_id AND stage_id = :stage_id",
             nativeQuery = true)
     Integer findMaxPercentProgressReport(@Param("project_id") Long project_id, @Param("stage_id") int stage_id);
-
-
-
 }

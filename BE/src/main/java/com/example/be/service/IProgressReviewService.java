@@ -1,5 +1,6 @@
 package com.example.be.service;
 
+import com.example.be.model.ProgressDetail;
 import com.example.be.model.ProgressReview;
 
 import java.util.List;
@@ -37,4 +38,5 @@ public interface IProgressReviewService {
     int findAllByProjectIdAndSize(Long projectId);
 
     int findMaxPercentProgressReport(Long project_id,int stage_id );
+
 }

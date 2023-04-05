@@ -27,7 +27,7 @@ import javax.validation.Valid;
 
 @RestController
 @CrossOrigin("*")
-@RequestMapping("api/progressReview")
+
 public class ProgressReviewRestController {
     @Autowired
     private IProgressReviewService progressReviewService;
@@ -47,7 +47,7 @@ public class ProgressReviewRestController {
      * @return HttpStatus.NO_CONTENT if result is null or HttpStatusOK if result is not null
      */
 
-    @GetMapping("")
+    @GetMapping("api/progressReview")
     public ResponseEntity<List<ProgressReview>> findAll() {
         List<ProgressReview> progressReviews = progressReviewService.findAll();
         if (progressReviews == null) {
@@ -64,7 +64,7 @@ public class ProgressReviewRestController {
      * @return HttpStatus.NO_CONTENT if result is null or HttpStatusOK if result is not null
      */
 
-    @PostMapping("/save/{projectId}")
+    @PostMapping("api/progressReview/save/{projectId}")
     public ResponseEntity<?> saveProgressReview(@PathVariable Long projectId, @Valid @RequestBody ProgressReviewDto progressReviewsDto, BindingResult bindingResult) {
         if (bindingResult.hasErrors()) {
             return new ResponseEntity<>(bindingResult.getFieldError(), HttpStatus.NOT_ACCEPTABLE);
@@ -82,7 +82,7 @@ public class ProgressReviewRestController {
         ProgressDetail progressDetail = progressDetailService.findProgressDetailByProjectId(projectId);
         progressDetail.setProgressDetailPercent(progressReviews.getProgressReviewPercent());
         ProgressDetail progressDetailNext = progressDetailService.findById(progressDetail.getProgressDetailId() + 1);
-        if (progressReviews.getProgressReviewPercent() == 100 && progressDetail.getProgressDetailId() < 4) {
+        if (progressReviews.getProgressReviewPercent() == 100 && progressDetail.getStageId() < 4) {
             progressDetail.setProgressStatus(false);
             progressDetailNext.setProgressStatus(true);
             progressDetailRepository.save(progressDetail);
@@ -108,7 +108,7 @@ public class ProgressReviewRestController {
      *
      * @return HttpStatus.NO_CONTENT if result is null or HttpStatusOK if result is not null
      */
-    @GetMapping("/{progressReviewId}")
+    @GetMapping("api/progressReview/{progressReviewId}")
     public ResponseEntity<?> findProgressReview(@PathVariable Long progressReviewId) {
         ProgressReview progressReview = progressReviewService.findById(progressReviewId);
         if (progressReview == null) {
@@ -117,22 +117,22 @@ public class ProgressReviewRestController {
         return new ResponseEntity<>(progressReview, HttpStatus.CREATED);
     }
 
-/**
- * Created by: VuLX
- * Date created: 30/3/2023
- * Function: find progress-review by projectId
- *
- * @return HttpStatus.NO_CONTENT if result is null or HttpStatusOK if result is not null
- */
-@GetMapping("/list/{projectId}")
-public ResponseEntity<List<ProgressReview>> findProgressReviewByProjectId(@PathVariable Long projectId) {
-    List<ProgressReview> progressReviews = progressReviewService.findAllByProjectId(projectId);
-    if (progressReviews == null) {
-        return new ResponseEntity<>(HttpStatus.NOT_FOUND);
-    }
-    return new ResponseEntity<>(progressReviews, HttpStatus.OK);
-}
+    /**
+     * Created by: VuLX
+     * Date created: 30/3/2023
+     * Function: find progress-review by projectId
+     *
+     * @return HttpStatus.NO_CONTENT if result is null or HttpStatusOK if result is not null
+     */
 
+    @GetMapping("api/progressReview/list/{projectId}")
+    public ResponseEntity<List<ProgressReview>> findProgressReviewByProjectId(@PathVariable Long projectId) {
+        List<ProgressReview> progressReviews = progressReviewService.findAllByProjectId(projectId);
+        if (progressReviews == null) {
+            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+        }
+        return new ResponseEntity<>(progressReviews, HttpStatus.OK);
+    }
     /**
      * Created by: VuLX
      * Date created: 01/04/2023
@@ -142,7 +142,7 @@ public ResponseEntity<List<ProgressReview>> findProgressReviewByProjectId(@PathV
      * @return HttpStatus.NO_CONTENT if result is null or HttpStatusOK if result is not null
      */
 
-    @GetMapping("/list/{projectId}/{record}")
+    @GetMapping("api/progressReview/list/{projectId}/{record}")
     public ResponseEntity<List<ProgressReview>> findProgressReviewByProjectId(@PathVariable Long projectId, @PathVariable int record) {
         List<ProgressReview> progressReviews = progressReviewService.findAllByProjectIdAndRecord(projectId, record);
         if (progressReviews == null) {
@@ -159,7 +159,7 @@ public ResponseEntity<List<ProgressReview>> findProgressReviewByProjectId(@PathV
      * @return HttpStatus.NO_CONTENT if result is null or HttpStatusOK if result is not null
      */
 
-    @GetMapping("/size/{projectId}")
+    @GetMapping("api/progressReview/size/{projectId}")
     public ResponseEntity<?> findMaxSizeProgressReviewByProjectId(@PathVariable Long projectId) {
         int maxSize = progressReviewService.findAllByProjectIdAndSize(projectId);
         return new ResponseEntity<>(maxSize, HttpStatus.OK);
@@ -173,7 +173,7 @@ public ResponseEntity<List<ProgressReview>> findProgressReviewByProjectId(@PathV
      * @return HttpStatus.NO_CONTENT if result is null or HttpStatusOK if result is not null
      */
 
-    @GetMapping("detail/list/{projectId}")
+    @GetMapping("api/progressDetail/list/{projectId}")
     public ResponseEntity<List<ProgressDetail>> findAllByProjectId(@PathVariable Long projectId) {
         List<ProgressDetail> progressDetails = progressDetailService.findAllByProjectId(projectId);
         if (progressDetails == null) {
@@ -190,7 +190,7 @@ public ResponseEntity<List<ProgressReview>> findProgressReviewByProjectId(@PathV
      *
      * @return HttpStatus.NO_CONTENT if result is null or HttpStatusOK if result is not null
      */
-    @GetMapping("/project/{projectId}")
+    @GetMapping("api/progressReview/project/{projectId}")
     public ResponseEntity<ProjectDTOO> findProjectDtoById(@PathVariable Long projectId) {
         Project project = projectService.findByIdProject(projectId);
         if (project == null) {
@@ -211,7 +211,7 @@ public ResponseEntity<List<ProgressReview>> findProgressReviewByProjectId(@PathV
      *
      * @return HttpStatus.NO_CONTENT if result is null or HttpStatusOK if result is not null
      */
-    @GetMapping("/{project_id}/{stage_id}")
+    @GetMapping("/api/progress-reviews/{project_id}/{stage_id}")
     public ResponseEntity<?> findMaxPercentProgressReport(@PathVariable Long project_id, @PathVariable int stage_id) {
         int progressReportPercent = progressReviewService.findMaxPercentProgressReport(project_id, stage_id);
         if (progressReportPercent == 0) {
@@ -223,14 +223,14 @@ public ResponseEntity<List<ProgressReview>> findProgressReviewByProjectId(@PathV
 
     boolean flag = false;
 
-    @Scheduled(cron = "0 52 18 * * ?")
+    //    @Scheduled(cron = "0 52 18 * * ?")
     public void changeStatusProgressDetailAutoAndId() {
         System.out.println(this.projectId);
         this.flag = true;
         changeProgressDetailStatusAndId(this.projectId);
     }
 
-    @GetMapping("/saveAuto/{projectId}")
+    @GetMapping("/api/progressReview/saveAuto/{projectId}")
     public void changeProgressDetailStatusAndId(@PathVariable Long projectId) {
         Project project = projectService.findByIdProject(projectId);
         System.out.println(this.projectId + "68686868");
@@ -253,7 +253,11 @@ public ResponseEntity<List<ProgressReview>> findProgressReviewByProjectId(@PathV
     }
 
 
-    @Scheduled(cron = "0 05 20 * * ?")
+    //    @Scheduled(cron = "0 29 1 * * ? ")
+    public void saveProgressDetailAuto1() {
+        this.flag = true;
+        changeProgressDetailStatus();
+    }
     public void changeStatusProgressDetailAuto() {
         changeProgressDetailStatus();
     }
@@ -266,13 +270,14 @@ public ResponseEntity<List<ProgressReview>> findProgressReviewByProjectId(@PathV
             ProgressDetail progressDetailAuto = progressDetailService.findProgressDetailByProjectId(project.getProjectId());
             System.out.println(progressDetailAuto.getStageId()+ "aaaaaaa");
             System.out.println(progressDetailAuto.getProgressStatus());
-            if (progressDetailAuto.getStageId() == 4 ) {
+            if (progressDetailAuto.getStageId() == 4 && flag) {
                 progressDetailAuto.setProgressStatus(false);
                 progressDetailRepository.save(progressDetailAuto);
                 project.setProjectStatus(false);
-
+                System.out.println(project.getProjectStatus());
+                projectService.save(project);
             }
-            if (progressDetailAuto.getStageId() < 4 ){
+            if (progressDetailAuto.getStageId() < 4 && flag){
                 progressDetailAuto.setProgressStatus(false);
                 ProgressDetail progressDetailNext = progressDetailService.findById(progressDetailAuto.getProgressDetailId() + 1);
                 progressDetailNext.setProgressStatus(true);
@@ -307,4 +312,6 @@ public ResponseEntity<List<ProgressReview>> findProgressReviewByProjectId(@PathV
         }
 
     }
+
+
 }

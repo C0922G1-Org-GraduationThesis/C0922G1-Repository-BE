@@ -51,4 +51,9 @@ public class ProgressDetailService implements IProgressDetailService {
     public List<ProgressDetail> findProgressDetailAndStatusIsTrue() {
         return progressDetailRepository.findProgressDetailAndStatusIsTrue();
     }
+
+    @Override
+    public ProgressDetail findProgressDetailByProjectIdAndStageId(Long projectId, int stageId) {
+        return progressDetailRepository.findProgressDetailByProjectIdAndStageId(projectId,stageId);
+    }
 }

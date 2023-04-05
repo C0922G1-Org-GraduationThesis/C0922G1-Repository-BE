@@ -77,7 +77,7 @@ public class Project {
     }
 
     @JsonIgnore
-    public boolean isProjectStatus() {
+    public Boolean isProjectStatus() {
         return projectStatus;
     }
 
