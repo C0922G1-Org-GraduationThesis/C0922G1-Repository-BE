@@ -8,6 +8,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.validation.Errors;
 
 import javax.validation.constraints.NotBlank;
+import java.time.LocalDate;
+import java.time.Period;
 import java.util.List;
 
 public class TeacherDTO {
@@ -159,13 +161,28 @@ public class TeacherDTO {
             errors.rejectValue("teacherDateOfBirth", "teacherDateOfBirth", "Ngày sinh không được để trống");
         }
 
+        //Ngày cần kiểm tra
+        String dateString = teacherDTO.getTeacherDateOfBirth();
+        LocalDate birthday = LocalDate.parse(dateString);
+
+        //Ngày hiện tại
+        LocalDate currentDate = LocalDate.now();
+
+        //Tính độ tuổi
+        Period period = Period.between(birthday, currentDate);
+        int age = period.getYears();
+
+        if (age < 18) {
+            errors.rejectValue("teacherDateOfBirth", "teacherDateOfBirth", "Giáo viên phải trên 18 tuổi");
+        }
+
         if (teacherDTO.getDegree().getDegreeName().equals("")) {
             errors.rejectValue("degree", "degree", "Học vị không được để trống");
         }
 
         if (teacherDTO.getTeacherAddress().matches("")) {
             errors.rejectValue("teacherAddress", "teacherAddress", "Địa chỉ không được để trống");
-        }else {
+        } else {
             int minLength = teacherDTO.getTeacherAddress().length();
             int maxLength = teacherDTO.getTeacherAddress().length();
             if (minLength <= 1 || maxLength >= 50) {
@@ -207,7 +224,7 @@ public class TeacherDTO {
     public void checkValidateUpdateTeacher(List<Teacher> list, TeacherDTO teacherDTO, Errors errors) {
         if (teacherDTO.getTeacherName().matches("")) {
             errors.rejectValue("teacherName", "teacherName", "Tên giáo viên không được để trống");
-        }else if (!teacherDTO.getTeacherName().matches("^(\\p{Lu}[\\p{L}]*\\s?)+$")) {
+        } else if (!teacherDTO.getTeacherName().matches("^(\\p{Lu}[\\p{L}]*\\s?)+$")) {
             errors.rejectValue("teacherName", "teacherName", "Tên giáo viên sai định dạng");
         } else {
             int minLength = teacherDTO.getTeacherName().length();
@@ -221,13 +238,27 @@ public class TeacherDTO {
             errors.rejectValue("teacherDateOfBirth", "teacherDateOfBirth", "Ngày sinh không được để trống");
         }
 
+        //Ngày cần kiểm tra
+        String dateString = teacherDTO.getTeacherDateOfBirth();
+        LocalDate birthday = LocalDate.parse(dateString);
+
+        //Ngày hiện tại
+        LocalDate currentDate = LocalDate.now();
+
+        //Tính độ tuổi
+        Period period = Period.between(birthday, currentDate);
+        int age = period.getYears();
+
+        if (age < 18) {
+            errors.rejectValue("teacherDateOfBirth", "teacherDateOfBirth", "Giáo viên phải trên 18 tuổi");
+        }
         if (teacherDTO.getDegree().getDegreeName().matches("")) {
             errors.rejectValue("degree", "degree", "Học vị không được để trống");
         }
 
         if (teacherDTO.getTeacherAddress().matches("")) {
             errors.rejectValue("teacherAddress", "teacherAddress", "Địa chỉ không được để trống");
-        }else {
+        } else {
             int minLength = teacherDTO.getTeacherAddress().length();
             int maxLength = teacherDTO.getTeacherAddress().length();
             if (minLength <= 1 || maxLength >= 50) {

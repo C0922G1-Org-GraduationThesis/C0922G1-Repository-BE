@@ -26,7 +26,6 @@ public class ProjectService implements IProjectService {
      * @return  project if result is not error else return null
      * @Param: project
      */
-    @Transactional
     @Override
     public Project save(Project project) {
         Project projectOptional = this.projectRepository.findByName(project.getProjectName()).orElse(null);
@@ -35,13 +34,15 @@ public class ProjectService implements IProjectService {
             return null;
         }
 
-        return this.projectRepository.saveProject(
-                project.getProjectName(),
-                project.getProjectContent(),
-                project.getProjectDescription(),
-                project.getProjectImg(),
-                project.getTeam().getTeamId()
-        );
+//        this.projectRepository.saveProject(
+//                project.getProjectName(),
+//                project.getProjectContent(),
+//                project.getProjectDescription(),
+//                project.getProjectImg(),
+//                project.getTeam().getTeamId()
+//        );
+
+        return this.projectRepository.save(project);
     }
 
     /**

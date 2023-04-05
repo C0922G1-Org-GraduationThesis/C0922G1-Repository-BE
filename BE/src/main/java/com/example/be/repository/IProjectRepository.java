@@ -38,11 +38,11 @@ public interface IProjectRepository extends JpaRepository<Project, Long> {
             "(project_name, project_content, project_description, project_status, project_img, team_id)" +
             " VALUES (:projectName,:projectContent ,:projectDescription ,0 ,:projectImg,:teamId );",
             nativeQuery = true)
-    Project saveProject(@Param("projectName") String projectName,
-                        @Param("projectContent") String projectContent,
-                        @Param("projectDescription") String projectDescription,
-                        @Param("projectImg") String projectImg,
-                        @Param("teamId") Long teamId);
+    void saveProject(@Param("projectName") String projectName,
+                     @Param("projectContent") String projectContent,
+                     @Param("projectDescription") String projectDescription,
+                     @Param("projectImg") String projectImg,
+                     @Param("teamId") Long teamId);
 
     /**
      * Create by: HauNN
@@ -192,4 +192,3 @@ public interface IProjectRepository extends JpaRepository<Project, Long> {
             " join team t on p.team_id = t.team_id where p.project_id = :id", nativeQuery = true)
     Optional<ProgressProjectDto> findProgressDtoByProjectId(@Param("id") Long projectId);
 }
-

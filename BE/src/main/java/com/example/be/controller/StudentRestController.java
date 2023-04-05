@@ -201,7 +201,7 @@ public class StudentRestController {
      * @Return: new ResponseEntity<>(HttpStatus.BAD_REQUEST) if result is error,
      * else new ResponseEntity<>(student, HttpStatus.OK)
      */
-    @RequestMapping(value = "/detail/{email}", method = RequestMethod.GET)
+    @GetMapping("/details/{email}")
     public ResponseEntity<Student> findStudentByEmail(@PathVariable String email){
         Student student = studentService.findStudentByEmail(email);
         if (student == null){

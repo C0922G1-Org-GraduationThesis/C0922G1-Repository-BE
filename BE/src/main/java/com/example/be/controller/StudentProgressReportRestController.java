@@ -11,6 +11,7 @@ import java.util.List;
 
 @RestController
 @CrossOrigin("*")
+@RequestMapping("/api/studentProgressReport")
 public class StudentProgressReportRestController {
     @Autowired
     private StudentProgressReportService studentProgressReportService;
@@ -22,7 +23,7 @@ public class StudentProgressReportRestController {
      *
      * @return HttpStatus.OK if result is not error or HttpStatus.NO_CONTENT if no content
      */
-    @GetMapping("/api/studentProgressReport/{id}/{totalElement}")
+    @GetMapping("/{id}/{totalElement}")
     public ResponseEntity<List<IStudentProgressReportDTO>> findStudentProgressReportById(@PathVariable Long id, @PathVariable("totalElement") Integer totalElement) {
 
         List<IStudentProgressReportDTO> studentProgressReportList = studentProgressReportService.findStudentProgressReportProjectId(id, totalElement);
@@ -32,7 +33,7 @@ public class StudentProgressReportRestController {
         return new ResponseEntity<>(studentProgressReportList, HttpStatus.OK);
     }
 
-    @GetMapping("/api/studentProgressReport/{id}")
+    @GetMapping("/{id}")
     public ResponseEntity<List<IStudentProgressReportDTO>> findStudentProgressReportById(@PathVariable Long id) {
 
         List<IStudentProgressReportDTO> studentProgressReportList = studentProgressReportService.findStudentProgressReportProjectId(id);

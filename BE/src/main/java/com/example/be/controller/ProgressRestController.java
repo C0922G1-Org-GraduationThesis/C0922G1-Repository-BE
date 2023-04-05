@@ -21,6 +21,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 @RestController
 @CrossOrigin("*")
+@RequestMapping("/api/progress")
 public class ProgressRestController {
 
     @Autowired
@@ -33,7 +34,7 @@ public class ProgressRestController {
      * @return HttpStatus.NO_CONTENT if result is null or HttpStatus.OK if result is not null
      */
 
-    @GetMapping("/api/progress/list")
+    @GetMapping("/list")
     public ResponseEntity<Page<ProgressDto>> findAll(@PageableDefault(size = 4,page = 0) Pageable pageable) {
         List<ProgressDto> progressDtos = progressService.findAll();
         int pageSize = pageable.getPageSize();
@@ -59,7 +60,7 @@ public class ProgressRestController {
      * @return HttpStatus.NO_CONTENT if result is null or HttpStatus.OK if result is not null
      */
 
-    @GetMapping("/api/progress/progressStudent/{projectId}")
+    @GetMapping("/progressStudent/{projectId}")
     public ResponseEntity<List<ProgressStudentDto>> findAllStudentOfTeam(@PathVariable Long projectId) {
         List<ProgressStudentDto> progressStudentDtos = progressService.findAllStudentOfTeam(projectId);
         if (progressStudentDtos == null) {
@@ -75,7 +76,7 @@ public class ProgressRestController {
      * @return HttpStatus.NO_CONTENT if result is null or HttpStatus.OK if result is not null
      */
 
-    @GetMapping("/api/progress/{projectId}")
+    @GetMapping("/{projectId}")
     public ResponseEntity<ProgressProjectDto> findProgressById(@PathVariable Long projectId) {
         ProgressProjectDto progressDto = progressService.findByProjectId(projectId);
         if (progressDto == null) {

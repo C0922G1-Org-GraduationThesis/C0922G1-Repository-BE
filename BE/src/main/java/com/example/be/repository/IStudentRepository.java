@@ -28,14 +28,13 @@ public interface IStudentRepository extends JpaRepository<Student, Long> {
             "SELECT * " +
             "FROM " +
             "`student` " +
-            "WHERE (" +
+            "WHERE ((" +
             "student_name LIKE CONCAT('%',:searchStr,'%') " +
             "OR " +
             "student_code LIKE CONCAT('%',:searchStr,'%')) " +
-            "AND flag_delete = 0 ",
+            "AND team_id is null) AND flag_delete = 0",
             nativeQuery = true)
     Page<Student> findAllByNameOrStudentCode(@Param("searchStr") String searchStr, Pageable pageable);
-
 
     /**
      * Create by: HauNN

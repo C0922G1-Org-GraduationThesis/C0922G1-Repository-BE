@@ -6,6 +6,7 @@ import com.example.be.dto.ProjectDTO;
 import com.example.be.model.Project;
 import com.example.be.model.Team;
 import com.example.be.service.IProjectService;
+import com.example.be.service.ITeamService;
 import com.example.be.service.Impl.StudentService;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -22,6 +23,7 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
+
 import java.util.List;
 
 @RestController
@@ -30,6 +32,8 @@ import java.util.List;
 public class ProjectRestController {
     @Autowired
     private IProjectService projectService;
+    @Autowired
+    private ITeamService teamService;
     @Autowired
     private StudentService studentService;
 
@@ -51,7 +55,7 @@ public class ProjectRestController {
         Page<Project> projects = this.projectService.findAllByNameContaining(searchName, pageable);
 
         if (projects.isEmpty()) {
-            return new ResponseEntity<>(HttpStatus.NO_CONTENT);
+            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
         }
         return new ResponseEntity<>(projects, HttpStatus.OK);
     }
@@ -65,20 +69,20 @@ public class ProjectRestController {
      * @Param: projectDTO, bindingResult
      */
     @PostMapping("/save")
-    public ResponseEntity<List<FieldError>> saveProject(@Validated @RequestBody ProjectDTO projectDTO,
-                                                        BindingResult bindingResult) {
+    public ResponseEntity<?> saveProject(@Validated @RequestBody ProjectDTO projectDTO,
+                                         BindingResult bindingResult) {
         if (bindingResult.hasErrors()) {
             return new ResponseEntity<>(bindingResult.getFieldErrors(), HttpStatus.NOT_ACCEPTABLE);
         }
 
         Project project = new Project();
         BeanUtils.copyProperties(projectDTO, project);
-        Team team = new Team();
-        team.setTeamId(projectDTO.getTeamDTO().getTeamId());
+        Team team = this.teamService.findById(projectDTO.getTeamId());
         project.setTeam(team);
+        Project projectResult = this.projectService.save(project);
 
-        if (this.projectService.save(project) != null) {
-            return new ResponseEntity<>(HttpStatus.OK);
+        if (projectResult != null) {
+            return new ResponseEntity<>(projectResult, HttpStatus.OK);
         }
         return new ResponseEntity<>(HttpStatus.NOT_ACCEPTABLE);
     }
@@ -179,6 +183,7 @@ public class ProjectRestController {
      * Created by: NuongHT
      * Date create: 29/03/2023
      * Function: tạo api cancel browser topic set status for project,cancel successfull will send mail for group student.
+     *
      * @param projectId
      * @return HttpStatus.NO_CONTENT if result is null or HttpStatus.OK if result is not null.
      */

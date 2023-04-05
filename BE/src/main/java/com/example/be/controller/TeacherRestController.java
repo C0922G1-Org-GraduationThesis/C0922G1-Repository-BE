@@ -63,7 +63,7 @@ public class TeacherRestController {
      *
      * @return HttpStatus.OK when the data is saved to the database, HttpStatus.BAD_REQUEST when an error occurs
      */
-    @GetMapping("facultyAll")
+    @GetMapping("/facultyAll")
     public ResponseEntity getAllFaculty() {
         List<IFacultyDTO> listDegree = iFacultyService.getAllFaculty();
         if (listDegree == null) {
@@ -80,7 +80,7 @@ public class TeacherRestController {
      * @param id
      * @return HttpStatus.OK when the data is saved to the database, HttpStatus.BAD_REQUEST when an error occurs
      */
-    @GetMapping("detailTeacher/{id}")
+    @GetMapping("/detailTeacher/{id}")
     public ResponseEntity getTeacher(@PathVariable("id") Long id) {
         Teacher teacher = new Teacher();
         ITeacherDTO teacherDTO = iTeacherService.getTeacher(id);
@@ -118,7 +118,7 @@ public class TeacherRestController {
      * @param teacherDTO
      * @return HttpStatus.OK when the data is saved to the database, HttpStatus.BAD_REQUEST when an error occurs
      */
-    @PostMapping("createTeacher")
+    @PostMapping("/createTeacher")
     public ResponseEntity<?> createTeacher(@Validated @RequestBody TeacherDTO teacherDTO, BindingResult bindingResult) {
 
         teacherDTO.checkValidateCreateTeacher(iTeacherService.findAll(), teacherDTO, bindingResult);
@@ -143,7 +143,7 @@ public class TeacherRestController {
      * @param teacherDTO
      * @return HttpStatus.OK when the data is saved to the database, HttpStatus.BAD_REQUEST when an error occurs
      */
-    @PatchMapping("updateTeacher/{id}")
+    @PatchMapping("/updateTeacher/{id}")
     public ResponseEntity updateTeacher(@PathVariable("id") Long id, @Validated @RequestBody TeacherDTO teacherDTO, BindingResult bindingResult) {
         teacherDTO.checkValidateUpdateTeacher(iTeacherService.findAll(), teacherDTO, bindingResult);
         if (bindingResult.hasErrors()) {
@@ -156,7 +156,7 @@ public class TeacherRestController {
         return new ResponseEntity(HttpStatus.OK);
     }
 
-    @GetMapping("getAllPhoneNumberAndEmail")
+    @GetMapping("/getAllPhoneNumberAndEmail")
     public ResponseEntity<?> listEmailAndPhoneNumber() {
         System.out.println(iTeacherService.getAllPhoneNumberAndEmail());
         List<Teacher> iEmailAndPhoneNumberDTOS = iTeacherService.findAll();

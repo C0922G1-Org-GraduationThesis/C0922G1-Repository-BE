@@ -91,33 +91,39 @@ public interface ITeamRepository extends JpaRepository<Team, Long> {
      * @return get all list teacher
      * @param: pageable
      */
-    @Query(value = "select tc.teacher_id as teacherId, tc.teacher_name as teacherName, " +
-            "       count(distinct t.team_id) -" +
+    @Query(value = "select " +
+            "tc.teacher_id as teacherId, " +
+            "tc.teacher_name as teacherName, " +
+            "       (count(distinct t.team_id) -" +
             "       (select count(distinct t.team_id)" +
             "        from teacher as tc2 " +
             "                 left join team as t on t.teacher_id = tc2.teacher_id " +
             "                 left join project as p on p.team_id = t.team_id " +
             "                 left join progress_detail as pd on pd.project_id = p.project_id " +
-            "        where tc2.teacher_id = tc.teacher_id and pd.stage_id = 4 and pd.progress_detail_percent = 100) as total " +
+            "        where tc2.teacher_id = tc.teacher_id and pd.stage_id = 4 and pd.progress_detail_percent = 100 and tc2.flag_delete = false) ) " +
+            "as total " +
             "from teacher as tc " +
             "         left join team as t on t.teacher_id = tc.teacher_id " +
             "         left join project as p on p.team_id = t.team_id " +
             "         left join progress_detail as pd on pd.project_id = p.project_id " +
-            "where pd.stage_id is null or (pd.stage_id != 4 and pd.progress_detail_percent != 100) " +
+            "where (pd.stage_id is null or (pd.stage_id != 4 and pd.progress_detail_percent != 100)) and tc.flag_delete = false " +
             "group by tc.teacher_id ",
-            countQuery = "select tc.teacher_id as teacherId, tc.teacher_name as teacherName, " +
-                    "       count(distinct t.team_id) - " +
-                    "       (select count(distinct t.team_id) " +
-                    "        from teacher as tc2\n" +
+            countQuery = "select " +
+                    "tc.teacher_id as teacherId, " +
+                    "tc.teacher_name as teacherName, " +
+                    "       (count(distinct t.team_id) -" +
+                    "       (select count(distinct t.team_id)" +
+                    "        from teacher as tc2 " +
                     "                 left join team as t on t.teacher_id = tc2.teacher_id " +
                     "                 left join project as p on p.team_id = t.team_id " +
                     "                 left join progress_detail as pd on pd.project_id = p.project_id " +
-                    "        where tc2.teacher_id = tc.teacher_id and pd.stage_id = 4 and pd.progress_detail_percent = 100) as total " +
+                    "        where tc2.teacher_id = tc.teacher_id and pd.stage_id = 4 and pd.progress_detail_percent = 100 and tc2.flag_delete = false) ) " +
+                    "as total " +
                     "from teacher as tc " +
                     "         left join team as t on t.teacher_id = tc.teacher_id " +
                     "         left join project as p on p.team_id = t.team_id " +
                     "         left join progress_detail as pd on pd.project_id = p.project_id " +
-                    "where pd.stage_id is null or (pd.stage_id != 4 and pd.progress_detail_percent != 100) " +
+                    "where (pd.stage_id is null or (pd.stage_id != 4 and pd.progress_detail_percent != 100)) and tc.flag_delete = false " +
                     "group by tc.teacher_id ",
             nativeQuery = true)
     Page<InstructorDTO> getAllInstructor(Pageable pageable);

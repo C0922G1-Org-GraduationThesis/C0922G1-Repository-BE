@@ -14,28 +14,23 @@ public class ProjectDTO {
             message =
                     "Tên đề tài không được chứa kí tự đặc biệt, " +
                             "chữ cái đầu tiên phải viết hoa")
-    private String name;
+    private String projectName;
     @Size(max = 2000, message = "Nội dung miêu tả không được dài quá 2000 kí tự")
     @NotBlank(message = "Không được để trống")
     @NotNull(message = "Phải nhập trường này")
-    private String content;
+    private String projectContent;
     @NotBlank(message = "Không được để trống")
     @NotNull(message = "Phải nhập trường này")
-    private String img;
+    private String projectImg;
     @NotBlank(message = "Không được để trống")
     @NotNull(message = "Phải nhập trường này")
-    private String description;
-    private TeamDTO teamDTO;
+    private String projectDescription;
+    private Long teamId;
 
     public ProjectDTO() {
     }
 
-    public ProjectDTO(String name, String content, String img, String description) {
-        this.name = name;
-        this.content = content;
-        this.img = img;
-        this.description = description;
-    }
+
 
     public Long getProjectId() {
         return projectId;
@@ -45,43 +40,43 @@ public class ProjectDTO {
         this.projectId = projectId;
     }
 
-    public String getName() {
-        return name;
+    public String getProjectName() {
+        return projectName;
     }
 
-    public void setName(String name) {
-        this.name = name;
+    public void setProjectName(String projectName) {
+        this.projectName = projectName;
     }
 
-    public String getContent() {
-        return content;
+    public String getProjectContent() {
+        return projectContent;
     }
 
-    public void setContent(String content) {
-        this.content = content;
+    public void setProjectContent(String projectContent) {
+        this.projectContent = projectContent;
     }
 
-    public String getImg() {
-        return img;
+    public String getProjectImg() {
+        return projectImg;
     }
 
-    public void setImg(String img) {
-        this.img = img;
+    public void setProjectImg(String projectImg) {
+        this.projectImg = projectImg;
     }
 
-    public String getDescription() {
-        return description;
+    public String getProjectDescription() {
+        return projectDescription;
     }
 
-    public void setDescription(String description) {
-        this.description = description;
+    public void setProjectDescription(String projectDescription) {
+        this.projectDescription = projectDescription;
     }
 
-    public TeamDTO getTeamDTO() {
-        return teamDTO;
+    public Long getTeamId() {
+        return teamId;
     }
 
-    public void setTeamDTO(TeamDTO teamDTO) {
-        this.teamDTO = teamDTO;
+    public void setTeamId(Long teamId) {
+        this.teamId = teamId;
     }
 }
