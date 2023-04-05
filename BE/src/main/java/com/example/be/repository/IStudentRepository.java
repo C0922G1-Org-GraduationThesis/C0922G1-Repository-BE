@@ -25,22 +25,7 @@ public interface IStudentRepository extends JpaRepository<Student, Long> {
      * @Param: searchStr, pageable
      */
     @Query(value = "" +
-            "SELECT " +
-            "student_id," +
-            "student_date_of_birth," +
-            "student_name," +
-            "student_code," +
-            "student_email," +
-            "account_id," +
-            "clazz_id," +
-            "team_id," +
-            "flag_delete," +
-            "flag_leader," +
-            "question_id," +
-            "student_address," +
-            "student_gender," +
-            "student_img," +
-            "student_phone_number " +
+            "SELECT * " +
             "FROM " +
             "`student` " +
             "WHERE (" +
@@ -60,45 +45,22 @@ public interface IStudentRepository extends JpaRepository<Student, Long> {
      * @Param: teamId, pageable
      */
     @Query(value = "" +
-            "SELECT " +
-            "student_id," +
-            "student_date_of_birth," +
-            "student_name," +
-            "student_code," +
-            "student_email," +
-            "account_id," +
-            "clazz_id," +
-            "team_id," +
-            "flag_delete," +
-            "flag_leader," +
-            "question_id," +
-            "student_address," +
-            "student_gender," +
-            "student_img," +
-            "student_phone_number " +
+            "SELECT * " +
             "FROM student " +
             "WHERE (team_id =:teamId AND flag_delete = 0)",
             nativeQuery = true)
     Page<Student> findAllByTeamId(@Param("teamId") Long teamId,
                                   Pageable pageable);
 
+    /**
+     * Create by: HauNN
+     * Date create: 29/03/2023
+     * Function: find all student by team id
+     *
+     * @Param: id
+     */
     @Query(value = "" +
-            "SELECT " +
-            "student_id," +
-            "student_date_of_birth," +
-            "student_name," +
-            "student_code," +
-            "student_email," +
-            "account_id," +
-            "clazz_id," +
-            "team_id," +
-            "flag_delete," +
-            "flag_leader," +
-            "question_id," +
-            "student_address," +
-            "student_gender," +
-            "student_img," +
-            "student_phone_number " +
+            "SELECT * " +
             "FROM student " +
             "WHERE student_id =:id AND flag_delete = 0", nativeQuery = true)
     Optional<Student> findById(@Param("id") Long id);

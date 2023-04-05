@@ -114,7 +114,7 @@ public class TeamRestController {
      * @return HttpStatus.NOT_FOUND if result is null or HttpStatus.OK if there is a team with the teamId to look for.
      * @param: teamId
      */
-//    @GetMapping("/detail/{id}")
+//    @GetMapping("/detail/team/{id}")
 //    public ResponseEntity<ITeamDto> findTeamById(@PathVariable Long id) {
 //        ITeamDto team = teamService.findTeamById(id);
 //        if (team == null) {
@@ -133,16 +133,13 @@ public class TeamRestController {
      * @param: teamId, teamDto
      */
     @PatchMapping("/edit/{teamId}")
-    public ResponseEntity<?> updateTeam(@Valid @RequestBody TeamDTO teamDto, BindingResult bindingResult, @PathVariable Long teamId) {
-        if (bindingResult.hasErrors()) {
-            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(bindingResult.getAllErrors());
-        }
+    public ResponseEntity<?> updateTeam(@RequestBody TeamDTO teamDto, @PathVariable Long teamId) {
         ITeamDto team = teamService.findTeamById(teamId);
         if (team == null) {
-            return new ResponseEntity(HttpStatus.NOT_FOUND);
+            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
         } else {
             teamService.updateTeam(teamDto.getTeacherId(), teamId);
-            return new ResponseEntity(teamDto, HttpStatus.OK);
+            return new ResponseEntity<>(teamDto, HttpStatus.OK);
         }
     }
 

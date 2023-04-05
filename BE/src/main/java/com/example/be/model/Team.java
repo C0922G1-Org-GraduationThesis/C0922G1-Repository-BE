@@ -15,7 +15,6 @@ public class Team {
     private String teamName;
     @Column( nullable = false)
     private int memberOfTeam;
-
     @ManyToOne
     @JoinColumn(name = "teacher_id", referencedColumnName = "teacher_id")
     private Teacher teacher;
@@ -29,6 +28,7 @@ public class Team {
 
     public Team() {
     }
+
 
     public Long getTeamId() {
         return teamId;
