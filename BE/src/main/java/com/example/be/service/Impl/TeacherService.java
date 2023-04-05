@@ -83,6 +83,11 @@ public class TeacherService implements ITeacherService {
         return iTeacherRepository.findTeacherById(id);
     }
 
+    @Override
+    public Teacher getTeacherById(Long id) {
+        return iTeacherRepository.findTeacherByTeacherId(id);
+    }
+
     /**
      * create by : HungPV ,
      * Date Create : 29/03/2023
@@ -104,6 +109,17 @@ public class TeacherService implements ITeacherService {
     @Override
     public void deleteTeacherById(long id) {
         this.iTeacherRepository.deleteTeacherById(id);
+    }
+
+    @Override
+    public Teacher findTeacherByEmail(String email) {
+        return this.iTeacherRepository.findTeacherByEmail(email);
+    }
+
+    @Override
+    public void updateTeacherRoleAdmin(Teacher teacher) {
+        iTeacherRepository.updateTeacherRoleAdmin(teacher.getTeacherName(), teacher.getTeacherEmail(), teacher.getTeacherPhoneNumber(),
+                teacher.getTeacherAddress(), teacher.getTeacherId());
     }
 }
 

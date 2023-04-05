@@ -85,4 +85,6 @@ public interface IStudentService {
      * @return json the instructor's list of students
      */
     Page<StudentInfo> findAllStudent(Pageable pageable, String nameSearch, Long idTeacher);
+
+    Student findStudentByEmail(String email);
 }

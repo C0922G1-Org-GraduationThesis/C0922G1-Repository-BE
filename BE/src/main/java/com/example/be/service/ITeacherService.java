@@ -46,6 +46,8 @@ public interface ITeacherService {
 
     Optional<ITeacherDto> findTeacherById(Long id);
 
+    Teacher getTeacherById(Long id);
+
     /**
      *create by : HungPV ,
      * Date Create : 29/03/2023
@@ -54,4 +56,8 @@ public interface ITeacherService {
      * @return void
      */
     void deleteTeacherById(long id);
+
+    Teacher findTeacherByEmail(String email);
+
+    void updateTeacherRoleAdmin(Teacher teacher);
 }

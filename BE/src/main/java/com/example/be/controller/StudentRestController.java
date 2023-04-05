@@ -193,4 +193,20 @@ public class StudentRestController {
         }
         return new ResponseEntity<>(studentInfos, HttpStatus.OK);
     }
+
+    /**
+     * Created by: TienP
+     * Date: 29/03/2023
+     * Function: findStudentByEmail(email)
+     * @Return: new ResponseEntity<>(HttpStatus.BAD_REQUEST) if result is error,
+     * else new ResponseEntity<>(student, HttpStatus.OK)
+     */
+    @RequestMapping(value = "/detail/{email}", method = RequestMethod.GET)
+    public ResponseEntity<Student> findStudentByEmail(@PathVariable String email){
+        Student student = studentService.findStudentByEmail(email);
+        if (student == null){
+            return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+        }
+        return new ResponseEntity<>(student, HttpStatus.OK);
+    }
 }

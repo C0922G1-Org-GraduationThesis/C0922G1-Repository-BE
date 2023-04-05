@@ -18,6 +18,7 @@ import org.springframework.transaction.annotation.Transactional;
 import java.util.List;
 
 @Repository
+@Transactional
 public interface ITeacherRepository extends JpaRepository<Teacher, Long> {
 
 
@@ -124,4 +125,34 @@ public interface ITeacherRepository extends JpaRepository<Teacher, Long> {
     @Modifying
     @Query(value = "update teacher set teacher.flag_delete = 1 where teacher_id = :teacherId ", nativeQuery = true)
     void deleteTeacherById(@Param("teacherId") long teacherId);
+
+    /**
+     * Created by: TienP
+     * Date: 29/03/2023
+     * function: findTeacherByEmail
+     */
+    @Query(value = "select * from teacher where teacher_email= :email", nativeQuery = true)
+    Teacher findTeacherByEmail(@Param("email") String email);
+
+
+    /**
+     * Created by:TienP
+     * Date: 29/03/2023
+     * function: updateTeacherRoleAdmin
+     */
+    @Modifying
+    @Query(nativeQuery = true, value = " update teacher \n" +
+            "set teacher_name= :teacherName,\n" +
+            "    teacher_email= :email,\n" +
+            "    teacher_phone_number= :phoneNumber,\n" +
+            "    teacher_address= :teacherAddress \n" +
+            " where teacher_id= :id")
+    void updateTeacherRoleAdmin(
+            @Param("teacherName") String teacherName,
+            @Param("email") String email,
+            @Param("phoneNumber") String phoneNumber,
+            @Param("teacherAddress") String teacherAddress,
+            @Param("id") Long id);
+
+    Teacher findTeacherByTeacherId(Long id);
 }

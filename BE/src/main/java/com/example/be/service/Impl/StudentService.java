@@ -209,4 +209,9 @@ public class StudentService implements IStudentService {
     public Page<StudentInfo> findAllStudent(Pageable pageable, String nameSearch, Long idTeacher) {
         return studentRepository.findAllStudent(pageable,nameSearch,idTeacher);
     }
+
+    @Override
+    public Student findStudentByEmail(String email) {
+        return this.studentRepository.findStudentByEmail(email);
+    }
 }

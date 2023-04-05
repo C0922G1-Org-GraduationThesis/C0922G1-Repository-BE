@@ -141,4 +141,12 @@ public interface IStudentRepository extends JpaRepository<Student, Long> {
     @Query(value = "select `student`.student_id as idStudent, `student`.student_code as codeStudent,`student`.student_name as nameStudent,`student`.student_email as emailStudent, `student`.student_phone_number as phoneNumberStudent,`student`.student_img as imgStudent, `clazz`.clazz_name as nameClazz, `teacher`.teacher_name as nameTeacher from `student` join `clazz` on `student`.clazz_id=`clazz`.clazz_id join `team` on `student`.team_id= `team`.team_id join `teacher` on `team`.teacher_id= teacher.teacher_id where `student`.student_name like %:nameSearch% and `student`.flag_delete =false and `teacher`.teacher_id= :idTeacher",
             countQuery = "select `student`.student_id as idStudent, `student`.student_code as codeStudent,`student`.student_name as nameStudent,`student`.student_email as emailStudent, `student`.student_phone_number as phoneNumberStudent,`student`.student_img as imgStudent, `clazz`.clazz_name as nameClazz, `teacher`.teacher_name as nameTeacher from `student` join `clazz` on `student`.clazz_id=`clazz`.clazz_id join `team` on `student`.team_id= `team`.team_id join `teacher` on `team`.teacher_id= teacher.teacher_id where `student`.student_name like %:nameSearch% and `student`.flag_delete =false and `teacher`.teacher_id= :idTeacher", nativeQuery = true)
     Page<StudentInfo> findAllStudent(Pageable pageable, @Param("nameSearch") String nameSearch, @Param("idTeacher") Long idTeacher);
+
+    /**
+     * Created by: TienP
+     * Date: 29/03/2023
+     * function: findStudentByEmail
+     */
+    @Query(value = "select * from student where student_email= :email", nativeQuery = true)
+    Student findStudentByEmail(@Param("email") String email);
 }

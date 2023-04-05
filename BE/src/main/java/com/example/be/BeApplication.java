@@ -7,6 +7,7 @@ import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.mail.javamail.JavaMailSenderImpl;
 
 import org.springframework.scheduling.annotation.EnableScheduling;
+import org.springframework.security.crypto.bcrypt.BCrypt;
 import org.springframework.web.cors.CorsConfiguration;
 import org.springframework.web.cors.UrlBasedCorsConfigurationSource;
 import org.springframework.web.filter.CorsFilter;
@@ -22,6 +23,11 @@ public class BeApplication {
 
     public static void main(String[] args) {
         SpringApplication.run(BeApplication.class, args);
+        String a = "123123124";
+        String b = BCrypt.hashpw(a, BCrypt.gensalt(12));
+        System.out.println(b);
+        boolean c = BCrypt.checkpw(a,b);
+        System.out.println(c);
     }
 
     @Bean
