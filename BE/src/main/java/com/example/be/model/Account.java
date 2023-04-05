@@ -19,8 +19,10 @@ public class Account {
     @OneToMany(mappedBy = "account")
     @JsonIgnore
     private Set<AccountRole> accountRoleSet;
+    @JsonIgnore
     @OneToOne(mappedBy = "account")
     private Teacher teacher;
+    @JsonIgnore
     @OneToOne(mappedBy = "account")
     private Student student;
 

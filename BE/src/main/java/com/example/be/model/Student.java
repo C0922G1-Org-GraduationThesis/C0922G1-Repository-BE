@@ -31,6 +31,7 @@ public class Student {
     private boolean flagDelete;
     @Column(columnDefinition = "bit(1)")
     private boolean flagLeader;
+    @JsonIgnore
     @OneToOne
     @JoinColumn(name = "account_id", referencedColumnName = "account_id")
     private Account account;

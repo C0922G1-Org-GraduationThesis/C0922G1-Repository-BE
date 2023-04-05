@@ -35,9 +35,9 @@ public class Teacher {
     @ManyToOne
     @JoinColumn(name = "degree_id", referencedColumnName = "degree_id")
     private Degree degree;
+    @JsonIgnore
     @OneToOne
     @JoinColumn(name = "account_id", referencedColumnName = "account_id")
-    @JsonIgnore
     private Account account;
     @OneToMany(mappedBy = "teacher")
     @JsonIgnore
@@ -49,6 +49,7 @@ public class Teacher {
     @OneToMany(mappedBy = "teacher")
     @JsonIgnore
     private Set<ProgressReview> progressReviews;
+    @JsonIgnore
     @OneToOne(mappedBy = "teacher")
     private Clazz clazz;
     @OneToMany(mappedBy = "teacher")

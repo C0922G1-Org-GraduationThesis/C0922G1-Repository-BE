@@ -28,12 +28,12 @@ public interface ITeacherRepository extends JpaRepository<Teacher, Long> {
      * function: updateTeacherRoleAdmin
      */
     @Modifying
-    @Query(nativeQuery = true, value = " update teacher as t" +
-            " set t.teacher_name= :teacherName," +
-            " t.teacher_email=:email," +
-            " t.teacher_phone_number= :phoneNumber," +
-            " t.teacher_address= :teacherAddress," +
-            " where t.teacher_id= :id")
+    @Query(nativeQuery = true, value = " update teacher \n" +
+            "set teacher_name= :teacherName,\n" +
+            "    teacher_email= :email,\n" +
+            "    teacher_phone_number= :phoneNumber,\n" +
+            "    teacher_address= :teacherAddress \n" +
+            " where teacher_id= :id")
     void updateTeacherRoleAdmin(
             @Param("teacherName") String teacherName,
             @Param("email") String email,

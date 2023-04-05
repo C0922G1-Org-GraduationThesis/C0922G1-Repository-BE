@@ -39,9 +39,9 @@ public class SecurityController {
     /**
      * Created by: TienP
      * Date created: 29/03/2023
-     * Function:  authenticateUser
-     * @param loginRequest
-     * @return HttpStatus.No_Content if result is error or HttpStatus.OK is result is not error
+     * Function:  authenticate user
+     * @param: loginRequest
+     * @return: HttpStatus.No_Content if result is error or HttpStatus.OK is result is not error
      */
 
     @PostMapping("/login")
@@ -54,7 +54,6 @@ public class SecurityController {
         List<String> roles = userDetails.getAuthorities().stream()
                 .map(GrantedAuthority::getAuthority)
                 .collect(Collectors.toList());
-
         return ResponseEntity.ok(
                 new JwtResponse(
                         jwt,
@@ -66,7 +65,9 @@ public class SecurityController {
     /**
      * Created by: TienP
      * Date created: 31/03/2023
-     * Function:  changePassword
+     * Function:  change password
+     * @param: PasswordDto, BindingResult
+     * @return: HttpStatus.bad_request if result is error or HttpStatus.OK is result is not error
      */
     @PatchMapping("/change-password")
     public ResponseEntity<List<FieldError>> changePassword(@RequestBody @Valid PasswordDto passwordDto,

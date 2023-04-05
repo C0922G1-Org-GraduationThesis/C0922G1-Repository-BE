@@ -13,10 +13,11 @@ import javax.validation.constraints.*;
 
 public class UserRoleAdminDto implements Validator {
     private Long teacherId;
-    @NotBlank(message = "Không được để trống")
-    @Pattern(regexp = "^([A-Za-z][a-z]*)(\\s[A-Za-z][a-z]*)*$",
-            message = "Tên bắt đầu bằng chữ hoa, các từ cách nhau bởi khoảng trắng")
-    @Max(value = 50, message = "Tên không được quá 50 ký tự")
+    @NotBlank(message = "Không được để trống hoặc chỉ chứa toàn kí tự trắng")
+    @Pattern(regexp = "^[\\p{L}\\s]+$",
+            message = "Tên không chứa kí tự đặc biệt và số")
+
+    @Size(min = 3,max = 50, message = "Tên từ 3 đến 50 kí tự")
     private String teacherName;
     @NotBlank(message = "Không được để trống")
     @Email(message = "Không đúng định dạng email")
@@ -26,7 +27,7 @@ public class UserRoleAdminDto implements Validator {
             message = "Số điện thoại phải gồm 10 số 090xxxxxxx, 093xxxxxxx, 097xxxxxxx")
     private String teacherPhoneNumber;
     @NotBlank(message = "Không được để trống")
-    @Max(value = 75, message = "Tên không được quá 75 ký tự")
+    @Size(min = 5,max = 75, message = "Địa chỉ từ 5 đến 75 kí tự")
     private String teacherAddress;
 
     @Override

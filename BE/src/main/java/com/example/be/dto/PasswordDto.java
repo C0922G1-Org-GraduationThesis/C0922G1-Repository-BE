@@ -15,7 +15,7 @@ public class PasswordDto implements Validator {
     private String username;
     @NotBlank(message = "Không được để trống")
     private String oldPassword;
-    @NotBlank(message = "Không được để trống")
+
     @Min(value = 8, message = "không được ít hơn 8 kí tự")
     private String newPassword;
     @NotBlank(message = "Không được để trống")

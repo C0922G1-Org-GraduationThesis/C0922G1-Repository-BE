@@ -31,7 +31,7 @@ public class AccountDetails implements UserDetails {
         this.password = password;
         this.authorities = authorities;
     }
-// This func help you guys get account information to AccountDetailService
+
     public static AccountDetails build(Account account) {
         List<GrantedAuthority> authorities = account.getAccountRoleSet().stream()
                 .map(role -> new SimpleGrantedAuthority(role.getRole().getRoleName()))

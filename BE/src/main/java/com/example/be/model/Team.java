@@ -1,5 +1,7 @@
 package com.example.be.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import javax.persistence.*;
 import java.util.Set;
 
@@ -16,8 +18,10 @@ public class Team {
     @ManyToOne
     @JoinColumn(name = "teacher_id", referencedColumnName = "teacher_id")
     private Teacher teacher;
+    @JsonIgnore
     @OneToOne(mappedBy = "team")
     private Project project;
+    @JsonIgnore
     @OneToMany(mappedBy = "team")
     private Set<Student> studentSet;
 

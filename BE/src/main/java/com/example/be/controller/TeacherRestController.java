@@ -7,6 +7,7 @@ import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.validation.BindingResult;
 import org.springframework.validation.FieldError;
 import org.springframework.web.bind.annotation.*;
@@ -16,7 +17,7 @@ import java.util.List;
 
 @RestController
 @CrossOrigin("*")
-@RequestMapping("/api/public/teachers")
+@RequestMapping("/api/teachers")
 public class TeacherRestController {
     @Autowired
     private ITeacherService teacherService;
@@ -24,12 +25,14 @@ public class TeacherRestController {
     /**
      * Created by: Phạm Tiến
      * Date: 29/03/2023
-     * Function: findStudentById(email)
+     * Function: find student by email
      * @Return: new ResponseEntity<>(HttpStatus.BAD_REQUEST) if result is error,
      * else new ResponseEntity<>(student, HttpStatus.OK)
      */
-    @RequestMapping(value = "/detail/{email}", method = RequestMethod.GET)
+
+    @GetMapping("/detail/{email}")
     public ResponseEntity<Teacher> findTeacherByEmail(@PathVariable String email) {
+
         Teacher teacher = teacherService.findTeacherByEmail(email);
         if (teacher == null) {
             return new ResponseEntity<>(HttpStatus.NOT_FOUND);
@@ -40,11 +43,12 @@ public class TeacherRestController {
     /**
      * Created by: Phạm Tiến
      * Date: 29/03/2023
-     * Function: updateTeacherRoleAdmin(teacher,bindingResult )
+     * Function: update teacher with role admin
      * @Return: new ResponseEntity<>(HttpStatus.BAD_REQUEST) if result is error,
      * else new ResponseEntity<>(student, HttpStatus.OK)
      */
-    @RequestMapping(value = "/update-user-role-admin", method = RequestMethod.PATCH)
+    @PreAuthorize("hasRole('ROLE_TEACHER')")
+    @PatchMapping("/update-user-role-admin")
     public ResponseEntity<List<FieldError>> updateTeacherRoleAdmin(@RequestBody @Valid UserRoleAdminDto userRoleAdminDto,
                                                                    BindingResult bindingResult) {
         Teacher teacherUpdate = teacherService.findTeacherById(userRoleAdminDto.getTeacherId());
