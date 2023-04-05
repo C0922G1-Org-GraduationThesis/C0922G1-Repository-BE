@@ -1,7 +1,7 @@
 package com.example.be.controller;
 
 import com.example.be.dto.ProgressReviewDto;
-import com.example.be.dto.ProjectDTO;
+import com.example.be.dto.ProjectDTOO;
 import com.example.be.model.*;
 import com.example.be.repository.IProgressDetailRepository;
 import com.example.be.service.IProgressDetailService;
@@ -71,7 +71,7 @@ public class ProgressReviewRestController {
         }
         ProgressReview progressReviews = new ProgressReview();
         BeanUtils.copyProperties(progressReviewsDto, progressReviews);
-        Project project = projectService.findById(projectId);
+        Project project = projectService.findByIdProject(projectId);
         progressReviews.setProject(project);
         Teacher teacher = project.getTeam().getTeacher();
         progressReviews.setTeacher(teacher);
@@ -82,7 +82,7 @@ public class ProgressReviewRestController {
         ProgressDetail progressDetail = progressDetailService.findProgressDetailByProjectId(projectId);
         progressDetail.setProgressDetailPercent(progressReviews.getProgressReviewPercent());
         ProgressDetail progressDetailNext = progressDetailService.findById(progressDetail.getProgressDetailId() + 1);
-        if (progressReviews.getProgressReviewPercent() == 100 && progressDetail.getProgressDetailId() < 4) {
+        if (progressReviews.getProgressReviewPercent() == 100 && progressDetail.getStageId() < 4) {
             progressDetail.setProgressStatus(false);
             progressDetailNext.setProgressStatus(true);
             progressDetailRepository.save(progressDetail);
@@ -192,12 +192,12 @@ public class ProgressReviewRestController {
      * @return HttpStatus.NO_CONTENT if result is null or HttpStatusOK if result is not null
      */
     @GetMapping("api/progressReview/project/{projectId}")
-    public ResponseEntity<ProjectDTO> findProjectDtoById(@PathVariable Long projectId) {
-        Project project = projectService.findById(projectId);
+    public ResponseEntity<ProjectDTOO> findProjectDtoById(@PathVariable Long projectId) {
+        Project project = projectService.findByIdProject(projectId);
         if (project == null) {
             return new ResponseEntity<>(HttpStatus.NOT_FOUND);
         }
-        ProjectDTO projectDto = new ProjectDTO();
+        ProjectDTOO projectDto = new ProjectDTOO();
         BeanUtils.copyProperties(project, projectDto);
         this.projectId = projectId;
         System.out.println(this.projectId);
@@ -224,7 +224,7 @@ public class ProgressReviewRestController {
 
     boolean flag = false;
 
-    @Scheduled(cron = "0 52 18 * * ?")
+//    @Scheduled(cron = "0 52 18 * * ?")
     public void changeStatusProgressDetailAutoAndId() {
         System.out.println(this.projectId);
         this.flag = true;
@@ -233,7 +233,7 @@ public class ProgressReviewRestController {
 
     @GetMapping("/api/progressReview/saveAuto/{projectId}")
     public void changeProgressDetailStatusAndId(@PathVariable Long projectId) {
-        Project project = projectService.findById(projectId);
+        Project project = projectService.findByIdProject(projectId);
         System.out.println(this.projectId + "68686868");
         ProgressDetail progressDetailAuto = progressDetailService.findProgressDetailByProjectId(projectId);
         System.out.println(progressDetailAuto.getStageId()+ "aaaaaaa");
@@ -254,7 +254,11 @@ public class ProgressReviewRestController {
     }
 
 
-    @Scheduled(cron = "0 05 20 * * ?")
+//    @Scheduled(cron = "0 29 1 * * ? ")
+    public void saveProgressDetailAuto1() {
+        this.flag = true;
+        changeProgressDetailStatus();
+    }
     public void changeStatusProgressDetailAuto() {
         changeProgressDetailStatus();
     }
@@ -262,18 +266,19 @@ public class ProgressReviewRestController {
     public void changeProgressDetailStatus() {
         List<ProgressDetail> progressDetails = progressDetailService.findProgressDetailAndStatusIsTrue();
     for (ProgressDetail progressDetail: progressDetails){
-        Project project = projectService.findById(progressDetail.getProjectId());
+        Project project = projectService.findByIdProject(progressDetail.getProjectId());
         System.out.println(this.projectId + "68686868");
         ProgressDetail progressDetailAuto = progressDetailService.findProgressDetailByProjectId(project.getProjectId());
         System.out.println(progressDetailAuto.getStageId()+ "aaaaaaa");
         System.out.println(progressDetailAuto.getProgressStatus());
-        if (progressDetailAuto.getStageId() == 4 ) {
+        if (progressDetailAuto.getStageId() == 4 && flag) {
             progressDetailAuto.setProgressStatus(false);
             progressDetailRepository.save(progressDetailAuto);
             project.setProjectStatus(false);
-
+            System.out.println(project.getProjectStatus());
+            projectService.save(project);
         }
-        if (progressDetailAuto.getStageId() < 4 ){
+        if (progressDetailAuto.getStageId() < 4 && flag){
             progressDetailAuto.setProgressStatus(false);
             ProgressDetail progressDetailNext = progressDetailService.findById(progressDetailAuto.getProgressDetailId() + 1);
             progressDetailNext.setProgressStatus(true);

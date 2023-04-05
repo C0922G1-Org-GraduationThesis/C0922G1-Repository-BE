@@ -1,7 +1,7 @@
 package com.example.be.model;
 
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
+
 
 import javax.persistence.*;
 

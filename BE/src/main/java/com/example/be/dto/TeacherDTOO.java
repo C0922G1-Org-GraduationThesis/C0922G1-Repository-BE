@@ -9,7 +9,7 @@ import javax.validation.constraints.*;
  * Date created: 01/04/2023
  */
 
-public class TeacherDto {
+public class TeacherDTOO {
     private Long teacherId;
     private String teacherCode;
  @Size(max = 50, message = "tên có độ dài tối đa 50 ký tự")
@@ -38,10 +38,10 @@ public class TeacherDto {
    @NotBlank(message = "Chọn khoa")
     private Degree degree;
 
-    public TeacherDto() {
+    public TeacherDTOO() {
     }
 
-    public TeacherDto(Long teacherId, String teacherCode, String teacherName, String dateOfBirth, String email, String phoneNumber, boolean teacherGender, String teacherAddress, String img, Faculty faculty, Degree degree) {
+    public TeacherDTOO(Long teacherId, String teacherCode, String teacherName, String dateOfBirth, String email, String phoneNumber, boolean teacherGender, String teacherAddress, String img, Faculty faculty, Degree degree) {
         this.teacherId = teacherId;
         this.teacherCode = teacherCode;
         this.teacherName = teacherName;

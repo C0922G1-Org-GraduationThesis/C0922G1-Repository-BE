@@ -15,7 +15,7 @@ public class Team {
     private String teamName;
     @Column( nullable = false)
     private int memberOfTeam;
-    private boolean flagDelete;
+    private boolean flagDelete = false;
     @ManyToOne
     @JoinColumn(name = "teacher_id", referencedColumnName = "teacher_id")
     private Teacher teacher;

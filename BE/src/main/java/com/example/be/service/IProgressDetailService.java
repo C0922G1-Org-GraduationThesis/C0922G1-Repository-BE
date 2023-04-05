@@ -2,6 +2,7 @@ package com.example.be.service;
 
 import com.example.be.model.ProgressDetail;
 import org.springframework.data.jpa.repository.Query;
+import org.springframework.data.repository.query.Param;
 
 import java.util.List;
 
@@ -23,4 +24,5 @@ public interface IProgressDetailService {
     ProgressDetail findById(Long progressDetailId);
 
     List<ProgressDetail> findProgressDetailAndStatusIsTrue();
+    ProgressDetail findProgressDetailByProjectIdAndStageId( Long projectId, int stageId);
 }

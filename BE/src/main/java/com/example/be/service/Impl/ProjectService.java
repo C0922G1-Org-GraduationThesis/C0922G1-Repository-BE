@@ -20,7 +20,7 @@ public class ProjectService implements IProjectService {
     }
 
     @Override
-    public Project findById(Long projectId) {
+    public Project findByIdProject(Long projectId) {
         return projectRepository.findByAId(projectId).orElse(null);
     }
 
@@ -37,6 +37,11 @@ public class ProjectService implements IProjectService {
     @Override
     public ProgressProjectDto findByProjectId(Long projectId) {
         return projectRepository.findProgressDtoByProjectId(projectId).orElse(null);
+    }
+
+    @Override
+    public void save(Project project) {
+        this.projectRepository.save(project);
     }
 
 

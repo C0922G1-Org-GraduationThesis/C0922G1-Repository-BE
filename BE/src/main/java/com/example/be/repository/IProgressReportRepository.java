@@ -50,11 +50,10 @@ public interface IProgressReportRepository extends JpaRepository<ProgressReport,
     /**
      * Created by: SyVT,
      * Date created : 29/03/2023
-     * Function : Find ProgressReport By StageId And ProjectId
+     * Function : Find ProgressReport By ProjectId
      */
-    @Query(value = "SELECT pr.* FROM `progress_report` as pr WHERE project_id =:project_id and stage_id =:stage_id ORDER BY progress_report_time DESC", nativeQuery = true)
-    Page<ProgressReport> findProgressReportByStageIdAndProjectId(@Param("project_id") Long project_id, @Param("stage_id") int stage_id, Pageable pageable);
-    /**
+    @Query(value = "SELECT pr.* FROM `progress_report` as pr WHERE project_id =:project_id and progress_report_file_name like concat('%',:nameFileSearch,'%') ORDER BY progress_report_time DESC", nativeQuery = true)
+    Page<ProgressReport> findProgressReportByStageIdAndProjectId(@Param("project_id") Long project_id,@Param("nameFileSearch")String nameFileSearch, Pageable pageable);  /**
      * Created by: SyVT,
      * Date created : 29/03/2023
      * Function : Find ProgressReport MaxPercent By StageId And ProjectId
@@ -63,6 +62,7 @@ public interface IProgressReportRepository extends JpaRepository<ProgressReport,
             "WHERE project_id =:project_id and stage_id =:stage_id ORDER BY progress_report_time DESC\n" +
             "LIMIT 1", nativeQuery = true)
     ProgressReport findProgressReportMaxPercentByStageIdAndProjectId(@Param("project_id") Long project_id, @Param("stage_id") int stage_id);
+
 
     /**
      * Created by: SyVT,

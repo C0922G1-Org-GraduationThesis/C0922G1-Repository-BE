@@ -9,7 +9,7 @@ import javax.validation.constraints.Pattern;
 import javax.validation.constraints.Size;
 import java.util.Set;
 
-public class ProjectDTO {
+public class ProjectDTOO {
     private Long projectId;
     @Size(max = 250, message = "Tên đề tài không được dài quá 250 kí tự")
     @NotBlank(message = "Không được để trống")
@@ -33,7 +33,7 @@ public class ProjectDTO {
     private Set<ProgressReport> progressReportSet;
     private Team team;
 
-    public ProjectDTO(Long projectId, String name, String content, String img, String description, boolean projectStatus, Set<ProgressReport> progressReportSet, Team team) {
+    public ProjectDTOO(Long projectId, String name, String content, String img, String description, boolean projectStatus, Set<ProgressReport> progressReportSet, Team team) {
         this.projectId = projectId;
         this.name = name;
         this.content = content;
@@ -44,7 +44,7 @@ public class ProjectDTO {
         this.team = team;
     }
 
-    public ProjectDTO() {
+    public ProjectDTOO() {
     }
 
     public Long getProjectId() {
