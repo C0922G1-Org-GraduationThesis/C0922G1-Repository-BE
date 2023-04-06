@@ -25,4 +25,12 @@ public interface IProgressDetailRepository extends JpaRepository<ProgressDetail,
 
     @Query(value = "select * from progress_detail where project_id = :id and stage_id = :stage_id", nativeQuery = true)
     ProgressDetail findProgressDetailByProjectIdAndStageId(@Param("id") Long projectId, @Param("stage_id") int stageId);
+
+    /**
+     * Created by: SyVT,
+     * Date created : 6/06/2023
+     * Function : findProjectIdAndStageIdByStudentAccount
+     */
+    @Query(value = "SELECT dt.* FROM progress_detail dt WHERE dt.progress_detail_percent = (SELECT MAX(progress_detail_percent)FROM progress_detail WHERE project_id = (SELECT p.project_id FROM student s JOIN team t ON s.team_id = t.team_id JOIN project p ON t.team_id = p.project_id WHERE s.student_email = 'hoangnnh@gmail.com'))", nativeQuery = true)
+    ProgressDetail findProjectIdAndStageIdByStudentAccount(@Param("userName") String userName);
 }

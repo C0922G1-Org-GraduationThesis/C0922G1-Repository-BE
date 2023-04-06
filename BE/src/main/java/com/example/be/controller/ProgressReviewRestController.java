@@ -290,7 +290,7 @@ public class ProgressReviewRestController {
         }
     }
 // Đừng xóa bạn nhé ----------------------------Sau 17 giây sẽ tự động insert vào
-//    @Scheduled(fixedDelay = 17000)
+//    @Scheduled(fixedDelay = 1000)
 //    public void saveProgressDetailAuto() {
 //        saveAutoProgressDetail();
 //    }

@@ -2,6 +2,7 @@ package com.example.be.controller;
 
 
 
+import com.example.be.model.ProgressDetail;
 import com.example.be.model.ProgressReport;
 import com.example.be.model.Project;
 import com.example.be.model.Stage;
@@ -141,6 +142,22 @@ public class ProgressReportRestController {
             return new ResponseEntity<>(HttpStatus.NOT_FOUND);
         }
         return new ResponseEntity<>(project, HttpStatus.OK);
+    }
+
+    /**
+     * Created by: SyVT,
+     * Date created : 06/04/2023
+     * Function : findProgressDetailByStudentUser
+     *
+     * @return HttpStatus.OK if result is not error or HttpStatus.NO_CONTENT if no content
+     */
+    @GetMapping("/detail")
+    public ResponseEntity<ProgressDetail> findProgressDetailByStudentUser(@RequestParam String userName) {
+        ProgressDetail progressDetail = progressDetailService.findProjectIdAnfStageId(userName);
+        if (progressDetail == null) {
+            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+        }
+        return new ResponseEntity<>(progressDetail, HttpStatus.OK);
     }
 
 }

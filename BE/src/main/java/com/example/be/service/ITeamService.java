@@ -56,4 +56,11 @@ public interface ITeamService {
      */
     void updateTeam(Long teacherId, Long teamId);
 
+    /**
+     * Created by: DucND
+     * Date create: 06/03/2023
+     * Function: edit team with studentEmail
+     */
+    ITeamDto findTeamByAccount(String studentEmail);
+
 }

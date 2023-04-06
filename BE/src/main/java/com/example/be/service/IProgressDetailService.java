@@ -25,4 +25,11 @@ public interface IProgressDetailService {
 
     List<ProgressDetail> findProgressDetailAndStatusIsTrue();
     ProgressDetail findProgressDetailByProjectIdAndStageId( Long projectId, int stageId);
+
+    /**
+     * Created by: SyVT,
+     * Date created : 29/03/2023
+     * Function : Save
+     */
+    ProgressDetail findProjectIdAnfStageId(String userName);
 }

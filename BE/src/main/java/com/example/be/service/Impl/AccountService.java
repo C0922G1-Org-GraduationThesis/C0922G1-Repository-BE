@@ -30,5 +30,10 @@ public class AccountService implements IAccountService {
         accountRepository.updateAccount(account.getAccountId(),account.getPassword());
     }
 
+    @Override
+    public void addAccount(Account account) {
+        accountRepository.save(account);
+    }
+
 
 }

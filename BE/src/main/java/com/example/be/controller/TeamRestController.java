@@ -108,21 +108,20 @@ public class TeamRestController {
 
     /**
      * Created by: DucND
-     * Date create: 29/03/2023
-     * Function: create api find team by id
+     * Date create: 06/04/2023
+     * Function: create api find team by email
      *
      * @return HttpStatus.NOT_FOUND if result is null or HttpStatus.OK if there is a team with the teamId to look for.
-     * @param: teamId
+     * @param: email
      */
-//    @GetMapping("/detail/team/{id}")
-//    public ResponseEntity<ITeamDto> findTeamById(@PathVariable Long id) {
-//        ITeamDto team = teamService.findTeamById(id);
-//        if (team == null) {
-//            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
-//        } else {
-//            return new ResponseEntity<>(team, HttpStatus.OK);
-//        }
-//    }
+    @GetMapping("/detail/team/{email}")
+    public ResponseEntity<ITeamDto> getTeamByAccount(@PathVariable String email) {
+        ITeamDto team = teamService.findTeamByAccount(email);
+        if (team == null) {
+            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+        }
+        return new ResponseEntity<>(team, HttpStatus.OK);
+    }
 
     /**
      * Created by: DucND

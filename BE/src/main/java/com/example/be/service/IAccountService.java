@@ -8,4 +8,5 @@ public interface IAccountService {
 
 
     void updateAccount(Account account);
+    void addAccount(Account account);
 }

@@ -1,7 +1,9 @@
 package com.example.be.service.Impl;
 
 import com.example.be.dto.ITeacherDto;
+import com.example.be.model.Account;
 import com.example.be.model.Teacher;
+import com.example.be.repository.IAccountRepository;
 import com.example.be.repository.ITeacherRepository;
 import com.example.be.service.ITeacherService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -20,6 +22,8 @@ public class TeacherService implements ITeacherService {
 
     @Autowired
     private ITeacherRepository iTeacherRepository;
+    @Autowired
+    private IAccountRepository accountRepository;
 
 
     @Override
@@ -44,7 +48,15 @@ public class TeacherService implements ITeacherService {
 
     @Override
     public void addTeacher(Teacher teacher) {
-        iTeacherRepository.addTeacher(teacher.getTeacherName(), teacher.getTeacherDateOfBirth(), teacher.getDegree().getDegreeId(), teacher.getTeacherAddress(), teacher.isTeacherGender(), teacher.getTeacherPhoneNumber(), teacher.getFaculty().getFacultyId(), teacher.getTeacherEmail(), teacher.getTeacherCode(), teacher.getTeacherImg());
+        Account accountNew = new Account();
+        accountNew.setUsername(teacher.getTeacherEmail());
+        accountNew.setPassword("$2y$12$gnE2.7QQxbey9VLhkotlh.GCiU/ozj25mIghi4LVGs4uVEdh4OkfW");
+        Account account = this.accountRepository.save(accountNew);
+
+        teacher.setAccount(account);
+        teacher.setFlagDelete(false);
+        this.iTeacherRepository.save(teacher);
+//        iTeacherRepository.addTeacher(teacher.getTeacherName(), teacher.getTeacherDateOfBirth(), teacher.getDegree().getDegreeId(), teacher.getTeacherAddress(), teacher.isTeacherGender(), teacher.getTeacherPhoneNumber(), teacher.getFaculty().getFacultyId(), teacher.getTeacherEmail(), teacher.getTeacherCode(), teacher.getTeacherImg());
     }
 
     @Override

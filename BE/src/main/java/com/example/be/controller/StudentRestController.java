@@ -89,6 +89,24 @@ public class StudentRestController {
         return new ResponseEntity<>(student, HttpStatus.OK);
     }
 
+    /**
+     * Create by: HauNN
+     * Date create: 29/03/2023
+     * Function: updateLeader
+     *
+     * @return HttpStatus.OK if result is not error, return HttpStatus.NO_CONTENT if result is null
+     * @Param: studentId, teamId
+     */
+    @PutMapping("/updateLeader/{studentId}/{teamId}")
+    public ResponseEntity<Student> updateLeaderteam(@PathVariable Long studentId,
+                                                    @PathVariable Long teamId) {
+        Student student = this.studentService.updateLeader(studentId, teamId);
+        if (student != null) {
+            return new ResponseEntity<>(student, HttpStatus.OK);
+        }
+        return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+    }
+
     @PostMapping("/create")
     public ResponseEntity<?> save(@RequestBody StudentDto studentDto, BindingResult bindingResult) {
 
@@ -97,11 +115,15 @@ public class StudentRestController {
         }
         Student student = new Student();
         BeanUtils.copyProperties(studentDto, student);
-        String studentCode = "sv-" + (studentService.maxIdStudent() + 1);
+        String studentCode = "sv-00" + (studentService.maxIdStudent() + 1);
+
         System.out.println(studentCode);
-        studentService.addStudent(student.getStudentName(), studentCode,
-                student.getStudentDateOfBirth(), student.getStudentEmail(), student.getStudentPhoneNumber(),
-                student.isStudentGender(), student.getStudentAddress(), student.getStudentImg(), student.getClazz().getClazzId());
+        student.setStudentCode(studentCode);
+        studentService.saveStudent(student);
+//        studentService.addStudent(student.getStudentName(), studentCode,
+//                student.getStudentDateOfBirth(), student.getStudentEmail(), student.getStudentPhoneNumber(),
+//                student.isStudentGender(), student.getStudentAddress(), student.getStudentImg(), student.getClazz().getClazzId());
+
         return new ResponseEntity(student, HttpStatus.OK);
     }
 
@@ -183,7 +205,8 @@ public class StudentRestController {
      * @param teacherId
      * @return HttpStatus.OK if connect to database return json the instructor's list of students or HttpStatus.NOT_FOUND if the instructor's list of students is empty
      */
-    @PreAuthorize("hasRole('ROLE_ADMIN') and hasRole('ROLE_TEACHER')")
+    @PreAuthorize("hasRole('ROLE_ADMIN') or hasRole('ROLE_TEACHER')")
+//    @PreAuthorize("hasRole('ROLE_ADMIN') and hasRole('ROLE_TEACHER')")
     @GetMapping("/list-id-teacher/{teacherId}")
     public ResponseEntity<Page<StudentInfo>> getStudentListIdTeacher(@RequestParam(value = "nameSearch", defaultValue = "") String nameSearch,
                                                                      @PageableDefault(size = 4) Pageable pageable,
@@ -212,3 +235,4 @@ public class StudentRestController {
         return new ResponseEntity<>(student, HttpStatus.OK);
     }
 }
+

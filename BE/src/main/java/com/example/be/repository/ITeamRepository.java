@@ -156,4 +156,19 @@ public interface ITeamRepository extends JpaRepository<Team, Long> {
     @Query(value = "update team set teacher_id = :teacherId where team_id = :teamId", nativeQuery = true)
     void updateTeam(@Param("teacherId") Long teacherId, @Param("teamId") Long teamId);
 
+    /**
+     * Created by: DucND
+     * Date create: 06/04/2023
+     * Function: edit team,create teacher for group
+     *
+     * @param: studentEmail
+     * @result change instructor of team
+     */
+    @Query(value = "select t.team_id as teamId, t.member_of_team as memberOfTeam, " +
+            "t.team_name as teamName, tc.teacher_id as teacherId, tc.teacher_name as teacherName " +
+            "from team as t " +
+            "left join teacher as tc on t.teacher_id = tc.teacher_id " +
+            "left join student as s on s.team_id = t.team_id " +
+            "where s.flag_leader and s.student_email = :studentEmail ", nativeQuery = true)
+    ITeamDto findTeamByAccount(@Param("studentEmail") String  studentEmail);
 }

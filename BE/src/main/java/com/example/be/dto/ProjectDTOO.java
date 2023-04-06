@@ -29,11 +29,11 @@ public class ProjectDTOO {
     @NotBlank(message = "Không được để trống")
     @NotNull(message = "Phải nhập trường này")
     private String description;
-    private boolean projectStatus;
+    private Boolean projectStatus;
     private Set<ProgressReport> progressReportSet;
     private Team team;
 
-    public ProjectDTOO(Long projectId, String name, String content, String img, String description, boolean projectStatus, Set<ProgressReport> progressReportSet, Team team) {
+    public ProjectDTOO(Long projectId, String name, String content, String img, String description, Boolean projectStatus, Set<ProgressReport> progressReportSet, Team team) {
         this.projectId = projectId;
         this.name = name;
         this.content = content;
@@ -87,11 +87,11 @@ public class ProjectDTOO {
         this.description = description;
     }
 
-    public boolean isProjectStatus() {
+    public Boolean isProjectStatus() {
         return projectStatus;
     }
 
-    public void setProjectStatus(boolean projectStatus) {
+    public void setProjectStatus(Boolean projectStatus) {
         this.projectStatus = projectStatus;
     }
 

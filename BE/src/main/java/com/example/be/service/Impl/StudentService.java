@@ -4,10 +4,14 @@ import com.example.be.dto.IMailStudentDto;
 import com.example.be.dto.IStudentDTO;
 import com.example.be.dto.StudentDto1;
 import com.example.be.dto.StudentInfo;
+import com.example.be.model.Account;
 import com.example.be.model.Project;
 import com.example.be.model.Student;
+import com.example.be.model.Team;
+import com.example.be.repository.IAccountRepository;
 import com.example.be.repository.IProjectRepository;
 import com.example.be.repository.IStudentRepository;
+import com.example.be.repository.ITeamRepository;
 import com.example.be.service.IStudentService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
@@ -28,6 +32,11 @@ public class StudentService implements IStudentService {
     @Autowired
     private IProjectRepository iProjectRepository;
 
+    @Autowired
+    private ITeamRepository teamRepository;
+
+    @Autowired
+    private IAccountRepository accountRepository;
     /**
      * Create by: HauNN
      * Date create: 29/03/2023
@@ -67,6 +76,28 @@ public class StudentService implements IStudentService {
         return this.studentRepository.findById(id).orElse(null);
     }
 
+    /**
+     * Create by: HauNN
+     * Date create: 29/03/2023
+     * Function: updateLeader team
+     *
+     * @return student or null
+     * @Param: studentId, teamId
+     */
+    @Override
+    public Student updateLeader(Long studentId, Long teamId) {
+        Student student = this.studentRepository.findById(studentId).orElse(null);
+        Team team = this.teamRepository.findById(teamId).orElse(null);
+
+        if (student == null || team == null || student.getTeam() != null) {
+            return null;
+        }
+
+        student.setTeam(team);
+        student.setFlagLeader(true);
+        return this.studentRepository.save(student);
+    }
+
     @Override
     public List<Student> findAll() {
         return studentRepository.findAll();
@@ -78,6 +109,10 @@ public class StudentService implements IStudentService {
                            String studentDateOfBirth, String studentEmail,
                            String studentPhoneNumber, boolean studentGender,
                            String studentAddress, String studentImg, Long clazzId) {
+        Account accountNew = new Account();
+        accountNew.setUsername(studentEmail);
+        accountNew.setPassword("$2y$12$gnE2.7QQxbey9VLhkotlh.GCiU/ozj25mIghi4LVGs4uVEdh4OkfW");
+        Account accountSave = this.accountRepository.save(accountNew);
         studentRepository.addStudent(studentName,studentCode,studentDateOfBirth,studentEmail,studentPhoneNumber,studentGender,studentAddress,studentImg,clazzId);
     }
 
@@ -213,5 +248,19 @@ public class StudentService implements IStudentService {
     @Override
     public Student findStudentByEmail(String email) {
         return this.studentRepository.findStudentByEmail(email);
+    }
+
+    @Override
+    public Student saveStudent(Student student) {
+        Account accountNew = new Account();
+        accountNew.setUsername(student.getStudentEmail());
+        accountNew.setPassword("$2y$12$gnE2.7QQxbey9VLhkotlh.GCiU/ozj25mIghi4LVGs4uVEdh4OkfW");
+        Account account = accountRepository.save(accountNew);
+
+        student.setAccount(accountNew);
+        student.setFlagDelete(false);
+        student.setFlagLeader(false);
+
+        return studentRepository.save(student);
     }
 }

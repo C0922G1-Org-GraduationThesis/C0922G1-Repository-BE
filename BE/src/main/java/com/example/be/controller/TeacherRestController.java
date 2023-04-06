@@ -5,6 +5,7 @@ import com.example.be.dto.teacher.*;
 import com.example.be.model.Degree;
 import com.example.be.model.Faculty;
 import com.example.be.model.Teacher;
+import com.example.be.service.IAccountService;
 import com.example.be.service.IDegreeService;
 import com.example.be.service.IFacultyService;
 import com.example.be.service.ITeacherService;
@@ -39,6 +40,8 @@ public class TeacherRestController {
     private IFacultyService iFacultyService;
     @Autowired
     private ITeacherService iTeacherService;
+    @Autowired
+    private IAccountService accountService;
 
     /**
      * Create by: TanNN
@@ -128,7 +131,7 @@ public class TeacherRestController {
         }
 
         Teacher teacher = new Teacher();
-        String teacherCode = "GV-" + (iTeacherService.maxIdTeacher().getTeacherId() + 1);
+        String teacherCode = "GV-00" + (iTeacherService.maxIdTeacher().getTeacherId() + 1);
         teacherDTO.setTeacherCode(teacherCode);
         BeanUtils.copyProperties(teacherDTO, teacher);
         iTeacherService.addTeacher(teacher);

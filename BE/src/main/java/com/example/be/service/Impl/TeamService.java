@@ -112,4 +112,17 @@ public class TeamService implements ITeamService {
         teamRepository.updateTeam(teacherId, teamId);
     }
 
+    /**
+     * Created by: DucND
+     * Date create: 06/03/2023
+     * Function: find team by email
+     *
+     * @return the team you looking for
+     * @param: studentEmail
+     */
+    @Override
+    public ITeamDto findTeamByAccount(String studentEmail) {
+        return teamRepository.findTeamByAccount(studentEmail);
+    }
+
 }

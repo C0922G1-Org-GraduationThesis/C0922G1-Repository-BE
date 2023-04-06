@@ -60,7 +60,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 //                .antMatchers("/api/projects/**").hasAnyRole( "STUDENT", "TEACHER")
 //                .antMatchers("/api/questions/**").hasAnyRole( "STUDENT", "TEACHER")
 //                .antMatchers("/api/studentProgressReport/**").hasAnyRole( "STUDENT", "TEACHER")
-                .antMatchers("/api/students/**").hasAnyRole( "STUDENT", "TEACHER")
+                .antMatchers("/api/students/**").hasAnyRole( "STUDENT", "TEACHER","ADMIN")
 //                .antMatchers("/api/teachers/**").hasAnyRole( "STUDENT", "TEACHER")
 //                .antMatchers("/api/teams/**").hasAnyRole( "STUDENT", "TEACHER")
                 .anyRequest()

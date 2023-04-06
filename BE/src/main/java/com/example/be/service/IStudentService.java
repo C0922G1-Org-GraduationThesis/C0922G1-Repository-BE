@@ -39,6 +39,15 @@ public interface IStudentService {
      */
     Student findById(Long id);
 
+    /**
+     * Create by: HauNN
+     * Date create: 29/03/2023
+     * Function: updateLeader team
+     *
+     * @Param: studentId, teamId
+     */
+    Student updateLeader(Long studentId, Long teamId);
+
     List<Student> findAll();
 
 
@@ -87,4 +96,6 @@ public interface IStudentService {
     Page<StudentInfo> findAllStudent(Pageable pageable, String nameSearch, Long idTeacher);
 
     Student findStudentByEmail(String email);
+
+    Student saveStudent(Student student);
 }
