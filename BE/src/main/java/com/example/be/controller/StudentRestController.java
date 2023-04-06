@@ -12,6 +12,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.web.PageableDefault;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.validation.BindingResult;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
@@ -127,7 +128,7 @@ public class StudentRestController {
         studentDto.setStudentGender(student.getStudentGender());
         studentDto.setStudentCode(student.getStudentCode());
         studentDto.setStudentImg(student.getStudentImg());
-        Clazz clazz = new Clazz(student.getClazzId(),student.getClazzName());
+        Clazz clazz = new Clazz(student.getClazzId(), student.getClazzName());
         studentDto.setClazz(clazz);
         if (student == null) {
             return new ResponseEntity<>(HttpStatus.NOT_FOUND);
@@ -161,7 +162,7 @@ public class StudentRestController {
      * @param pageable
      * @return HttpStatus.OK if connect to database return json list student or HttpStatus.NOT_FOUND if list student is empty
      */
-
+    @PreAuthorize("hasRole('ROLE_ADMIN')")
     @GetMapping("")
     public ResponseEntity<Page<StudentDto1>> getAllStudent(@RequestParam(value = "nameSearch", defaultValue = "") String nameSearch,
                                                            @PageableDefault(size = 4) Pageable pageable) {
@@ -182,7 +183,7 @@ public class StudentRestController {
      * @param teacherId
      * @return HttpStatus.OK if connect to database return json the instructor's list of students or HttpStatus.NOT_FOUND if the instructor's list of students is empty
      */
-
+    @PreAuthorize("hasRole('ROLE_ADMIN') and hasRole('ROLE_TEACHER')")
     @GetMapping("/list-id-teacher/{teacherId}")
     public ResponseEntity<Page<StudentInfo>> getStudentListIdTeacher(@RequestParam(value = "nameSearch", defaultValue = "") String nameSearch,
                                                                      @PageableDefault(size = 4) Pageable pageable,
@@ -198,13 +199,14 @@ public class StudentRestController {
      * Created by: TienP
      * Date: 29/03/2023
      * Function: findStudentByEmail(email)
+     *
      * @Return: new ResponseEntity<>(HttpStatus.BAD_REQUEST) if result is error,
      * else new ResponseEntity<>(student, HttpStatus.OK)
      */
     @GetMapping("/details/{email}")
-    public ResponseEntity<Student> findStudentByEmail(@PathVariable String email){
+    public ResponseEntity<Student> findStudentByEmail(@PathVariable String email) {
         Student student = studentService.findStudentByEmail(email);
-        if (student == null){
+        if (student == null) {
             return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
         }
         return new ResponseEntity<>(student, HttpStatus.OK);

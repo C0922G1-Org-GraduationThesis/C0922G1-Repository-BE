@@ -12,6 +12,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.scheduling.annotation.Scheduled;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 
@@ -63,7 +64,7 @@ public class ProgressReviewRestController {
      *
      * @return HttpStatus.NO_CONTENT if result is null or HttpStatusOK if result is not null
      */
-
+@PreAuthorize("hasRole('ROLE_TEACHER')")
     @PostMapping("api/progressReview/save/{projectId}")
     public ResponseEntity<?> saveProgressReview(@PathVariable Long projectId, @Valid @RequestBody ProgressReviewDto progressReviewsDto, BindingResult bindingResult) {
         if (bindingResult.hasErrors()) {
