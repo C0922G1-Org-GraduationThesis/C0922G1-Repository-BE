@@ -1,9 +1,11 @@
 package com.example.be.controller;
 
+import com.example.be.dto.IMailQuesDto;
 import com.example.be.dto.IQuestionDto;
 import com.example.be.dto.QuestionDto;
 import com.example.be.model.Question;
 import com.example.be.service.IQuestionService;
+import com.example.be.service.Impl.QuestionService;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
@@ -21,6 +23,8 @@ import java.time.LocalDateTime;
 public class QuestionRestController {
     @Autowired
     private IQuestionService iQuestionService;
+    @Autowired
+    private QuestionService questionService;
 
     /**
      * Created by: LanTTN,
@@ -55,6 +59,9 @@ public class QuestionRestController {
             Question question = new Question();
             BeanUtils.copyProperties(questionDto, question);
             iQuestionService.save(questionDto.getQuestionContent(), questionDto.getQuestionTopic(), questionDto.getDateTime(), questionDto.getStudentId());
+
+            IMailQuesDto q = iQuestionService.getMailQues(1L);
+            questionService.sendSimpleMessage(q, "Bạn có maill hihi.", "", 1L);
             return new ResponseEntity<>(HttpStatus.CREATED);
         } catch (Exception e) {
             return new ResponseEntity<>(HttpStatus.BAD_REQUEST);

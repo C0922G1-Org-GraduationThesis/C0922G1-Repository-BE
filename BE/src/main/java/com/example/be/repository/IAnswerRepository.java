@@ -1,6 +1,7 @@
 package com.example.be.repository;
 
 import com.example.be.dto.IAnswerDto;
+import com.example.be.dto.IMailAnsDto;
 import com.example.be.model.Answers;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Modifying;
@@ -40,4 +41,8 @@ public interface IAnswerRepository extends JpaRepository<Answers, Long> {
                               @Param("questionId") Long questionId,
                               @Param("teacherId") Long teacherId,
                               @Param("dateTime")LocalDateTime dateTime);
+
+    @Transactional
+    @Query(value ="select  a.answer_id as answerId,t.teacher_id as teacherId, t.teacher_name as teacherName ,t.teacher_email as teacherEmail from `answers` as a join `teacher` t on a.teacher_id = t.teacher_id where a.answer_id = :answerId", nativeQuery = true)
+    IMailAnsDto getMailAns(@Param("answerId") Long answerId);
 }

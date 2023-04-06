@@ -124,7 +124,7 @@ public class StudentRestController {
 //                student.getStudentDateOfBirth(), student.getStudentEmail(), student.getStudentPhoneNumber(),
 //                student.isStudentGender(), student.getStudentAddress(), student.getStudentImg(), student.getClazz().getClazzId());
 
-        return new ResponseEntity(student, HttpStatus.OK);
+        return new ResponseEntity<>(student, HttpStatus.OK);
     }
 
     @GetMapping("/{studentId}")

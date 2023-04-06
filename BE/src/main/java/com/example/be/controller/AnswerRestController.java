@@ -2,8 +2,10 @@ package com.example.be.controller;
 
 import com.example.be.dto.AnswerDto;
 import com.example.be.dto.IAnswerDto;
+import com.example.be.dto.IMailAnsDto;
 import com.example.be.model.Answers;
 import com.example.be.service.IAnswerService;
+import com.example.be.service.Impl.AnswerService;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -19,6 +21,9 @@ import java.util.List;
 public class AnswerRestController {
     @Autowired
     private IAnswerService iAnswerService;
+
+    @Autowired
+    private AnswerService answerService;
 
     /**
      * Created by: LanTTN,
@@ -52,9 +57,10 @@ public class AnswerRestController {
         try {
             Answers answers = new Answers();
             BeanUtils.copyProperties(answersDto, answers);
-            System.out.println(answers);
             iAnswerService.save(answersDto.getAnswerContent(), answersDto.getQuestionId(), answersDto.getTeacherId(), answersDto.getDateTime());
-            return new ResponseEntity<>(answersDto,HttpStatus.CREATED);
+            IMailAnsDto answer = answerService.getMailAns(1L);
+            answerService.sendSimpleMail(answer, "Bạn có mail mới", "", 1L);
+            return new ResponseEntity<>(HttpStatus.CREATED);
         } catch (Exception e) {
             return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
         }

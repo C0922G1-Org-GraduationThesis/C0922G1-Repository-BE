@@ -1,5 +1,6 @@
 package com.example.be.service;
 
+import com.example.be.dto.IMailQuesDto;
 import com.example.be.dto.IQuestionDto;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -25,4 +26,6 @@ public interface IQuestionService {
      * @param dateTime
      */
     void save(String questionContent, String questionTopic, LocalDateTime dateTime, Long studentId);
+
+    IMailQuesDto getMailQues(Long questionId);
 }

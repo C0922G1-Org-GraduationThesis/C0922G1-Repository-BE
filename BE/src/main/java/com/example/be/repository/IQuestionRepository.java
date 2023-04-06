@@ -1,5 +1,6 @@
 package com.example.be.repository;
 
+import com.example.be.dto.IMailQuesDto;
 import com.example.be.dto.IQuestionDto;
 import com.example.be.model.Question;
 import org.springframework.data.domain.Page;
@@ -38,4 +39,8 @@ public interface IQuestionRepository extends JpaRepository<Question, Long> {
               @Param("questionTopic") String questionTopic,
               @Param("dateTime") LocalDateTime dateTime,
               @Param("studentId") Long studentId);
+
+    @Transactional
+    @Query(value = "select s.student_id as studentId,q.question_id as questionId, s.student_email as studentEmail from `question` as q join `student` as s on s.student_id = q.student_id  where q.question_id = :questionId", nativeQuery = true)
+    IMailQuesDto getMailQues(@Param("questionId") Long questionId);
 }

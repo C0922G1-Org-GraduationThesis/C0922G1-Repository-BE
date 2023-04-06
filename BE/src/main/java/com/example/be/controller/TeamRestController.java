@@ -6,6 +6,7 @@ import com.example.be.dto.InstructorDTO;
 import com.example.be.dto.TeamDTO;
 import com.example.be.dto.teacher.TeacherDTO;
 import com.example.be.model.Team;
+import com.example.be.service.IStudentService;
 import com.example.be.service.ITeacherService;
 import com.example.be.service.ITeamService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -26,6 +27,9 @@ import java.util.Optional;
 public class TeamRestController {
     @Autowired
     private ITeamService teamService;
+
+    @Autowired
+    private IStudentService studentService;
 
     /**
      * Create by: HauNN

@@ -1,6 +1,7 @@
 package com.example.be.service;
 
 import com.example.be.dto.IAnswerDto;
+import com.example.be.dto.IMailAnsDto;
 import com.example.be.model.Answers;
 
 import java.time.LocalDateTime;
@@ -24,4 +25,6 @@ public interface IAnswerService {
      * @param answerContent, questionId, teacherId, dateTime
      */
     void save(String answerContent, Long questionId, Long teacherId, LocalDateTime dateTime);
+
+    IMailAnsDto getMailAns(Long answerId);
 }
