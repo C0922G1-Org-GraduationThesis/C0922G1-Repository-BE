@@ -47,6 +47,14 @@ public interface IStudentService {
      * @Param: studentId, teamId
      */
     Student updateLeader(Long studentId, Long teamId);
+    /**
+     * Create by: HauNN
+     * Date create: 29/03/2023
+     * Function: sendMailInviteTeam
+     *
+     * @Param: studentId, teamId
+     */
+    boolean sendMailInviteTeam(List<Student> students, String subject, String text, Long teamId);
 
     List<Student> findAll();
 

@@ -33,7 +33,7 @@ public class ProgressService implements IProgressService {
 
     @Override
     public List<ProgressDto> findAll() {
-        List<Project> projectList = projectService.findAll();
+        List<Project> projectList = projectService.findProjectByStatusNotNull();
         List<ProgressDto> progressDtos = new ArrayList<>();
         for (Project project : projectList) {
             progressDtos.add(new ProgressDto(project.getProjectId(), project.getTeam().getTeamName(), project.getProjectName(), project.getTeam().getMemberOfTeam(), project.isProjectStatus()));

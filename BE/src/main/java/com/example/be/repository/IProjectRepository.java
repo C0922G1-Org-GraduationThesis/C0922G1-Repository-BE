@@ -191,4 +191,10 @@ public interface IProjectRepository extends JpaRepository<Project, Long> {
             "p.project_status as status  from project p" +
             " join team t on p.team_id = t.team_id where p.project_id = :id", nativeQuery = true)
     Optional<ProgressProjectDto> findProgressDtoByProjectId(@Param("id") Long projectId);
+
+    /**
+     * Created by: VuLX
+     */
+    @Query(value = "SELECT * FROM project where project_status is not null",nativeQuery = true)
+    List<Project> findAllAndStatusNotNull();
 }

@@ -44,6 +44,7 @@ public interface IProjectService {
      * @param pageable, name
      */
     Page<Project> getAllProject(Pageable pageable, String name);
+
     /**
      * Created by: hoangNNH
      * Date created: 29/03/2023
@@ -84,24 +85,30 @@ public interface IProjectService {
      */
 
     List<Project> findAll();
+
     /**
      * Created by: VuLX
      * Date created: 01/04/2023
      */
     Project findByIdProject(Long projectId);
+
     /**
      * Created by: VuLX
      * Date created: 01/04/2023
      */
     Project findProjectById(Long projectId);
+
     /**
      * Created by: VuLX
      * Date created: 01/04/2023
      */
     List<Project> findProjectListEnableAndSetStatusIsTrue();
+
     /**
      * Created by: VuLX
      * Date created: 01/04/2023
      */
     ProgressProjectDto findByProjectId(Long projectId);
+
+    List<Project> findProjectByStatusNotNull();
 }

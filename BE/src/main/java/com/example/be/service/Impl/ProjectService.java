@@ -155,4 +155,9 @@ public class ProjectService implements IProjectService {
     public ProgressProjectDto findByProjectId(Long projectId) {
         return projectRepository.findProgressDtoByProjectId(projectId).orElse(null);
     }
+
+    @Override
+    public List<Project> findProjectByStatusNotNull() {
+        return projectRepository.findAllAndStatusNotNull();
+    }
 }

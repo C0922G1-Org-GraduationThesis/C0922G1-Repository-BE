@@ -2,6 +2,7 @@ package com.example.be.controller;
 
 
 
+import com.example.be.dto.ProgressReportDTO;
 import com.example.be.model.ProgressDetail;
 import com.example.be.model.ProgressReport;
 import com.example.be.model.Project;
@@ -43,27 +44,36 @@ public class ProgressReportRestController {
      * @return HttpStatus.CREATED if result is not error or HttpStatus.NOT_ACCEPTABLE if no content
      */
     @PostMapping("save/{projectId}/{stageId}")
-    public ResponseEntity<?> saveProgressReport(@PathVariable Long projectId,@PathVariable int stageId,@Validated @RequestBody ProgressReport progressReport, BindingResult bindingResult) {
-        Project project = projectService.findProjectById(projectId);
-        Stage stage = new Stage();
+    public ResponseEntity<?> saveProgressReport(@PathVariable Long projectId, @PathVariable int stageId, @Validated @RequestBody ProgressReportDTO progressReportDTO, BindingResult bindingResult) {
+
         if (bindingResult.hasErrors()) {
             return new ResponseEntity<>(bindingResult.getFieldErrors(), HttpStatus.NOT_ACCEPTABLE);
         }
-        progressReport.setProject(project);
-        if (stageId == 1){
-            stage.setStageId(1);
-            stage.setStageName("Giai đoạn 1");
-        }if (stageId == 2){
-            stage.setStageId(2);
-            stage.setStageName("Giai đoạn 2");
-        }if (stageId == 3){
-            stage.setStageId(3);
-            stage.setStageName("Giai đoạn 3");
-        }if (stageId == 4){
-            stage.setStageId(4);
-            stage.setStageName("Giai đoạn 4");
+
+        Project project = projectService.findProjectById(projectId);
+
+        progressReportDTO.setProject(project);
+
+        Stage stageDTO = new Stage();
+        if (stageId == 1) {
+            stageDTO.setStageId(1);
+            stageDTO.setStageName("Giai đoạn 1");
         }
-        progressReport.setStage(stage);
+        if (stageId == 2) {
+            stageDTO.setStageId(2);
+            stageDTO.setStageName("Giai đoạn 2");
+        }
+        if (stageId == 3) {
+            stageDTO.setStageId(3);
+            stageDTO.setStageName("Giai đoạn 3");
+        }
+        if (stageId == 4) {
+            stageDTO.setStageId(4);
+            stageDTO.setStageName("Giai đoạn 4");
+        }
+        progressReportDTO.setStage(stageDTO);
+        ProgressReport progressReport = new ProgressReport();
+        BeanUtils.copyProperties(progressReportDTO, progressReport);
         this.progressReportService.saveProgressReport(progressReport);
         return new ResponseEntity<>(HttpStatus.CREATED);
     }

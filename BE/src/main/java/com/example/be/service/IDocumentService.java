@@ -1,6 +1,7 @@
 package com.example.be.service;
 
 import com.example.be.dto.IDocumentDto;
+import com.example.be.model.Document;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 
@@ -41,4 +42,6 @@ public interface IDocumentService {
      * @param 'documentName'
      */
     void addDocument( String documentDescribe, String documentFile, String documentName);
+
+    public void saveDocument(Document documentDto);
 }

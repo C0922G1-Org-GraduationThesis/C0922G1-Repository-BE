@@ -2,9 +2,13 @@ package com.example.be.service.Impl;
 
 import com.example.be.dto.ITeacherDto;
 import com.example.be.model.Account;
+import com.example.be.model.AccountRole;
+import com.example.be.model.Role;
 import com.example.be.model.Teacher;
 import com.example.be.repository.IAccountRepository;
+import com.example.be.repository.IAccountRoleRepository;
 import com.example.be.repository.ITeacherRepository;
+import com.example.be.service.IAccountRoleService;
 import com.example.be.service.ITeacherService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -24,6 +28,9 @@ public class TeacherService implements ITeacherService {
     private ITeacherRepository iTeacherRepository;
     @Autowired
     private IAccountRepository accountRepository;
+
+    @Autowired
+    private IAccountRoleRepository accountRoleRepository;
 
 
     @Override
@@ -52,6 +59,14 @@ public class TeacherService implements ITeacherService {
         accountNew.setUsername(teacher.getTeacherEmail());
         accountNew.setPassword("$2y$12$gnE2.7QQxbey9VLhkotlh.GCiU/ozj25mIghi4LVGs4uVEdh4OkfW");
         Account account = this.accountRepository.save(accountNew);
+
+        Role role = new Role();
+        role.setRoleId(3);
+
+        AccountRole accountRole = new AccountRole();
+        accountRole.setAccount(account);
+        accountRole.setRole(role);
+        this.accountRoleRepository.save(accountRole);
 
         teacher.setAccount(account);
         teacher.setFlagDelete(false);

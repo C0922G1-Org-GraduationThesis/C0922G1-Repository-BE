@@ -1,17 +1,8 @@
 package com.example.be.service.Impl;
 
-import com.example.be.dto.IMailStudentDto;
-import com.example.be.dto.IStudentDTO;
-import com.example.be.dto.StudentDto1;
-import com.example.be.dto.StudentInfo;
-import com.example.be.model.Account;
-import com.example.be.model.Project;
-import com.example.be.model.Student;
-import com.example.be.model.Team;
-import com.example.be.repository.IAccountRepository;
-import com.example.be.repository.IProjectRepository;
-import com.example.be.repository.IStudentRepository;
-import com.example.be.repository.ITeamRepository;
+import com.example.be.dto.*;
+import com.example.be.model.*;
+import com.example.be.repository.*;
 import com.example.be.service.IStudentService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
@@ -19,6 +10,8 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.mail.SimpleMailMessage;
 import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.stereotype.Service;
+
+import java.time.LocalDateTime;
 import java.util.List;
 
 @Service
@@ -37,6 +30,14 @@ public class StudentService implements IStudentService {
 
     @Autowired
     private IAccountRepository accountRepository;
+
+    @Autowired
+    private IAnnouncementRepository announcementRepository;
+    @Autowired
+    private IStudentAnnouncementRepository studentAnnouncementRepository;
+    @Autowired
+    private IAccountRoleRepository accountRoleRepository;
+
     /**
      * Create by: HauNN
      * Date create: 29/03/2023
@@ -98,6 +99,52 @@ public class StudentService implements IStudentService {
         return this.studentRepository.save(student);
     }
 
+
+    /**
+     * Create by: HauNN
+     * Date create: 29/03/2023
+     * Function: sendMailInviteTeam
+     *
+     * @Param: studentId, teamId
+     */
+    public boolean sendMailInviteTeam(List<Student> students, String subject, String text, Long teamId) {
+        Team team = this.teamRepository.findById(teamId).orElse(null);
+        if (team == null) {
+            return false;
+        }
+        LocalDateTime now = LocalDateTime.now();
+
+        Announcement announcement = new Announcement();
+        announcement.setAnnouncementName(subject);
+        announcement.setAnnouncementContent("Bạn có thư mời tham gia nhóm " + team.getTeamName());
+        announcement.setAnnouncementTime("" + now);
+        announcement.setAttach("" + teamId);
+
+        Announcement announcementNew = this.announcementRepository.save(announcement);
+
+        for (Student student : students) {
+            String mail = student.getStudentEmail();
+            if (mail == null) {
+                return false;
+            }
+
+            StudentAnnouncement studentAnnouncement = new StudentAnnouncement();
+            studentAnnouncement.setStudent(student);
+            studentAnnouncement.setAnnouncement(announcementNew);
+            this.studentAnnouncementRepository.save(studentAnnouncement);
+
+            SimpleMailMessage message = new SimpleMailMessage();
+            message.setFrom("hau8477@gmail.com");
+            message.setTo(mail);
+            message.setSubject(subject);
+            message.setText("Xin chào " + student.getStudentName() + "! Bạn có thư mời tham gia nhóm " +
+                    team.getTeamName() + ". Vui lòng truy cập vào trang Quản lý đề tài khoa CNTT để biết thêm chi tiết." +
+                    " http://localhost:4200/");
+            emailSender.send(message);
+        }
+        return true;
+    }
+
     @Override
     public List<Student> findAll() {
         return studentRepository.findAll();
@@ -113,7 +160,7 @@ public class StudentService implements IStudentService {
         accountNew.setUsername(studentEmail);
         accountNew.setPassword("$2y$12$gnE2.7QQxbey9VLhkotlh.GCiU/ozj25mIghi4LVGs4uVEdh4OkfW");
         Account accountSave = this.accountRepository.save(accountNew);
-        studentRepository.addStudent(studentName,studentCode,studentDateOfBirth,studentEmail,studentPhoneNumber,studentGender,studentAddress,studentImg,clazzId);
+        studentRepository.addStudent(studentName, studentCode, studentDateOfBirth, studentEmail, studentPhoneNumber, studentGender, studentAddress, studentImg, clazzId);
     }
 
     @Override
@@ -123,10 +170,10 @@ public class StudentService implements IStudentService {
 
     @Override
     public void updateStudent(long studentId, Student student) {
-        studentRepository.updateStudent(student.getStudentName(),student.getStudentCode(),
-                student.getStudentDateOfBirth(),student.getStudentEmail(),
-                student.getStudentPhoneNumber(),student.isStudentGender(),student.getStudentAddress(),
-                student.getStudentImg(),student.getClazz().getClazzId(),studentId);
+        studentRepository.updateStudent(student.getStudentName(), student.getStudentCode(),
+                student.getStudentDateOfBirth(), student.getStudentEmail(),
+                student.getStudentPhoneNumber(), student.isStudentGender(), student.getStudentAddress(),
+                student.getStudentImg(), student.getClazz().getClazzId(), studentId);
     }
 
     @Override
@@ -224,7 +271,7 @@ public class StudentService implements IStudentService {
             message.setTo(arrayEmail);
             message.setSubject(subject);
             message.setText("Xin chào các thành viên " + teamName
-                    + "\nĐề tài " + projectTitle +"của các bạn"
+                    + "\nĐề tài " + projectTitle + "của các bạn"
                     + "\nbị từ chối duyệt. ");
             emailSender.send(message);
         }
@@ -242,7 +289,7 @@ public class StudentService implements IStudentService {
      */
     @Override
     public Page<StudentInfo> findAllStudent(Pageable pageable, String nameSearch, Long idTeacher) {
-        return studentRepository.findAllStudent(pageable,nameSearch,idTeacher);
+        return studentRepository.findAllStudent(pageable, nameSearch, idTeacher);
     }
 
     @Override
@@ -260,6 +307,14 @@ public class StudentService implements IStudentService {
         student.setAccount(accountNew);
         student.setFlagDelete(false);
         student.setFlagLeader(false);
+
+        Role role = new Role();
+        role.setRoleId(2);
+
+        AccountRole accountRole = new AccountRole();
+        accountRole.setAccount(account);
+        accountRole.setRole(role);
+        this.accountRoleRepository.save(accountRole);
 
         return studentRepository.save(student);
     }

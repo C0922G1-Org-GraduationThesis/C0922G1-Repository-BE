@@ -3,6 +3,7 @@ import com.example.be.dto.DocumentDto;
 import com.example.be.dto.IDocumentDto;
 import com.example.be.model.Document;
 import com.example.be.service.IDocumentService;
+import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -81,13 +82,24 @@ public class DocumentRestController {
      * @param 'documentName'
      * @return HttpStatus.BAD_REQUEST if result is error or HttpStatus. OK if result is not error
      */
+//    @PostMapping("/create-document")
+//    public ResponseEntity createDocument(@Valid @RequestBody DocumentDto documentDto, BindingResult bindingResult) {
+//        documentDto.validate(documentDto,bindingResult);
+//        if (documentDto == null || bindingResult.hasErrors()) {
+//            return new ResponseEntity<>(bindingResult.getAllErrors(),HttpStatus.BAD_REQUEST);
+//        }
+//        documentService.addDocument(documentDto.getDocumentDescribe(),documentDto.getDocumentFile(),documentDto.getDocumentName());
+//        return new ResponseEntity<>(HttpStatus.OK);
+//    }
     @PostMapping("/create-document")
     public ResponseEntity createDocument(@Valid @RequestBody DocumentDto documentDto, BindingResult bindingResult) {
-        documentDto.validate(documentDto,bindingResult);
+        documentDto.validate(documentDto, bindingResult);
         if (documentDto == null || bindingResult.hasErrors()) {
-            return new ResponseEntity<>(bindingResult.getAllErrors(),HttpStatus.BAD_REQUEST);
+            return new ResponseEntity<>(bindingResult.getAllErrors(), HttpStatus.BAD_REQUEST);
         }
-        documentService.addDocument(documentDto.getDocumentDescribe(),documentDto.getDocumentFile(),documentDto.getDocumentName());
-        return new ResponseEntity<>(HttpStatus.OK);
+        Document document = new Document();
+        BeanUtils.copyProperties(documentDto, document);
+        documentService.saveDocument(document);
+        return new ResponseEntity<>(HttpStatus.CREATED);
     }
 }

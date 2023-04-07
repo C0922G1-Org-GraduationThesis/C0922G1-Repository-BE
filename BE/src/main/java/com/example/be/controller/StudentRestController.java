@@ -20,6 +20,8 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 
+import java.util.List;
+
 @RestController
 @CrossOrigin("*")
 @RequestMapping("/api/students")
@@ -97,7 +99,7 @@ public class StudentRestController {
      * @return HttpStatus.OK if result is not error, return HttpStatus.NO_CONTENT if result is null
      * @Param: studentId, teamId
      */
-    @PutMapping("/updateLeader/{studentId}/{teamId}")
+    @PostMapping("/updateLeader/{studentId}/{teamId}")
     public ResponseEntity<Student> updateLeaderteam(@PathVariable Long studentId,
                                                     @PathVariable Long teamId) {
         Student student = this.studentService.updateLeader(studentId, teamId);
@@ -106,6 +108,34 @@ public class StudentRestController {
         }
         return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
     }
+
+    /**
+     * Create by: HauNN
+     * Date create: 29/03/2023
+     * Function: sendMailInviteTeam
+     *
+     * @Param: studentId, teamId
+     */
+    @PostMapping("/send-mail-invite-team/{teamId}")
+    public ResponseEntity<?> sendMailInviteTeam(@RequestBody List<Student> students,
+                                                @PathVariable Long teamId) {
+        if (this.studentService.sendMailInviteTeam(students, "THÔNG BÁO", "", teamId)) {
+            return new ResponseEntity<>(HttpStatus.OK);
+        }
+        return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+    }
+
+//    @RequestMapping(value = "accept-join-group/{studentId}", method = RequestMethod.GET)
+//    public ResponseEntity<?> acceptJoinGroup(@PathVariable("studentId") Integer studentId) {
+//        this.groupAccountService.acceptJoinGroupByAccount(studentId);
+//        return new ResponseEntity<>(HttpStatus.OK);
+//    }
+//
+//    @RequestMapping(value = "deny-join-group/{studentId}", method = RequestMethod.GET)
+//    public ResponseEntity<?> denyJoinGroup(@PathVariable("studentId") Integer studentId) {
+//        this.groupAccountService.denyJoinGroupByAccount(studentId);
+//        return new ResponseEntity<>(HttpStatus.OK);
+//    }
 
     @PostMapping("/create")
     public ResponseEntity<?> save(@RequestBody StudentDto studentDto, BindingResult bindingResult) {
@@ -235,4 +265,3 @@ public class StudentRestController {
         return new ResponseEntity<>(student, HttpStatus.OK);
     }
 }
-

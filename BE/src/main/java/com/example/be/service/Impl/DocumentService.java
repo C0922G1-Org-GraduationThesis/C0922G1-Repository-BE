@@ -1,6 +1,7 @@
 package com.example.be.service.Impl;
 
 import com.example.be.dto.IDocumentDto;
+import com.example.be.model.Document;
 import com.example.be.repository.IDocumentRepository;
 import com.example.be.service.IDocumentService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -58,5 +59,10 @@ public class DocumentService implements IDocumentService {
     @Override
     public void addDocument(String documentDescribe, String documentFile, String documentName) {
         documentRepository.addDocument(documentDescribe,documentFile,documentName);
+    }
+
+    @Override
+    public void saveDocument(Document documentDto) {
+        documentRepository.save(documentDto);
     }
 }

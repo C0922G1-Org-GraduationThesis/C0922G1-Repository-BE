@@ -1,5 +1,6 @@
 package com.example.be.dto;
 
+import com.example.be.model.Teacher;
 import org.springframework.validation.Errors;
 import org.springframework.validation.Validator;
 
@@ -14,6 +15,8 @@ public class DocumentDto implements Validator {
     private String documentName;
     private String documentDescribe;
     private String documentFile;
+    private Teacher teacher;
+    private boolean flagDelete;
 
     public DocumentDto() {
     }
@@ -22,6 +25,31 @@ public class DocumentDto implements Validator {
         this.documentName = documentName;
         this.documentDescribe = documentDescribe;
         this.documentFile = documentFile;
+    }
+
+    public DocumentDto(Long documentId, String documentName, String documentDescribe, String documentFile, Teacher teacher, boolean flagDelete) {
+        this.documentId = documentId;
+        this.documentName = documentName;
+        this.documentDescribe = documentDescribe;
+        this.documentFile = documentFile;
+        this.teacher = teacher;
+        this.flagDelete = flagDelete;
+    }
+
+    public Teacher getTeacher() {
+        return teacher;
+    }
+
+    public void setTeacher(Teacher teacher) {
+        this.teacher = teacher;
+    }
+
+    public boolean isFlagDelete() {
+        return flagDelete;
+    }
+
+    public void setFlagDelete(boolean flagDelete) {
+        this.flagDelete = flagDelete;
     }
 
     public Long getDocumentId() {
@@ -65,10 +93,10 @@ public class DocumentDto implements Validator {
     public void validate(Object target, Errors errors) {
         DocumentDto documentDto = (DocumentDto) target;
         if (documentDto.getDocumentName().equals("")) {
-            errors.rejectValue("documentName","documentName","Nhập tên tài liệu");
+            errors.rejectValue("documentName", "documentName", "Nhập tên tài liệu");
         }
         if (documentDto.getDocumentDescribe().equals("")) {
-            errors.rejectValue("documentName","documentName","Nhập mô tả");
+            errors.rejectValue("documentName", "documentName", "Nhập mô tả");
         }
 
     }
