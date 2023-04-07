@@ -99,6 +99,20 @@ public class StudentService implements IStudentService {
         return this.studentRepository.save(student);
     }
 
+    @Override
+    public Student updateMember(Long studentId, Long teamId) {
+        Student student = this.studentRepository.findById(studentId).orElse(null);
+        Team team = this.teamRepository.findById(teamId).orElse(null);
+
+
+        if (student == null || team == null || student.getTeam() != null) {
+            return null;
+        }
+
+        student.setTeam(team);
+        return this.studentRepository.save(student);
+    }
+
 
     /**
      * Create by: HauNN

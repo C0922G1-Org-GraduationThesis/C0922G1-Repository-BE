@@ -125,17 +125,20 @@ public class StudentRestController {
         return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
     }
 
-//    @RequestMapping(value = "accept-join-group/{studentId}", method = RequestMethod.GET)
-//    public ResponseEntity<?> acceptJoinGroup(@PathVariable("studentId") Integer studentId) {
-//        this.groupAccountService.acceptJoinGroupByAccount(studentId);
-//        return new ResponseEntity<>(HttpStatus.OK);
-//    }
-//
-//    @RequestMapping(value = "deny-join-group/{studentId}", method = RequestMethod.GET)
-//    public ResponseEntity<?> denyJoinGroup(@PathVariable("studentId") Integer studentId) {
-//        this.groupAccountService.denyJoinGroupByAccount(studentId);
-//        return new ResponseEntity<>(HttpStatus.OK);
-//    }
+    @RequestMapping(value = "accept-join-group/{studentId}/{teamId}", method = RequestMethod.POST)
+    public ResponseEntity<?> acceptJoinGroup(@PathVariable("studentId") Long studentId,
+                                             @PathVariable("teamId") Long teamId) {
+
+        if (this.studentService.updateMember(studentId, teamId) == null) {
+            return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+        }
+        return new ResponseEntity<>(HttpStatus.OK);
+    }
+
+    @RequestMapping(value = "deny-join-group", method = RequestMethod.POST)
+    public ResponseEntity<?> denyJoinGroup() {
+        return new ResponseEntity<>(HttpStatus.OK);
+    }
 
     @PostMapping("/create")
     public ResponseEntity<?> save(@RequestBody StudentDto studentDto, BindingResult bindingResult) {

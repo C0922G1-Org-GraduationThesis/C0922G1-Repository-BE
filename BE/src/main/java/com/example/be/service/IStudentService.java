@@ -47,6 +47,15 @@ public interface IStudentService {
      * @Param: studentId, teamId
      */
     Student updateLeader(Long studentId, Long teamId);
+
+    /**
+     * Create by: HauNN
+     * Date create: 29/03/2023
+     * Function: updateLeader team
+     *
+     * @Param: studentId, teamId
+     */
+    Student updateMember(Long studentId, Long teamId);
     /**
      * Create by: HauNN
      * Date create: 29/03/2023
