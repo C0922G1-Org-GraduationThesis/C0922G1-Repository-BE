@@ -9,11 +9,7 @@ build/
 .apt_generated
 .classpath
 .factorypath
-<<<<<<< HEAD
-.projectDto
-=======
 .project
->>>>>>> 4331c5fbd4ab5217d9c57be531b8e991b3e29cf5
 .settings
 .springBeans
 .sts4-cache

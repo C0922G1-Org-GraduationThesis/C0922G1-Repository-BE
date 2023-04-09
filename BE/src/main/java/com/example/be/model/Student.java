@@ -1,7 +1,6 @@
 package com.example.be.model;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
-
 import javax.persistence.*;
 import java.util.Set;
 
@@ -33,9 +32,11 @@ public class Student {
     private boolean flagLeader;
     @OneToOne
     @JoinColumn(name = "account_id", referencedColumnName = "account_id")
+    @JsonIgnore
     private Account account;
     @ManyToOne
     @JoinColumn(name = "clazz_id", referencedColumnName = "clazz_id")
+    @JsonIgnore
     private Clazz clazz;
     @ManyToOne
     @JoinColumn(name = "team_id", referencedColumnName = "team_id")
@@ -43,7 +44,6 @@ public class Student {
     @OneToMany(mappedBy = "student")
     @JsonIgnore
     private Set<StudentAnnouncement> studentAnnouncementSet;
-
     @OneToMany(mappedBy = "student")
     @JsonIgnore
     private Set<Question> questionSet;
@@ -154,7 +154,6 @@ public class Student {
     public void setFlagDelete(boolean flagDelete) {
         this.flagDelete = flagDelete;
     }
-
 
     public Account getAccount() {
         return account;

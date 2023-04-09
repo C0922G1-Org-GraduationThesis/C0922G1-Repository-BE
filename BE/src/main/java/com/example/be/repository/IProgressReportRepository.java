@@ -3,6 +3,8 @@ package com.example.be.repository;
 
 import com.example.be.dto.IStudentProgressReportDTO;
 import com.example.be.model.ProgressReport;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;
@@ -48,12 +50,10 @@ public interface IProgressReportRepository extends JpaRepository<ProgressReport,
     /**
      * Created by: SyVT,
      * Date created : 29/03/2023
-     * Function : Find ProgressReport By StageId And ProjectId
+     * Function : Find ProgressReport By ProjectId
      */
-    @Query(value = "SELECT pr.* FROM progress_report as pr WHERE project_id =:project_id and stage_id =:stage_id ORDER BY progress_report_time DESC", nativeQuery = true)
-    List<ProgressReport> findProgressReportByStageIdAndProjectId(@Param("project_id") Long project_id, @Param("stage_id") int stage_id);
-
-    /**
+    @Query(value = "SELECT pr.* FROM `progress_report` as pr WHERE project_id =:project_id and progress_report_file_name like concat('%',:nameFileSearch,'%') ORDER BY progress_report_time DESC", nativeQuery = true)
+    Page<ProgressReport> findProgressReportByStageIdAndProjectId(@Param("project_id") Long project_id,@Param("nameFileSearch")String nameFileSearch, Pageable pageable);  /**
      * Created by: SyVT,
      * Date created : 29/03/2023
      * Function : Find ProgressReport MaxPercent By StageId And ProjectId
@@ -63,12 +63,13 @@ public interface IProgressReportRepository extends JpaRepository<ProgressReport,
             "LIMIT 1", nativeQuery = true)
     ProgressReport findProgressReportMaxPercentByStageIdAndProjectId(@Param("project_id") Long project_id, @Param("stage_id") int stage_id);
 
+
     /**
      * Created by: SyVT,
      * Date created : 29/03/2023
      * Function : Find StudentProgressReport By StageId And ProjectId
      */
-    @Query(value = "SELECT DISTINCT pr.progress_report_content as progressReportContent ,pr.progress_report_file as progressReportFile,pr.progress_report_file_name as progressReportFileName,pr.progress_report_time as progressReportTime,s.student_name as studentName,s.student_img as studentImg,sta.stage_name as stageName " +
+    @Query(value = "SELECT DISTINCT pr.progress_report_content as progressReportContent, pr.progress_report_file as progressReportFile,pr.progress_report_file_name as progressReportFileName,pr.progress_report_time as progressReportTime,s.student_name as studentName,s.student_img as studentImg,sta.stage_name as stageName " +
             "FROM progress_report pr " +
             "join project p on pr.project_id = p.project_id " +
             "join team t on p.team_id = t.team_id " +

@@ -1,6 +1,9 @@
 package com.example.be.service;
 
 import com.example.be.model.ProgressReport;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.repository.query.Param;
 
 import java.util.List;
 
@@ -17,7 +20,7 @@ public interface IProgressReportService {
      * Date created : 29/03/2023
      * Function : Find All Progress Report By ProjectId And StageId
      */
-    List<ProgressReport> findAllProgressReportByProjectIdAndStageId(Long projectId, int stageId);
+    Page<ProgressReport> findAllProgressReportByProjectIdAndStageId( Long project_id, String nameFileSearch, Pageable pageable);
 
     /**
      * Created by: SyVT,

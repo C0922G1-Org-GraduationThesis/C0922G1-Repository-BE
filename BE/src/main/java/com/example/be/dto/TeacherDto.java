@@ -2,57 +2,52 @@ package com.example.be.dto;
 
 import com.example.be.model.Degree;
 import com.example.be.model.Faculty;
+import com.example.be.model.Teacher;
+import org.springframework.validation.Errors;
 
-import javax.validation.constraints.*;
-/**
- * Created by: VuLX
- * Date created: 01/04/2023
- */
+import java.util.List;
 
-public class TeacherDto {
+public class TeacherDTO {
     private Long teacherId;
     private String teacherCode;
- @Size(max = 50, message = "tên có độ dài tối đa 50 ký tự")
-    @NotEmpty(message = "không được để trống")
     private String teacherName;
-
-    @Min(value = 18, message = "Tuổi của bạn phải lớn hơn hoặc bằng 18")
-    private String dateOfBirth;
-
-    @NotBlank(message = "Email ko được để trống")
-    @Pattern(regexp = "^[\\w-.]+@([\\w-]+\\.)+[\\w-]{2,4}$", message = "Email sai định dạng")
-    private String email;
-
-    @NotBlank(message = "Nhập số điện thoại")
-    @Pattern(regexp = "[0][1-9]{9}", message = "Số điện thoại phải có 10 số và bắt đầu bằng 0")
-    private String phoneNumber;
-     @NotBlank(message = "Chọn giới tính")
+    private String teacherDateOfBirth;
+    private String teacherEmail;
+    private String teacherPhoneNumber;
     private boolean teacherGender;
-
-    @NotBlank(message = "Nhập địa chỉ")
     private String teacherAddress;
-    private String img;
-
-      @NotBlank(message = "Chọn học vị")
+    private String teacherImg;
     private Faculty faculty;
-   @NotBlank(message = "Chọn khoa")
     private Degree degree;
 
-    public TeacherDto() {
+    public TeacherDTO(String teacherCode, String teacherName, String teacherDateOfBirth, String teacherEmail, String teacherPhoneNumber, boolean teacherGender, String teacherAddress, String teacherImg, Faculty faculty, Degree degree) {
+        this.teacherCode = teacherCode;
+        this.teacherName = teacherName;
+        this.teacherDateOfBirth = teacherDateOfBirth;
+        this.teacherEmail = teacherEmail;
+        this.teacherPhoneNumber = teacherPhoneNumber;
+        this.teacherGender = teacherGender;
+        this.teacherAddress = teacherAddress;
+        this.teacherImg = teacherImg;
+        this.faculty = faculty;
+        this.degree = degree;
     }
 
-    public TeacherDto(Long teacherId, String teacherCode, String teacherName, String dateOfBirth, String email, String phoneNumber, boolean teacherGender, String teacherAddress, String img, Faculty faculty, Degree degree) {
+    public TeacherDTO(Long teacherId, String teacherCode, String teacherName, String teacherDateOfBirth, String teacherEmail, String teacherPhoneNumber, boolean teacherGender, String teacherAddress, String teacherImg, Faculty faculty, Degree degree) {
         this.teacherId = teacherId;
         this.teacherCode = teacherCode;
         this.teacherName = teacherName;
-        this.dateOfBirth = dateOfBirth;
-        this.email = email;
-        this.phoneNumber = phoneNumber;
+        this.teacherDateOfBirth = teacherDateOfBirth;
+        this.teacherEmail = teacherEmail;
+        this.teacherPhoneNumber = teacherPhoneNumber;
         this.teacherGender = teacherGender;
         this.teacherAddress = teacherAddress;
-        this.img = img;
+        this.teacherImg = teacherImg;
         this.faculty = faculty;
         this.degree = degree;
+    }
+
+    public TeacherDTO() {
     }
 
     public Long getTeacherId() {
@@ -79,28 +74,28 @@ public class TeacherDto {
         this.teacherName = teacherName;
     }
 
-    public String getDateOfBirth() {
-        return dateOfBirth;
+    public String getTeacherDateOfBirth() {
+        return teacherDateOfBirth;
     }
 
-    public void setDateOfBirth(String dateOfBirth) {
-        this.dateOfBirth = dateOfBirth;
+    public void setTeacherDateOfBirth(String teacherDateOfBirth) {
+        this.teacherDateOfBirth = teacherDateOfBirth;
     }
 
-    public String getEmail() {
-        return email;
+    public String getTeacherEmail() {
+        return teacherEmail;
     }
 
-    public void setEmail(String email) {
-        this.email = email;
+    public void setTeacherEmail(String teacherEmail) {
+        this.teacherEmail = teacherEmail;
     }
 
-    public String getPhoneNumber() {
-        return phoneNumber;
+    public String getTeacherPhoneNumber() {
+        return teacherPhoneNumber;
     }
 
-    public void setPhoneNumber(String phoneNumber) {
-        this.phoneNumber = phoneNumber;
+    public void setTeacherPhoneNumber(String teacherPhoneNumber) {
+        this.teacherPhoneNumber = teacherPhoneNumber;
     }
 
     public boolean isTeacherGender() {
@@ -119,12 +114,12 @@ public class TeacherDto {
         this.teacherAddress = teacherAddress;
     }
 
-    public String getImg() {
-        return img;
+    public String getTeacherImg() {
+        return teacherImg;
     }
 
-    public void setImg(String img) {
-        this.img = img;
+    public void setTeacherImg(String teacherImg) {
+        this.teacherImg = teacherImg;
     }
 
     public Faculty getFaculty() {
@@ -132,7 +127,6 @@ public class TeacherDto {
     }
 
     public void setFaculty(Faculty faculty) {
-
         this.faculty = faculty;
     }
 
@@ -142,5 +136,137 @@ public class TeacherDto {
 
     public void setDegree(Degree degree) {
         this.degree = degree;
+    }
+
+    public void checkValidateCreateTeacher(List<Teacher> list, TeacherDTO teacherDTO, Errors errors) {
+        if (teacherDTO.getTeacherName().matches("")) {
+            errors.rejectValue("teacherName", "teacherName", "Tên giáo viên không được để trống");
+        } else if (!teacherDTO.getTeacherName().matches("^(\\p{Lu}[\\p{L}]*\\s?)+$")) {
+            errors.rejectValue("teacherName", "teacherName", "Tên giáo viên sai định dạng");
+        } else {
+            int minLength = teacherDTO.getTeacherName().length();
+            int maxLength = teacherDTO.getTeacherName().length();
+            if (minLength <= 1 || maxLength >= 50) {
+                errors.rejectValue("teacherName", "teacherName", "Tên giáo viên từ 1->50 kí tự");
+            }
+        }
+
+
+        if (teacherDTO.getTeacherDateOfBirth().matches("")) {
+            errors.rejectValue("teacherDateOfBirth", "teacherDateOfBirth", "Ngày sinh không được để trống");
+        }
+
+        if (teacherDTO.getDegree().getDegreeName().equals("")) {
+            errors.rejectValue("degree", "degree", "Học vị không được để trống");
+        }
+
+        if (teacherDTO.getTeacherAddress().matches("")) {
+            errors.rejectValue("teacherAddress", "teacherAddress", "Địa chỉ không được để trống");
+        }else {
+            int minLength = teacherDTO.getTeacherAddress().length();
+            int maxLength = teacherDTO.getTeacherAddress().length();
+            if (minLength <= 1 || maxLength >= 50) {
+                errors.rejectValue("teacherAddress", "teacherAddress", "Địa chỉ từ 1->50 kí tự");
+            }
+        }
+
+        if (teacherDTO.getTeacherPhoneNumber().matches("")) {
+            errors.rejectValue("teacherPhoneNumber", "teacherPhoneNumber", "Số điện thoại không được để trống");
+        } else if (!teacherDTO.getTeacherPhoneNumber().matches("^(09|08)\\d{8}$|^(\\+84)\\d{9}$  ")) {
+            errors.rejectValue("teacherPhoneNumber", "teacherPhoneNumber", "Số điện thoại bắt đầu bằng 0 và phải có 10 số");
+        } else {
+            for (int i = 0; i < list.size(); i++) {
+                if (teacherDTO.getTeacherPhoneNumber().equals(list.get(i).getTeacherPhoneNumber())) {
+                    errors.rejectValue("teacherPhoneNumber", "teacherPhoneNumber", "Số điện thoại đã được sử dụng");
+                    break;
+                }
+            }
+        }
+
+        if (teacherDTO.getFaculty().getFacultyName().equals("")) {
+            errors.rejectValue("faculty", "faculty", "Học vị không được để trống");
+        }
+
+        if (teacherDTO.getTeacherEmail().matches("")) {
+            errors.rejectValue("teacherEmail", "teacherEmail", "Email không được để trống");
+        } else if (!teacherDTO.getTeacherEmail().matches("[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+\\.[A-Za-z]{2,}")) {
+            errors.rejectValue("teacherEmail", "teacherEmail", "Email sai định dạng");
+        } else {
+            for (int i = 0; i < list.size(); i++) {
+                if (teacherDTO.getTeacherEmail().equals(list.get(i).getTeacherEmail())) {
+                    errors.rejectValue("teacherEmail", "teacherEmail", "Email đã được sử dụng");
+                    break;
+                }
+            }
+        }
+    }
+
+    public void checkValidateUpdateTeacher(List<Teacher> list, TeacherDTO teacherDTO, Errors errors) {
+        if (teacherDTO.getTeacherName().matches("")) {
+            errors.rejectValue("teacherName", "teacherName", "Tên giáo viên không được để trống");
+        }else if (!teacherDTO.getTeacherName().matches("^(\\p{Lu}[\\p{L}]*\\s?)+$")) {
+            errors.rejectValue("teacherName", "teacherName", "Tên giáo viên sai định dạng");
+        } else {
+            int minLength = teacherDTO.getTeacherName().length();
+            int maxLength = teacherDTO.getTeacherName().length();
+            if (minLength <= 1 || maxLength >= 50) {
+                errors.rejectValue("teacherName", "teacherName", "Tên giáo viên từ 1->50 kí tự");
+            }
+        }
+
+        if (teacherDTO.getTeacherDateOfBirth().matches("")) {
+            errors.rejectValue("teacherDateOfBirth", "teacherDateOfBirth", "Ngày sinh không được để trống");
+        }
+
+        if (teacherDTO.getDegree().getDegreeName().matches("")) {
+            errors.rejectValue("degree", "degree", "Học vị không được để trống");
+        }
+
+        if (teacherDTO.getTeacherAddress().matches("")) {
+            errors.rejectValue("teacherAddress", "teacherAddress", "Địa chỉ không được để trống");
+        }else {
+            int minLength = teacherDTO.getTeacherAddress().length();
+            int maxLength = teacherDTO.getTeacherAddress().length();
+            if (minLength <= 1 || maxLength >= 50) {
+                errors.rejectValue("teacherAddress", "teacherAddress", "Địa chỉ từ 1->50 kí tự");
+            }
+        }
+
+        if (teacherDTO.getTeacherPhoneNumber().matches("")) {
+            errors.rejectValue("teacherPhoneNumber", "teacherPhoneNumber", "Số điện thoại không được để trống");
+        } else if (!teacherDTO.getTeacherPhoneNumber().matches("^(09|08)\\d{8}$|^(\\+84)\\d{9}$")) {
+            errors.rejectValue("teacherPhoneNumber", "teacherPhoneNumber", "Số điện thoại bắt đầu bằng 0 và phải có 10 số");
+        } else {
+            for (int i = 0; i < list.size(); i++) {
+                if (teacherDTO.getTeacherId().equals(list.get(i).getTeacherId())) {
+                    continue;
+                }
+                if (teacherDTO.getTeacherPhoneNumber().equals(list.get(i).getTeacherPhoneNumber())) {
+                    errors.rejectValue("teacherPhoneNumber", "teacherPhoneNumber", "Số điện thoại đã được sử dụng");
+                    break;
+                }
+            }
+
+        }
+        if (teacherDTO.getFaculty().getFacultyName().equals("")) {
+            errors.rejectValue("faculty", "faculty", "Khoa không được để trống");
+        }
+
+        if (teacherDTO.getTeacherEmail().matches("")) {
+            errors.rejectValue("teacherEmail", "teacherEmail", "Email không được để trống");
+        } else if (!teacherDTO.getTeacherEmail().matches("[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+\\.[A-Za-z]{2,}")) {
+            errors.rejectValue("teacherEmail", "teacherEmail", "Email sai định dạng");
+        } else {
+
+            for (int i = 0; i < list.size(); i++) {
+                if (teacherDTO.getTeacherId().equals(list.get(i).getTeacherId())) {
+                    continue;
+                }
+                if (teacherDTO.getTeacherEmail().equals(list.get(i).getTeacherEmail())) {
+                    errors.rejectValue("teacherEmail", "teacherEmail", "Email đã được sử dụng");
+                    break;
+                }
+            }
+        }
     }
 }

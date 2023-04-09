@@ -1,6 +1,6 @@
 package com.example.be.model;
 import javax.persistence.*;
-import java.util.Set;
+import java.time.LocalDateTime;
 
 
 @Entity
@@ -11,6 +11,8 @@ public class Answers {
     private Long answerId;
     @Column(columnDefinition = "text",nullable = false)
     private String answerContent;
+    @Column(columnDefinition = "dateTime")
+    private LocalDateTime dateTime;
 
     @ManyToOne
     @JoinColumn(name = "teacher_id", referencedColumnName = "teacher_id")
@@ -21,14 +23,6 @@ public class Answers {
     private Question question;
 
     public Answers() {
-    }
-
-    public Question getQuestion() {
-        return question;
-    }
-
-    public void setQuestion(Question question) {
-        this.question = question;
     }
 
     public Long getAnswerId() {
@@ -55,5 +49,19 @@ public class Answers {
         this.teacher = teacher;
     }
 
+    public Question getQuestion() {
+        return question;
+    }
 
+    public void setQuestion(Question question) {
+        this.question = question;
+    }
+
+    public LocalDateTime getDateTime() {
+        return dateTime;
+    }
+
+    public void setDateTime(LocalDateTime dateTime) {
+        this.dateTime = dateTime;
+    }
 }

@@ -14,27 +14,17 @@ public class ProgressReport {
     private String progressReportTime;
     @Column(columnDefinition = "text", nullable = false)
     private String progressReportFile;
+
     @Column(columnDefinition = "text", nullable = false)
     private String progressReportFileName;
-
     @ManyToOne
-    @JoinColumn(name = "stage_id", referencedColumnName = "stage_id")
+    @JoinColumn(name = "stage_id" , referencedColumnName = "stage_id")
     private Stage stage;
-    @JoinColumn(name = "project_id", referencedColumnName = "project_id")
+    @JoinColumn(name = "project_id" , referencedColumnName = "project_id")
     @ManyToOne
     private Project project;
 
     public ProgressReport() {
-    }
-
-    public ProgressReport(Long progressReportId, String progressReportContent, String progressReportTime, String progressReportFile, String progressReportFileName, Stage stage, Project project) {
-        this.progressReportId = progressReportId;
-        this.progressReportContent = progressReportContent;
-        this.progressReportTime = progressReportTime;
-        this.progressReportFile = progressReportFile;
-        this.progressReportFileName = progressReportFileName;
-        this.stage = stage;
-        this.project = project;
     }
 
     public Long getProgressReportId() {

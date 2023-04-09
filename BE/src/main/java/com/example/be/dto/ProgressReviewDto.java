@@ -27,14 +27,14 @@ public class ProgressReviewDto {
 
     private String progressReviewDateCreate;
 
-    private TeacherDto teacherDto;
+    private TeacherDTOO teacherDto;
 
     private ProjectDTO projectDto;
 
     public ProgressReviewDto() {
     }
 
-    public ProgressReviewDto(Long progressReviewId, String progressReviewTitle, String progressReviewContent, int progressReviewPercent, String progressReviewDateCreate, TeacherDto teacherDto, ProjectDTO projectDto) {
+    public ProgressReviewDto(Long progressReviewId, String progressReviewTitle, String progressReviewContent, int progressReviewPercent, String progressReviewDateCreate, TeacherDTOO teacherDto, ProjectDTO projectDto) {
         this.progressReviewId = progressReviewId;
         this.progressReviewTitle = progressReviewTitle;
         this.progressReviewContent = progressReviewContent;
@@ -84,11 +84,11 @@ public class ProgressReviewDto {
         this.progressReviewDateCreate = progressReviewDateCreate;
     }
 
-    public TeacherDto getTeacherDto() {
+    public TeacherDTOO getTeacherDto() {
         return teacherDto;
     }
 
-    public void setTeacherDto(TeacherDto teacherDto) {
+    public void setTeacherDto(TeacherDTOO teacherDto) {
         this.teacherDto = teacherDto;
     }
 

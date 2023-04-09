@@ -15,13 +15,13 @@ public class Team {
     private String teamName;
     @Column( nullable = false)
     private int memberOfTeam;
-    private boolean flagDelete;
     @ManyToOne
     @JoinColumn(name = "teacher_id", referencedColumnName = "teacher_id")
     private Teacher teacher;
+
     @OneToOne(mappedBy = "team")
-    @JsonIgnore
     private Project project;
+
     @OneToMany(mappedBy = "team")
     @JsonIgnore
     private Set<Student> studentSet;
@@ -29,13 +29,6 @@ public class Team {
     public Team() {
     }
 
-    public boolean isFlagDelete() {
-        return flagDelete;
-    }
-
-    public void setFlagDelete(boolean flagDelete) {
-        this.flagDelete = flagDelete;
-    }
 
     public Long getTeamId() {
         return teamId;
