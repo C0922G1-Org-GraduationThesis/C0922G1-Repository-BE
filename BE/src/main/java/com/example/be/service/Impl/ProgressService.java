@@ -1,6 +1,7 @@
 package com.example.be.service.Impl;
 
 import com.example.be.dto.ProgressDto;
+import com.example.be.dto.ProgressProjectDto;
 import com.example.be.dto.ProgressStudentDto;
 import com.example.be.model.Project;
 import com.example.be.model.Student;
@@ -27,19 +28,17 @@ public class ProgressService implements IProgressService {
     /**
      * Created by: VuLX
      * Date created: 29/3/2023
-     * Function: create  list-progress
+     * Function: find list-progress
      */
 
     @Override
-    public Page<ProgressDto> findAll() {
-        List<Project> projectList = projectService.findProjectListEnable();
+    public List<ProgressDto> findAll() {
+        List<Project> projectList = projectService.findProjectByStatusNotNull();
         List<ProgressDto> progressDtos = new ArrayList<>();
-        Pageable pageable = Pageable.ofSize(3);
         for (Project project : projectList) {
-            progressDtos.add(new ProgressDto(project.getProjectId(), project.getTeam().getTeamName(), project.getProjectName(), project.getTeam().getMemberOfTeam()));
+            progressDtos.add(new ProgressDto(project.getProjectId(), project.getTeam().getTeamName(), project.getProjectName(), project.getTeam().getMemberOfTeam(), project.isProjectStatus()));
         }
-        Page<ProgressDto>progressDtoPage = new PageImpl<>(progressDtos,pageable, 0);
-        return progressDtoPage;
+        return progressDtos;
     }
 
     /**
@@ -52,16 +51,26 @@ public class ProgressService implements IProgressService {
     @Override
     public List<ProgressStudentDto> findAllStudentOfTeam(Long projectId) {
         List<ProgressStudentDto> progressStudentDtos = new ArrayList<>();
-        Project project = projectService.findProjectEnable(projectId);
-        if (project == null){
+        Project project = projectService.findProjectById(projectId);
+        if (project == null) {
             return null;
         }
         Team team = project.getTeam();
         Set<Student> studentSet = team.getStudentSet();
         for (Student student : studentSet) {
-            progressStudentDtos.add(new ProgressStudentDto(student.getStudentName(), student.getStudentEmail(), student.getStudentPhoneNumber(), student.getStudentImg()));
+            progressStudentDtos.add(new ProgressStudentDto(student.getStudentCode(), student.getStudentName(), student.getStudentEmail(), student.getStudentPhoneNumber(), student.getStudentImg(), student.getClazz().getClazzName()));
         }
         return progressStudentDtos;
+    }
+
+    /**
+     * Created by: VuLX
+     * Date created: 31/3/2023
+     * Function: find  progress-detail by projectId
+     */
+    @Override
+    public ProgressProjectDto findByProjectId(Long projectId) {
+        return projectService.findByProjectId(projectId);
     }
 
 }

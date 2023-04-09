@@ -21,6 +21,8 @@ public class Announcement {
     @JsonIgnore
     private Set<StudentAnnouncement> studentAnnouncementSet;
 
+    private String attach;
+
     public Announcement() {
     }
 
@@ -63,5 +65,13 @@ public class Announcement {
 
     public void setAnnouncementName(String announcementName) {
         this.announcementName = announcementName;
+    }
+
+    public String getAttach() {
+        return attach;
+    }
+
+    public void setAttach(String attach) {
+        this.attach = attach;
     }
 }

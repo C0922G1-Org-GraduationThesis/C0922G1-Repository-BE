@@ -1,8 +1,5 @@
 package com.example.be.dto;
 
-import com.example.be.model.ProgressReport;
-
-import java.util.Set;
 
 public class StageDTO {
 

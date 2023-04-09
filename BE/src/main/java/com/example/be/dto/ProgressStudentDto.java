@@ -1,21 +1,42 @@
 package com.example.be.dto;
-
-import com.example.be.model.Stage;
-
+/**
+ * Created by: VuLX
+ * Date created: 01/04/2023
+ */
 public class ProgressStudentDto {
+    private String studentCode;
     private String studentName;
     private String studentEmail;
     private String studentPhoneNumber;
     private String studentImg;
+    private String studentClassName;
 
-    private ProjectDTO projectDTO;
-    private Stage stage;
-
-    public ProgressStudentDto(String studentName, String studentEmail, String studentPhoneNumber, String studentImg) {
+    public ProgressStudentDto(String studentCode, String studentName, String studentEmail, String studentPhoneNumber, String studentImg, String studentClassName) {
+        this.studentCode = studentCode;
         this.studentName = studentName;
         this.studentEmail = studentEmail;
         this.studentPhoneNumber = studentPhoneNumber;
         this.studentImg = studentImg;
+        this.studentClassName = studentClassName;
+    }
+
+    public ProgressStudentDto() {
+    }
+
+    public String getStudentCode() {
+        return studentCode;
+    }
+
+    public void setStudentCode(String studentCode) {
+        this.studentCode = studentCode;
+    }
+
+    public String getStudentClassName() {
+        return studentClassName;
+    }
+
+    public void setStudentClassName(String studentClassName) {
+        this.studentClassName = studentClassName;
     }
 
     public String getStudentName() {

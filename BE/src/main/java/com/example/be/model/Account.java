@@ -3,7 +3,6 @@ package com.example.be.model;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
 import javax.persistence.*;
-import javax.websocket.ClientEndpoint;
 import java.util.Set;
 
 @Entity
@@ -15,13 +14,18 @@ public class Account {
     @Column(columnDefinition = "varchar(255)", nullable = false)
     private String password = "12345678";
     @Column(columnDefinition = "varchar(255)", unique = true, nullable = false)
-    private String email;
+    private String username;
+
     @OneToMany(mappedBy = "account")
     @JsonIgnore
     private Set<AccountRole> accountRoleSet;
+
     @OneToOne(mappedBy = "account")
+    @JsonIgnore
     private Teacher teacher;
+
     @OneToOne(mappedBy = "account")
+    @JsonIgnore
     private Student student;
 
     public Teacher getTeacher() {
@@ -64,15 +68,16 @@ public class Account {
         return password;
     }
 
+    public String getUsername() {
+        return username;
+    }
+
+    public void setUsername(String username) {
+        this.username = username;
+    }
+
     public void setPassword(String password) {
         this.password = password;
     }
 
-    public String getEmail() {
-        return email;
-    }
-
-    public void setEmail(String email) {
-        this.email = email;
-    }
 }
