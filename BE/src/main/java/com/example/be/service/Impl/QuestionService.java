@@ -55,9 +55,6 @@ public class QuestionService implements IQuestionService {
             IMailQuesDto mailList, String subject, String text, long questionId) {
 
         String mail = mailList.getStudentEmail();
-/*
-        String questionMail = getQuestion(questionId);
-*/
         if (mail != null) {
             SimpleMailMessage message = new SimpleMailMessage();
             message.setFrom("ngochann.1603@gmail.com");

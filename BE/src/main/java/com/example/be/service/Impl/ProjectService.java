@@ -55,7 +55,7 @@ public class ProjectService implements IProjectService {
      */
     @Override
     public Project findById(Long id) {
-        return this.projectRepository.findById(id).orElse(null);
+        return this.projectRepository.findByProjectId(id).orElse(null);
     }
 
     /**

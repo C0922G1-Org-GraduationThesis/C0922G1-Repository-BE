@@ -64,6 +64,8 @@ public interface IProjectRepository extends JpaRepository<Project, Long> {
             "WHERE project_id = :projectId", nativeQuery = true)
     Optional<Project> findById(@Param("projectId") Long id);
 
+    Optional<Project> findByProjectId(Long id);
+
     /**
      * Create by: HauNN
      * Date create: 29/03/2023
@@ -154,7 +156,7 @@ public interface IProjectRepository extends JpaRepository<Project, Long> {
      * Created by: NuongHT
      * Date create: 29/03/2023
      */
-    @Query(value = "select p.project_id as projectId, t.team_name as teamName, p.project_name as projectName,p.project_description as projectDescription,p.project_status as projectStatus from `project` as p join team t on p.team_id = t.team_id", countQuery = "select p.project_id as projectId, t.team_name as teamName, p.project_name as projectName,p.project_description as projectDescription,p.project_status as projectStatus from `project` as p join team t on p.team_id = t.team_id", nativeQuery = true)
+    @Query(value = "select p.project_id as projectId, t.team_name as teamName, p.project_name as projectName,p.project_description as projectDescription,p.project_status as projectStatus from `project` as p join team t on p.team_id = t.team_id order by  p.project_id desc", countQuery = "select p.project_id as projectId, t.team_name as teamName, p.project_name as projectName,p.project_description as projectDescription,p.project_status as projectStatus from `project` as p join team t on p.team_id = t.team_id", nativeQuery = true)
     Page<ITopicDto> pagePro(Pageable pageable);
 
     /**

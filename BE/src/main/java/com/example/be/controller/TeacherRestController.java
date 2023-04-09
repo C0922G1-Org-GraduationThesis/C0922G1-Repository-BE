@@ -176,6 +176,7 @@ public class TeacherRestController {
      * @param pageable
      * @return HttpStatus.BAD_REQUEST if result is error or HttpStatus.OK if result is not error
      */
+    @PreAuthorize("hasRole('ROLE_ADMIN')")
     @GetMapping("/list")
     public ResponseEntity<Page<ITeacherDto>> getAllTeacher(@RequestParam(defaultValue = "", required = false) String name,
                                                            @PageableDefault(size = 4, page = 0) Pageable pageable) {
@@ -209,6 +210,7 @@ public class TeacherRestController {
      * @param id
      * @return notFound if delete is error HttpStatus.OK if result is not error
      */
+    @PreAuthorize("hasRole('ROLE_ADMIN')")
     @DeleteMapping("/delete/{id}")
     public ResponseEntity<ITeacherDto> deleteTeacherById(@PathVariable Long id) {
         Optional<ITeacherDto> teacher = iTeacherService.findTeacherById(id);

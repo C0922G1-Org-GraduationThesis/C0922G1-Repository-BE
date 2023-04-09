@@ -60,8 +60,8 @@ public class QuestionRestController {
             BeanUtils.copyProperties(questionDto, question);
             iQuestionService.save(questionDto.getQuestionContent(), questionDto.getQuestionTopic(), questionDto.getDateTime(), questionDto.getStudentId());
 
-            IMailQuesDto q = iQuestionService.getMailQues(1L);
-            questionService.sendSimpleMessage(q, "Bạn có maill hihi.", "", 1L);
+//            IMailQuesDto q = iQuestionService.getMailQues(questionDto.getQuestionId());
+//            questionService.sendSimpleMessage(q, "Bạn có maill hihi.", "", questionDto.getQuestionId());
             return new ResponseEntity<>(HttpStatus.CREATED);
         } catch (Exception e) {
             return new ResponseEntity<>(HttpStatus.BAD_REQUEST);

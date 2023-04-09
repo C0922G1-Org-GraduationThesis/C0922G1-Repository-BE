@@ -289,11 +289,11 @@ public class ProgressReviewRestController {
             System.out.println("a hi hi đồ ngốc kkkk");
         }
     }
-// Đừng xóa bạn nhé ----------------------------Sau 17 giây sẽ tự động insert vào
-//    @Scheduled(fixedDelay = 1000)
-//    public void saveProgressDetailAuto() {
-//        saveAutoProgressDetail();
-//    }
+// Đừng xóa bạn nhé ----------------------------Sau 1 giây sẽ tự động insert vào
+    @Scheduled(fixedDelay = 1000)
+    public void saveProgressDetailAuto() {
+        saveAutoProgressDetail();
+    }
 
     public void saveAutoProgressDetail() {
         System.out.println("aaaaa");

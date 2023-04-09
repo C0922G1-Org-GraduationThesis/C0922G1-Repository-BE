@@ -140,6 +140,7 @@ public class StudentRestController {
         return new ResponseEntity<>(HttpStatus.OK);
     }
 
+    @PreAuthorize("hasRole('ROLE_ADMIN')")
     @PostMapping("/create")
     public ResponseEntity<?> save(@RequestBody StudentDto studentDto, BindingResult bindingResult) {
 
@@ -191,7 +192,7 @@ public class StudentRestController {
             return new ResponseEntity<>(studentDto, HttpStatus.OK);
         }
     }
-
+    @PreAuthorize("hasRole('ROLE_ADMIN')")
     @PatchMapping("/update/{studentId}")
     public ResponseEntity<Student> updateStudent(@Validated @RequestBody StudentDto studentDto, @PathVariable long studentId, BindingResult bindingResult) {
         Student student = new Student();
