@@ -8,14 +8,16 @@ import javax.validation.constraints.Size;
 public class ProjectDTO {
     private Long projectId;
     @Size(max = 250, message = "Tên đề tài không được dài quá 250 kí tự")
+    @Size(min = 15, message = "Tên đề tài không được dưới 15 kí tự")
     @NotBlank(message = "Không được để trống")
     @NotNull(message = "Phải nhập trường này")
-    @Pattern(regexp = "^[A-Z][\\p{L}\\d\\s]*$",
+    @Pattern(regexp = "^[A-Z][a-zA-ZÀ-Ỹà-ỹ0-9\\s]{4,44}[a-zA-ZÀ-Ỹà-ỹ0-9]?$",
             message =
                     "Tên đề tài không được chứa kí tự đặc biệt, " +
                             "chữ cái đầu tiên phải viết hoa")
     private String projectName;
-    @Size(max = 2000, message = "Nội dung miêu tả không được dài quá 2000 kí tự")
+    @Size(max = 10000, message = "Nội dung miêu tả không được dài quá 10000 kí tự")
+    @Size(min = 50, message = "Nội dung miêu tả không được dưới 50 kí tự")
     @NotBlank(message = "Không được để trống")
     @NotNull(message = "Phải nhập trường này")
     private String projectContent;
