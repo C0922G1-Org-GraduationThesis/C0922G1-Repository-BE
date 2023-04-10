@@ -1,7 +1,6 @@
 package com.example.be.controller;
 
 
-
 import com.example.be.dto.ProgressReportDTO;
 import com.example.be.model.ProgressDetail;
 import com.example.be.model.ProgressReport;
@@ -10,6 +9,7 @@ import com.example.be.model.Stage;
 import com.example.be.service.IProgressDetailService;
 import com.example.be.service.IProgressReportService;
 import com.example.be.service.IProjectService;
+import com.example.be.service.IStageService;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
@@ -18,6 +18,7 @@ import org.springframework.data.web.PageableDefault;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.BindingResult;
+import org.springframework.validation.FieldError;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
@@ -35,6 +36,8 @@ public class ProgressReportRestController {
     private IProgressDetailService progressDetailService;
     @Autowired
     private IProjectService projectService;
+    @Autowired
+    private IStageService stageService;
 
     /**
      * Created by: SyVT,
@@ -44,34 +47,12 @@ public class ProgressReportRestController {
      * @return HttpStatus.CREATED if result is not error or HttpStatus.NOT_ACCEPTABLE if no content
      */
     @PostMapping("save/{projectId}/{stageId}")
-    public ResponseEntity<?> saveProgressReport(@PathVariable Long projectId, @PathVariable int stageId, @Validated @RequestBody ProgressReportDTO progressReportDTO, BindingResult bindingResult) {
+    public ResponseEntity<List<FieldError>> saveProgressReport(@Validated @RequestBody ProgressReportDTO progressReportDTO, BindingResult bindingResult) {
 
         if (bindingResult.hasErrors()) {
             return new ResponseEntity<>(bindingResult.getFieldErrors(), HttpStatus.NOT_ACCEPTABLE);
         }
 
-        Project project = projectService.findProjectById(projectId);
-
-        progressReportDTO.setProject(project);
-
-        Stage stageDTO = new Stage();
-        if (stageId == 1) {
-            stageDTO.setStageId(1);
-            stageDTO.setStageName("Giai đoạn 1");
-        }
-        if (stageId == 2) {
-            stageDTO.setStageId(2);
-            stageDTO.setStageName("Giai đoạn 2");
-        }
-        if (stageId == 3) {
-            stageDTO.setStageId(3);
-            stageDTO.setStageName("Giai đoạn 3");
-        }
-        if (stageId == 4) {
-            stageDTO.setStageId(4);
-            stageDTO.setStageName("Giai đoạn 4");
-        }
-        progressReportDTO.setStage(stageDTO);
         ProgressReport progressReport = new ProgressReport();
         BeanUtils.copyProperties(progressReportDTO, progressReport);
         this.progressReportService.saveProgressReport(progressReport);
@@ -126,6 +107,22 @@ public class ProgressReportRestController {
             return new ResponseEntity<>(HttpStatus.NOT_FOUND);
         }
         return new ResponseEntity<>(progressReportList, HttpStatus.OK);
+    }
+
+    /**
+     * Created by: SyVT,
+     * Date created : 29/03/2023
+     * Function : findStageById
+     *
+     * @return HttpStatus.OK if result is not error or HttpStatus.NO_CONTENT if no content
+     */
+    @GetMapping("/stage/{id}")
+    public ResponseEntity<Stage> findStageById(@PathVariable int id) {
+        Stage stage = stageService.findStageById(id);
+        if (stage == null) {
+            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+        }
+        return new ResponseEntity<>(stage, HttpStatus.OK);
     }
 
     /**
