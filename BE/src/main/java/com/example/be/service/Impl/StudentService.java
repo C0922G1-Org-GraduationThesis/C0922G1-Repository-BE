@@ -9,8 +9,11 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.mail.SimpleMailMessage;
 import org.springframework.mail.javamail.JavaMailSender;
+import org.springframework.mail.javamail.MimeMessageHelper;
 import org.springframework.stereotype.Service;
 
+import javax.mail.MessagingException;
+import javax.mail.internet.MimeMessage;
 import java.time.LocalDateTime;
 import java.util.List;
 
@@ -121,7 +124,7 @@ public class StudentService implements IStudentService {
      *
      * @Param: studentId, teamId
      */
-    public boolean sendMailInviteTeam(List<Student> students, String subject, String text, Long teamId) {
+    public boolean sendMailInviteTeam(List<Student> students, String subject, String text, Long teamId) throws MessagingException {
         Team team = this.teamRepository.findById(teamId).orElse(null);
         if (team == null) {
             return false;
@@ -147,13 +150,23 @@ public class StudentService implements IStudentService {
             studentAnnouncement.setAnnouncement(announcementNew);
             this.studentAnnouncementRepository.save(studentAnnouncement);
 
-            SimpleMailMessage message = new SimpleMailMessage();
-            message.setFrom("hau8477@gmail.com");
-            message.setTo(mail);
-            message.setSubject(subject);
-            message.setText("Xin chào " + student.getStudentName() + "! Bạn có thư mời tham gia nhóm " +
-                    team.getTeamName() + ". Vui lòng truy cập vào trang Quản lý đề tài khoa CNTT để biết thêm chi tiết." +
-                    " http://localhost:4200/");
+            MimeMessage message = emailSender.createMimeMessage();
+            MimeMessageHelper helper = new MimeMessageHelper(message, true, "UTF-8");
+
+            helper.setFrom("hau8477@gmail.com");
+            helper.setTo(mail);
+            helper.setSubject(subject);
+
+            String htmlContent = "Xin chào <b>" + student.getStudentName() + "!</b> Bạn có thư mời tham gia nhóm <b>" +
+                    team.getTeamName() + ".</b> Vui lòng truy cập vào trang Quản lý đề tài khoa CNTT để biết thêm chi tiết." +
+                    " http://localhost:4200/";
+
+            String signature = "<br><br><b>Thanks and best regards!</b>. <br><b>Địa chỉ:</b> 123 Nguyễn Văn Linh, Đà Nẵng" +
+                    "<br><b>Email:</b> codegym@gmail.com<br><b>Điện thoại:</b> +012 345 67890,<br><b>Codegym</b>";
+            htmlContent += signature;
+
+            helper.setText(htmlContent, true);
+
             emailSender.send(message);
         }
         return true;

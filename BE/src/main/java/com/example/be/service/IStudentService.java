@@ -8,6 +8,7 @@ import com.example.be.model.Student;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 
+import javax.mail.MessagingException;
 import java.util.List;
 import java.util.Optional;
 
@@ -63,7 +64,7 @@ public interface IStudentService {
      *
      * @Param: studentId, teamId
      */
-    boolean sendMailInviteTeam(List<Student> students, String subject, String text, Long teamId);
+    boolean sendMailInviteTeam(List<Student> students, String subject, String text, Long teamId) throws MessagingException;
 
     List<Student> findAll();
 

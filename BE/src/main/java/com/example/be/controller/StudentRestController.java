@@ -20,6 +20,7 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 
+import javax.mail.MessagingException;
 import java.util.List;
 
 @RestController
@@ -119,8 +120,12 @@ public class StudentRestController {
     @PostMapping("/send-mail-invite-team/{teamId}")
     public ResponseEntity<?> sendMailInviteTeam(@RequestBody List<Student> students,
                                                 @PathVariable Long teamId) {
-        if (this.studentService.sendMailInviteTeam(students, "THÔNG BÁO", "", teamId)) {
-            return new ResponseEntity<>(HttpStatus.OK);
+        try {
+            if (this.studentService.sendMailInviteTeam(students, "THÔNG BÁO", "", teamId)) {
+                return new ResponseEntity<>(HttpStatus.OK);
+            }
+        } catch (MessagingException e) {
+            return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
         }
         return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
     }
