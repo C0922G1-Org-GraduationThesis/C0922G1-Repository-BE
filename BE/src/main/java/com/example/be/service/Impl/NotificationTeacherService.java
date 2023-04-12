@@ -5,6 +5,10 @@ import com.example.be.repository.INotificationTeacherRepository;
 import com.example.be.service.INotificationTeacherService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+
+import java.text.SimpleDateFormat;
+import java.time.LocalDate;
+import java.util.Date;
 import java.util.List;
 
 @Service
@@ -34,6 +38,10 @@ public class NotificationTeacherService implements INotificationTeacherService {
      */
     @Override
     public void addNotificationTeacher(String notificationTeacherTopic, String notificationTeacherContent) {
-        notificationTeacherRepository.addNotificationTeacher(notificationTeacherTopic, notificationTeacherContent);
+        Date date = new Date();
+        SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd hh:mm:ss");
+        String formattedDate = formatter.format(date);
+        notificationTeacherRepository.addNotificationTeacher(notificationTeacherTopic, notificationTeacherContent,
+                formattedDate);
     }
 }

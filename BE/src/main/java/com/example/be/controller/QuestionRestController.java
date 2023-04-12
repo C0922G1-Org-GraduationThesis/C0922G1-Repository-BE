@@ -1,10 +1,11 @@
 package com.example.be.controller;
 
-import com.example.be.dto.IMailQuesDto;
 import com.example.be.dto.IQuestionDto;
 import com.example.be.dto.QuestionDto;
 import com.example.be.model.Question;
+import com.example.be.model.Student;
 import com.example.be.service.IQuestionService;
+import com.example.be.service.IStudentService;
 import com.example.be.service.Impl.QuestionService;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -25,6 +26,8 @@ public class QuestionRestController {
     private IQuestionService iQuestionService;
     @Autowired
     private QuestionService questionService;
+    @Autowired
+    private IStudentService studentService;
 
     /**
      * Created by: LanTTN,
@@ -34,13 +37,13 @@ public class QuestionRestController {
      * @return HttpStatus.OK if result is not error or HttpStatus.NO_CONTENT if no content
      */
     @GetMapping("")
-    public ResponseEntity<Page<IQuestionDto>> showQuestion(Integer totalElement) {
+    public ResponseEntity<Page<Question>> showQuestion(Integer totalElement) {
         Pageable pageable = PageRequest.of(0, totalElement);
-        Page<IQuestionDto> questionPage = iQuestionService.findAll(pageable);
+        Page<Question> questionPage = iQuestionService.findAll(pageable);
         if (questionPage.isEmpty()) {
             return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
         }
-        return new ResponseEntity<>(questionPage, HttpStatus.OK);
+        return new ResponseEntity<Page<Question>>(questionPage, HttpStatus.OK);
     }
 
     /**
@@ -48,21 +51,21 @@ public class QuestionRestController {
      * Date created : 30/03/2023
      * Function : create question by id
      *
-     * @param questionDto
+     * @param
      * @return HttpStatus.CREATED if result is not error or HttpStatus.BAD_REQUEST if result is error
      */
-    @PostMapping("/save-question")
-    public ResponseEntity<?> saveQuestion(@RequestBody QuestionDto questionDto) {
+    @PostMapping("/save-question/{studentId}")
+    public ResponseEntity<?> saveQuestion(@RequestBody QuestionDto questionDto,@PathVariable Long studentId) {
         LocalDateTime localDateTime = LocalDateTime.now();
+        Student student = studentService.findById(studentId);
         questionDto.setDateTime(localDateTime);
         try {
             Question question = new Question();
-            BeanUtils.copyProperties(questionDto, question);
-            iQuestionService.save(questionDto.getQuestionContent(), questionDto.getQuestionTopic(), questionDto.getDateTime(), questionDto.getStudentId());
+            question.setStudent(student);
+            BeanUtils.copyProperties(questionDto,question);
+            iQuestionService.save(question);
 
-//            IMailQuesDto q = iQuestionService.getMailQues(questionDto.getQuestionId());
-//            questionService.sendSimpleMessage(q, "Bạn có maill hihi.", "", questionDto.getQuestionId());
-            return new ResponseEntity<>(HttpStatus.CREATED);
+            return new ResponseEntity<>(question,HttpStatus.CREATED);
         } catch (Exception e) {
             return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
         }

@@ -1,5 +1,6 @@
 package com.example.be.service.Impl;
 
+import com.example.be.dto.ITeamDTOO;
 import com.example.be.dto.ITopicDto;
 import com.example.be.dto.ProgressProjectDto;
 import com.example.be.model.Project;
@@ -159,5 +160,10 @@ public class ProjectService implements IProjectService {
     @Override
     public List<Project> findProjectByStatusNotNull() {
         return projectRepository.findAllAndStatusNotNull();
+    }
+
+    @Override
+    public ITeamDTOO findTeamDTOO(Long projectId) {
+        return projectRepository.findTeamDTOO(projectId);
     }
 }

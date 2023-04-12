@@ -33,8 +33,10 @@ public interface INotificationTeacherRepository extends JpaRepository<Notificati
     @Transactional
     @Modifying
     @Query(value =
-            "insert into notification_teacher (notification_teacher_topic, notification_teacher_content) " +
-                    "    value (:notificationTeacherTopic,:notificationTeacherContent);",
+            "insert into notification_teacher (notification_teacher_topic, notification_teacher_content, notification_teacher_time) " +
+                    "    value (:notificationTeacherTopic,:notificationTeacherContent, :notificationTeacherTime);",
             nativeQuery = true)
-    void addNotificationTeacher(@Param("notificationTeacherTopic") String notificationTeacherTopic, @Param("notificationTeacherContent") String notificationTeacherContent);
+    void addNotificationTeacher(@Param("notificationTeacherTopic") String notificationTeacherTopic,
+                                @Param("notificationTeacherContent") String notificationTeacherContent,
+                                @Param("notificationTeacherTime") String notificationTeacherTime);
 }

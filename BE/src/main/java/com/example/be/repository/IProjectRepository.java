@@ -1,5 +1,6 @@
 package com.example.be.repository;
 
+import com.example.be.dto.ITeamDTOO;
 import com.example.be.dto.ITopicDto;
 import com.example.be.dto.ProgressProjectDto;
 import com.example.be.model.Project;
@@ -197,6 +198,14 @@ public interface IProjectRepository extends JpaRepository<Project, Long> {
     /**
      * Created by: VuLX
      */
-    @Query(value = "SELECT * FROM project where project_status is not null",nativeQuery = true)
+    @Query(value = "SELECT * FROM project where project_status is not null order by project_id desc ",nativeQuery = true)
     List<Project> findAllAndStatusNotNull();
+
+    /**
+     * Created by: VuLX
+     */
+    @Query(value = "select t.team_id as teamId, t.member_of_team as memberOfTeam,t.team_name as teamName\n" +
+            " from project p join team t on p.team_id\n" +
+            " = t.team_id where p.project_id = :id",nativeQuery = true)
+    ITeamDTOO findTeamDTOO(@Param("id") Long projectId);
 }

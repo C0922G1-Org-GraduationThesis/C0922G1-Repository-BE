@@ -2,6 +2,7 @@ package com.example.be.service;
 
 import com.example.be.dto.IMailQuesDto;
 import com.example.be.dto.IQuestionDto;
+import com.example.be.model.Question;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 
@@ -15,7 +16,7 @@ public interface IQuestionService {
      *
      * @param pageable
      */
-    Page<IQuestionDto> findAll(Pageable pageable);
+    Page<Question> findAll(Pageable pageable);
 
     /**
      * Created by: LanTTN,
@@ -25,7 +26,8 @@ public interface IQuestionService {
      * @param questionContent, questionTopic, dateTime, studentId
      * @param dateTime
      */
-    void save(String questionContent, String questionTopic, LocalDateTime dateTime, Long studentId);
+    void saveQuestion(String questionContent, String questionTopic, LocalDateTime dateTime, Long studentId);
+    Question save(Question question);
 
     IMailQuesDto getMailQues(Long questionId);
 }

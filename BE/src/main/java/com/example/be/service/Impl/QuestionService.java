@@ -29,7 +29,7 @@ public class QuestionService implements IQuestionService {
      * @param pageable
      */
     @Override
-    public Page<IQuestionDto> findAll(Pageable pageable) {
+    public Page<Question> findAll(Pageable pageable) {
         return iQuestionRepository.findAllBy(pageable);
     }
 
@@ -42,8 +42,13 @@ public class QuestionService implements IQuestionService {
      * @param dateTime
      */
     @Override
-    public void save(String questionContent, String questionTopic, LocalDateTime dateTime, Long studentId) {
-        iQuestionRepository.save(questionContent, questionTopic, dateTime, studentId);
+    public void saveQuestion(String questionContent, String questionTopic, LocalDateTime dateTime, Long studentId) {
+        iQuestionRepository.saveQuestion(questionContent, questionTopic, dateTime, studentId);
+    }
+
+    @Override
+    public Question save(Question question) {
+        return iQuestionRepository.save(question);
     }
 
     @Override

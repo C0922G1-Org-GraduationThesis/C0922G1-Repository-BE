@@ -1,6 +1,7 @@
 package com.example.be.controller;
 
 import com.example.be.dto.IMailStudentDto;
+import com.example.be.dto.ITeamDTOO;
 import com.example.be.dto.ITopicDto;
 import com.example.be.dto.ProjectDTO;
 import com.example.be.model.Project;
@@ -197,5 +198,14 @@ public class ProjectRestController {
         List<IMailStudentDto> list = studentService.getInfomation(projectId);
         studentService.sendSimpleMessage2(list, "Bạn có mail mới! ", "", projectId);
         return new ResponseEntity<>(HttpStatus.OK);
+    }
+
+    @GetMapping("/detail/team/{id}")
+    public ResponseEntity<ITeamDTOO> findTeamDTOOById(@PathVariable Long id) {
+        ITeamDTOO teamDTOO = projectService.findTeamDTOO(id);
+        if (teamDTOO == null){
+            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+        }
+        return new ResponseEntity<>(teamDTOO,HttpStatus.OK);
     }
 }

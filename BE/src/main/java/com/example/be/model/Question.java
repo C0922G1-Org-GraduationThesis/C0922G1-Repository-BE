@@ -1,5 +1,7 @@
 package com.example.be.model;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
+
 import javax.persistence.*;
 import java.time.LocalDateTime;
 import java.util.Set;
@@ -23,6 +25,7 @@ public class Question {
     private Student student;
 
     @OneToMany(mappedBy = "question")
+    @JsonBackReference
     private Set<Answers> answersSet;
 
     public Question() {

@@ -14,17 +14,9 @@ public class QuestionDto {
     private String questionContent;
 
     private LocalDateTime dateTime;
-    private Long studentId;
+
 
     public QuestionDto() {
-    }
-
-    public Long getStudentId() {
-        return studentId;
-    }
-
-    public void setStudentId(Long studentId) {
-        this.studentId = studentId;
     }
 
     public Long getQuestionId() {

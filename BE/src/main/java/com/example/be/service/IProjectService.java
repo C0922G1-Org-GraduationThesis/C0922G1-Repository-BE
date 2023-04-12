@@ -1,5 +1,6 @@
 package com.example.be.service;
 
+import com.example.be.dto.ITeamDTOO;
 import com.example.be.dto.ITopicDto;
 import com.example.be.dto.ProgressProjectDto;
 import com.example.be.model.Project;
@@ -111,4 +112,7 @@ public interface IProjectService {
     ProgressProjectDto findByProjectId(Long projectId);
 
     List<Project> findProjectByStatusNotNull();
+
+    ITeamDTOO findTeamDTOO(Long projectId);
+
 }
